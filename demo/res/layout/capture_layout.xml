@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_second"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+
+
+
+
+
+
+        <com.dlazaro66.qrcodereaderview.QRCodeReaderView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/qrCodeReaderView"
+            />
+
+        <com.king.zxing.ViewfinderView
+            android:id="@+id/viewfinderView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cornerColor="@color/theme_color"
+            app:labelTextColor="@color/theme_color"
+            app:labelText="将二维码放入框内，即可自动扫描"
+            app:labelTextLocation="bottom"
+            app:laserStyle="grid"
+            app:laserColor="@color/theme_color"
+            app:gridHeight="80dp"
+            app:frameColor="@color/white"
+            />
+
+
+
+
+
+
+    <include layout="@layout/v_toolbar" />
+
+
+</RelativeLayout>

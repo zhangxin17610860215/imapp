@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/left_layout"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+        >
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="15dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="三天不活跃"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:id="@+id/item_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:visibility="gone"
+                android:layout_marginRight="15dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="超过三天未使用工会小蜜的群成员"
+                android:textColor="@color/color_grey_999999"
+                android:textSize="@dimen/text_size_12" />
+
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/item_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/nim_arrow_right"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/color_grey_999999"
+            android:textColorHint="@color/color_grey_999999"
+            android:textSize="@dimen/text_size_15" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/content_layout"
+        android:background="@color/color_split_line_d9d9d9" />
+
+</LinearLayout>

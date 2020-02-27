@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/linear_layout_select"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:src="@drawable/def_icon" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
+
+            <TextView
+                android:id="@+id/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机通讯录匹配"
+                android:textColor="@color/text_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/item_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="匹配手机通讯录中的朋友"
+                android:textColor="@color/text_grey_color"
+                android:visibility="gone"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+

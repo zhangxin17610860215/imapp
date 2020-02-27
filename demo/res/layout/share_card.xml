@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/share_card_layout"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="5dip">
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:lineSpacingExtra="6dp"
+            android:maxLines="3"
+            android:textColor="@color/color_b3b3b3"
+            android:textSize="12sp" />
+
+        <com.netease.wulewan.uikit.common.ui.imageview.MsgThumbImageView
+            android:id="@+id/message_item_thumb_thumbnail"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+    </LinearLayout>
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rp_open_holder_bg"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <com.netease.wulewan.uikit.common.ui.imageview.MsgThumbImageView
+            android:id="@+id/app_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="5dp"/>
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:maxEms="7"
+            android:textColor="@color/color_b3b3b3"
+            android:textSize="10sp" />
+    </LinearLayout>
+</LinearLayout>

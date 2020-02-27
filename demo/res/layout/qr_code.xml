@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="3"
+    android:background="@color/theme_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/qr_back"
+            android:src="@mipmap/left_white_back" />
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:contentDescription="@string/qr_back" />
+
+        <TextView
+            android:id="@+id/qr_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/my_code"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qr_bg" />
+
+        <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+            android:id="@+id/user_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/def_icon" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/user_head"
+            android:layout_alignLeft="@id/user_head"
+            android:layout_marginStart="79dp"
+            android:layout_marginLeft="79dp"
+            android:layout_marginTop="29dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxEms="8"
+            android:text="昵称"
+            android:textColor="@color/black"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/user_head"
+            android:layout_alignLeft="@id/user_head"
+            android:layout_marginStart="79dp"
+            android:layout_marginLeft="79dp"
+            android:layout_marginTop="62dp"
+            android:text="闲聊号：123456"
+            android:textColor="@color/gray8"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/qr_code_pic"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="122dp"
+            android:layout_marginBottom="78dp"
+            android:contentDescription="@string/qr_code"
+            android:src="@drawable/temp_qr" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/invavite_group"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:background="@mipmap/qr_line_bg"
+            android:gravity="center"
+            tools:ignore="NestedWeights">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/qr_line_icon" />
+
+            <View
+                android:layout_width="9dp"
+                android:layout_height="0dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invavite_toas"
+                android:textColor="@color/invavite_color"
+                android:textSize="@dimen/text_size_18" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

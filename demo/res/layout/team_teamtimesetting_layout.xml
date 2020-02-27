@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/edit_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/v_toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间"
+            android:textSize="@dimen/text_size_18"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="@dimen/jrmf_dimen_80"
+            android:layout_marginRight="@dimen/dimen_20"/>
+        <com.wulewan.ghxm.utils.view.PickerView
+            android:id="@+id/time_pv"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_toRightOf="@+id/tv"
+            android:layout_centerVertical="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/edit_bg"
+            android:layout_alignTop="@+id/tv"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/edit_bg"
+            android:layout_alignBottom="@+id/tv"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:text="超过设置时间后，发送个数为1的群红包将会自动被群主领取"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/color_999"/>
+
+</LinearLayout>

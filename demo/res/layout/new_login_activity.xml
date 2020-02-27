@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg">
+
+    <ImageView
+        android:id="@+id/img_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@mipmap/splash_center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="93dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/ll_login_phone"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/login_upress" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="21dp"
+                        android:src="@drawable/login_phone_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:layout_marginLeft="@dimen/dimen_20"
+                        android:gravity="center"
+                        android:text="手机登录"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_18" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_login_weixin"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="19dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/login_press" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/weixinlogin_icon"
+                    android:drawableLeft="@mipmap/weixinlogin_icon"
+                    android:drawablePadding="@dimen/jrmf_dimen_8"
+                    android:text="第三方登录"
+                    android:textColor="@color/theme_color"
+                    android:textSize="@dimen/text_size_18" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

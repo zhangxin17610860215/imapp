@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/edit_bg">
+
+    <include layout="@layout/v_toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_seach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/tv_seach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="搜索"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:background="@drawable/round_theme"
+            android:padding="@dimen/jrmf_dimen_5"/>
+        <EditText
+            android:id="@+id/et_seach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_seach"
+            android:layout_centerVertical="true"
+            android:background="@drawable/round_edit"
+            android:paddingLeft="@dimen/jrmf_dimen_30"
+            android:paddingTop="@dimen/jrmf_dimen_5"
+            android:paddingBottom="@dimen/jrmf_dimen_5"
+            android:hint="搜索"
+            android:text=""
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/black"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/seach_small_icon"
+            android:paddingLeft="@dimen/jrmf_dimen_5"/>
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="无结果"
+        android:textSize="@dimen/text_size_16"
+        android:textColor="@color/color_grey_666666"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/jrmf_dimen_50"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/ll_noDataTips"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="150dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/no_data_icon"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dimen_20"/>
+        <TextView
+            android:id="@+id/tv_noDataTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/redpacket_theme">
+
+        <ImageView
+            android:id="@+id/img_chooserecipients_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:src="@mipmap/left_white_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="谁可以领"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/tv_chooserecipients_Determine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="15dp"
+            android:text="确定"
+            android:textColor="@color/shareYellow"
+            android:textSize="@dimen/text_size_18" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/com_btw_line_10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:scrollbars="none" />
+
+            <com.gjiazhe.wavesidebar.WaveSideBar
+                android:id="@+id/mWaveSideBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/jrmf_dimen_8"
+                android:paddingRight="@dimen/jrmf_dimen_8"
+                app:sidebar_text_color="@color/color_grey_999999" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

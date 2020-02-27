@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+       <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/item_img"
+            android:layout_marginLeft="25dp"
+            android:src="@mipmap/icon_team_default"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机通讯录匹配"
+                    android:textColor="@color/text_black"
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/item_text"
+                    android:textSize="15sp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="匹配手机通讯录中的朋友"
+                    android:textColor="@color/text_grey_color"
+                    android:textSize="12sp"
+                    android:id="@+id/item_tips"
+                    />
+
+
+
+            </LinearLayout>
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/div_color_grey"
+                android:id="@+id/divider"
+                />
+
+
+
+        </LinearLayout>
+
+
+</LinearLayout>
+

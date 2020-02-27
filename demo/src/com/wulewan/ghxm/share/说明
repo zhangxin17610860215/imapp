@@ -1,0 +1,54 @@
+
+
+YQIChat://com.yuanqi.aichat/share?json
+
+客户端分享启动爱聊  scheme:YQIChat host:com.yuanqi.aichat path:share
+
+参数打包成json
+图片json
+{
+ messageType:0   int  (图片为0)
+ image:    string       （分享的图片base64）
+ teamId:    string  （群聊ID 不为0时主动发送到指定群里）
+ scheme: string (游戏客户端启动uri 到路径 qianshoupaohuzi://com.jiahe.paohuzi/joinRoom 爱聊拼上网页参数返回值 ?shareCode=0 （0成功 1 参数错误 2取消） )
+ appName:    string  （应用名字）
+ appIconUrl:    string （应用图标链接）
+}
+链接json 
+{
+    messageType:1   int (链接为1)
+    title:''    string (标题)
+    content:''    string (内容)
+    url:     string   (链接)
+    teamId:    string  （群聊ID 不为0时主动发送到指定群里）
+    appName:    string  （应用名字）
+    appIconUrl:    string （应用图标链接）
+    scheme: string (游戏客户端启动uri 到路径 qianshoupaohuzi://com.jiahe.paohuzi/joinRoom 爱聊拼上网页参数返回值 ?shareCode=0 （0成功 1 参数错误 2取消） )
+}
+
+
+接受后发自定义消息
+
+图片 自定义消息类型 7
+ShareCardAttachment  继承 FileAttachment  方便发送图片文件
+{
+    appName:    string  （应用名字）
+    appIconUrl:    string （应用图标链接）
+    width :int  图片宽带
+    height:int  图片高度
+    // 文件类型自己的属性
+    path
+    size
+    md5
+    url
+}
+
+
+链接 自定义消息类型 8
+{
+    appName:    string  （应用名字）
+    appIconUrl:    string （应用图标链接）
+    title:''    string (标题)
+    content:''    string (内容)
+    url:     string   (链接)
+}

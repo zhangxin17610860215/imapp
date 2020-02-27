@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/edit_bg">
+
+    <include layout="@layout/v_toolbar"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/phone_icon"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/jrmf_dimen_50"/>
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/jrmf_dimen_30"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更换手机号后,登录手机号将改变"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/color_999"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_20"/>
+    <TextView
+        android:id="@+id/tv_modify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/nim_team_create_btn_selector"
+        android:text="更换手机号"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:paddingTop="@dimen/jrmf_dimen_5"
+        android:paddingBottom="@dimen/jrmf_dimen_5"
+        android:layout_marginTop="@dimen/jrmf_dimen_30"/>
+</LinearLayout>

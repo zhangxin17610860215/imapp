@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/v_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp">
+
+        <include
+            android:id="@+id/user_layout"
+            layout="@layout/nim_team_member_item" />
+
+        <include
+            android:id="@+id/create_team_layout"
+            layout="@layout/nim_team_member_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp" />
+    </LinearLayout>
+
+    <include layout="@layout/com_btw_line_10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toggle_layout"
+            layout="@layout/nim_user_profile_toggle_item" />
+
+        <include
+            android:id="@+id/toggle_layout_chat_top"
+            layout="@layout/nim_user_profile_toggle_item" />
+    </LinearLayout>
+
+    <include layout="@layout/com_btw_line_10dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_clear_msg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/isetting_item_height"
+        android:background="@drawable/linear_layout_select">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/isetting_item_padding_left"
+            android:layout_marginLeft="@dimen/isetting_item_padding_left"
+            android:text="清空聊天记录"
+            android:textColor="@color/color_black_ff333333"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <include layout="@layout/com_btw_line_10dp" />
+
+</LinearLayout>

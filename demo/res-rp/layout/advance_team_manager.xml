@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextAppearance="@style/Toolbar.TitleText">
+
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <com.wulewan.ghxm.UIEx.BounceScrollView
+        style="@style/scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/color_background"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                />
+            <include
+                android:id="@+id/team_manager_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+            <include
+                android:id="@+id/team_forbid_speak_layout"
+                layout="@layout/advanced_team_switch_diver_item" />
+
+            <include
+                android:id="@+id/team_active_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+            <include
+                android:id="@+id/team_NoCollar_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+            <include
+                android:id="@+id/team_UpgradeTeam_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+            <include
+                android:id="@+id/team_exit_layout"
+                android:visibility="gone"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+
+
+
+            <View
+                android:id="@+id/view_layout"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                />
+
+            <include
+                android:id="@+id/team_teamRobot_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+            <include
+                android:id="@+id/team_redPacket_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                />
+
+            <include
+                android:id="@+id/team_copy_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+            <include
+                android:id="@+id/team_transfer_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                />
+
+
+            <include
+                android:id="@+id/team_safe_mode_layout"
+                layout="@layout/advanced_team_switch_diver_item" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="12sp"
+                android:textColor="@color/input_panel_text_color_757572"
+                android:text="开启后，群成员无法通过该群添加好友"
+                />
+
+            <include
+                android:id="@+id/team_credit_layout"
+                layout="@layout/advanced_team_switch_diver_item" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="12sp"
+                android:textColor="@color/input_panel_text_color_757572"
+                android:text="开启后，需要管理员同意才能加入群聊"
+                />
+
+        </LinearLayout>
+
+
+
+    </com.wulewan.ghxm.UIEx.BounceScrollView>
+</LinearLayout>

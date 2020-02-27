@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:paddingLeft="@dimen/isetting_item_padding_left"
+    android:paddingRight="@dimen/isetting_item_padding_right"
+        >
+
+    <TextView
+        android:id="@+id/settings_button_logout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dip"
+        android:layout_marginTop="15dip"
+        android:background="@color/white"
+        android:padding="@dimen/dimen_10"
+        android:text="@string/logout"
+        android:textColor="@color/theme_color"
+        android:gravity="center"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/settings_versionCode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="200dp"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_16"
+        android:textColor="@color/black"/>
+
+</LinearLayout>

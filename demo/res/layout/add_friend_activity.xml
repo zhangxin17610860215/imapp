@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/v_toolbar" />
+
+
+    <!--<com.netease.yuanqi.uikit.common.ui.widget.ClearableEditTextWithIcon-->
+    <!--android:id="@+id/search_friend_edit"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:background="@mipmap/icon_query_kuang"-->
+    <!--android:hint="@string/input_account"-->
+    <!--android:inputType="text"-->
+    <!--android:padding="5dp"-->
+    <!--android:paddingLeft="15dp"-->
+    <!--android:paddingRight="15dp"-->
+    <!--android:textColor="@color/color_black_333333"-->
+    <!--android:textColorHint="@color/contact_letter_idx_bg" />-->
+
+
+    <RelativeLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_60"
+        android:layout_gravity="center"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:src="@drawable/seach_bg" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/seach_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:gravity="center_vertical"
+                android:text="@string/hall_seach"
+                android:textColor="@color/color_959595"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/qrCodeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@mipmap/u_myqr_icon"
+            android:drawableRight="@mipmap/u_myqr_icon"
+            android:drawablePadding="@dimen/dp_14"
+            android:text="@string/my_code"
+            android:textSize="@dimen/text_size_15" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/div_color_grey" />
+
+    <include
+        android:id="@+id/mobileMatchLayout"
+        layout="@layout/add_friend_item_layout" />
+
+    <include
+        android:id="@+id/scanLayout"
+        layout="@layout/add_friend_item_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/div_color_grey" />
+
+    <include
+        android:id="@+id/inviteLayout"
+        layout="@layout/add_friend_item_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/div_color_grey" />
+
+    <include
+        android:id="@+id/wechatLayout"
+        layout="@layout/add_friend_item_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/div_color_grey" />
+
+
+</LinearLayout>

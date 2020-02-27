@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_color">
+        <ImageView
+            android:id="@+id/img_settingpaypas_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/left_white_back"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingLeft="15dp"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置支付密码"
+            android:textSize="@dimen/text_size_18"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="请输入零钱支付密码"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/black"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="15dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginRight="@dimen/dp_40" >
+        <com.wulewan.ghxm.utils.view.PayPsdInputView
+            android:id="@+id/et_settingpaypas_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/jrmf_dimen_50"
+            android:inputType="number"
+            app:maxCount1="6"
+            android:background="@color/white"
+            app:rectAngle1="@dimen/jrmf_dimen_5"
+            app:psdType1="weChat1" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="请再次输入零钱支付密码"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/black"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="15dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginRight="@dimen/dp_40" >
+        <com.wulewan.ghxm.utils.view.PayPsdInputView
+            android:id="@+id/et_settingpaypas_two"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/jrmf_dimen_50"
+            android:inputType="number"
+            app:maxCount1="6"
+            android:background="@color/white"
+            app:rectAngle1="@dimen/jrmf_dimen_5"
+            app:psdType1="weChat1" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_settingpaypas_Determine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="164dp"
+        android:text="确定"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/white"
+        android:background="@mipmap/green_bt_bg"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="26dp"
+        android:gravity="center"/>
+
+</LinearLayout>

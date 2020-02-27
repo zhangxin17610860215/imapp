@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#333333</color>
+    <color name="grey_bg">#F6F6F6</color>
+    <color name="global_bg">#9000</color>
+    <color name="color_green_01d9ae">#01D9AE</color>
+    <color name="color_blue_0888ff">#0888ff</color>
+    <color name="color_gray_d9d9d9">#d9d9d9</color>
+    <color name="action_bar_tittle_color_555555">#555555</color>
+    <color name="grey_white_has_alpha">#66FAFAFA</color>
+    <color name="color_network_bar_bg_ee4b62">#ee4b62</color>
+    <color name="color_black_333333">#333333</color>
+    <color name="color_grey_999999">#999999</color>
+    <color name="color_grey_888888">#888888</color>
+    <color name="color_grey_666666">#666666</color>
+    <color name="color_activity_blue_bg">#f7389fff</color>
+    <color name="split_line_grey_color_d9d9d9">#D9D9D9</color>
+    <color name="green_4DC0A4">#4DC0A4</color>
+    <color name="gray7">#c5c4c4</color>
+    <color name="gray8">#959595</color>
+    <color name="GreyWhite">#F7F7F7</color>
+    <color name="im_list_select_hover">#dbdbdb</color>
+    <color name="color_aaaaaa_content_text">#ffaaaaaa</color>
+    <color name="title_color_01d9ae">#01D9AE</color>
+    <color name="color_b3b3b3">#b3b3b3</color>
+    <color name="color_green_disable">#a2efe0</color>
+    <color name="color_green_00d3a9">#ff00D3A9</color>
+    <color name="color_red_ccfa3c55">#ccfa3c55</color>
+    <color name="color_black_b3000000">#b3000000</color>
+    <color name="color_white_66ffffff">#66ffffff</color>
+    <color name="color_grey_eaeaea">#eaeaea</color>
+    <color name="color_yellow_fcf3cd">#fcf3cd</color>
+    <color name="color_blue_3a9efb">#3a9efb</color>
+    <color name="color_green_89fbff">#89fbff</color>
+
+    <!-- main bg color -->
+    <color name="g_child_page_bg_color">#FFFFFF</color>
+    <color name="main_bg_color">#FFFFFF</color>
+
+    <!-- session -->
+    <color name="color_message_default_bg">#e9ecf0</color>
+    <color name="input_panel_text_color_757572">#757572</color>
+    <color name="color_gray_cbd0d8">#cbd0d8</color>
+    <color name="help_color">#ff999999</color>
+
+    <!-- image picker -->
+    <color name="color_split_line_d9d9d9">#d9d9d9</color>
+    <color name="color_split_line_cccccc">#cccccc</color>
+
+    <!-- contact -->
+    <color name="contact_list_hover">#d9d9d9</color>
+    <color name="contact_letter_idx_bg">#33000000</color>
+    <color name="contacts_letters_color">#80807c</color>
+    <color name="bussiness_card_gridview_bg">#ECF1F5</color>
+    <color name="press_mask">#33000000</color>
+    <color name="color_grey_ababab">#ababab</color>
+    <color name="color_yellow_796413">#796413</color>
+    <color name="color_yellow_b39729">#b39729</color>
+    <color name="color_red_f04c62">#f04c62</color>
+
+    <!-- setting -->
+    <color name="color_black_ff333333">#ff333333</color>
+    <color name="color_black_ff666666">#ff666666</color>
+    <color name="color_black_ff999999">#ff999999</color>
+    <color name="color_gray_bfc2c5">#bfc2c5</color>
+
+
+    <color name="color_3d3d3d">#3d3d3d</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_9000000">#90000000</color>
+
+
+    <!--  haiChui  -->
+    <color name="verification_code_color">#FFEA78</color>
+    <color name="edittext_hint_color">#b9c5f1</color>
+    <color name="redpacket_hint_color">#A9A9A9</color>
+    <color name="redpacket_text_color">#5D5D5D</color>
+    <color name="redpacket_textblue_color">#3778D9</color>
+    <color name="redpacket_theme">#D43F3F</color>
+    <color name="redpacketdetails_theme">#D25043</color>
+    <color name="theme_color">#859CED</color>
+
+
+    <color name="invavite_color">#859CED</color>
+
+
+
+    <color name="text_black1">#a9a9a9</color>
+    <color name="text_black">#444444</color>
+    <color name="grey_alpha">#88FFFFFF</color>
+    <color name="grey_rp">#EFEFEF</color>
+    <color name="write">#ffffff</color>
+    <color name="text_color">#969696</color>
+    <color name="black60">#60000000</color>
+    <color name="red">#ff0000</color>
+    <color name="button_red">#d8383a</color>
+    <color name="verify_fail_red">#fe525d</color>
+    <color name="translucent">#00000000</color>
+    <color name="listview_footer">#d5d5d5</color>
+    <color name="line_color">#d3d3d3</color>
+    <color name="app_bg">#d3d3d3</color>
+    <color name="black_80">#80000000</color>
+    <color name="black_90">#90000000</color>
+    <color name="theme_alpha_color">#5500aced</color>
+    <color name="bottom_bg">#f8f8f8</color>
+    <color name="deliver_color">#e0e0e0</color>
+    <color name="bg_grey">#eeeeee</color>
+    <color name="hint_color">#c6c6c6</color>
+    <color name="text_grey_color">#808080</color>
+    <color name="text_oringe">#fd7f01</color>
+    <color name="btn_orange">#FF7F00</color>
+    <color name="yd_1">#41d0c7</color>
+    <color name="yd_2">#35adff</color>
+    <color name="yd_3">#fd4746</color>
+    <color name="yd_4">#fe9824</color>
+    <color name="yd_5">#9e6ff8</color>
+    <color name="div_color_grey">#f6f6f6</color>
+    <color name="process_grey">#d7d7d7</color>
+    <color name="title_bg_blue">#f7fcfe</color>
+    <color name="text_green">#1fc28e</color>
+    <color name="bg_green">#ecfef8</color>
+    <color name="yellow">#ffcc00</color>
+    <color name="green">#67dab4</color>
+    <color name="blue">#66ccff</color>
+    <color name="yellow_1">#fffad2</color>
+    <color name="refresh_1">#00b9ff</color>
+    <color name="refresh_2">#3fcaff</color>
+    <color name="refresh_3">#7edcff</color>
+    <color name="refresh_4">#baecff</color>
+
+    <color name="side_bar_text">#4A4A4A</color>
+    <color name="shadow_bg">#66000000</color>
+    <color name="edit_bg">#EFEFF4</color>
+    <color name="darker_gray">#9b9b9b</color>
+
+
+
+    <color name="divider">#E5E5E5</color>
+    <color name="shadow">#AAEBEBEB</color>
+    <color name="common_bg">#FAFAFA</color>
+    <color name="content_bg">#F3F3F3</color>
+    <color name="gray">#8c8c8c</color>
+    <color name="gray_deep">#5c5c5c</color>
+    <color name="alpha_gray">#ff646464</color>
+    <color name="theme_gray">#646464</color>
+    <color name="grey_theme">#F5F5F5</color>
+
+    <color name="act_bg">#F1F1F1</color>
+    <color name="shareBack">#E05858</color>
+    <color name="shareYellow">#fed130</color>
+    <color name="text_Yellow">#F67F05</color>
+
+
+
+
+
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <include layout="@layout/v_toolbar"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="@dimen/dimen_20"
+        android:paddingRight="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dp_10">
+        <TextView
+            android:id="@+id/tv_Search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nim_team_create_btn_selector"
+            android:text="搜索"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/jrmf_dimen_5"
+            android:layout_marginLeft="@dimen/dp_10"/>
+        <EditText
+            android:id="@+id/et_Search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_white_shape"
+            android:layout_toLeftOf="@+id/tv_Search"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/black"
+            android:hint="请输入需要查询的用户昵称或群昵称"
+            android:padding="@dimen/jrmf_dimen_5"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.netease.wulewan.uikit.business.team.ui.TeamInfoGridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/team_gird_view"
+            style="@style/grid_view"
+            android:background="@color/white"
+            android:gravity="center"
+            android:numColumns="5"
+            android:paddingBottom="25dip"
+            android:paddingLeft="12dip"
+            android:paddingRight="12dip"
+            android:paddingTop="16dip"
+            android:verticalSpacing="16dip"
+
+            >
+
+
+        </com.netease.wulewan.uikit.business.team.ui.TeamInfoGridView>
+    </ScrollView>
+
+
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 分页标签 -->
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsCheckedTextColor" format="reference" />
+        <attr name="pstsUncheckedTextColor" format="reference" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+    </declare-styleable>
+
+    <!-- 左右文本 -->
+    <declare-styleable name="TwoTextView">
+
+        <!-- 左边文本内容 -->
+        <attr name="ttLeftText" format="string|reference" />
+        <!-- 右边文本内容 -->
+        <attr name="ttRightText" format="string|reference" />
+        <!-- 左边文本字体大小 -->
+        <attr name="ttLeftTextSize" format="dimension" />
+        <!-- 右边文本字体大小 -->
+        <attr name="ttRightTextSize" format="dimension" />
+        <!-- 左边文本颜色 -->
+        <attr name="ttLeftTextColor" format="reference" />
+        <!-- 右边文本颜色 -->
+        <attr name="ttRightTextColor" format="reference" />
+    </declare-styleable>
+
+    <!-- 支付密码输入框 -->
+    <declare-styleable name="PayPsdInputView">
+        <attr name="maxCount1" format="integer" />
+        <attr name="circleColor1" format="color" />
+        <attr name="bottomLineColor1" format="color" />
+        <attr name="radius1" format="dimension" />
+        <attr name="divideLineWidth1" format="dimension" />
+        <attr name="divideLineColor1" format="color" />
+        <attr name="rectAngle1" format="dimension" />
+        <attr name="focusedColor1" format="color" />
+        <attr name="psdType1" format="enum">
+            <enum name="weChat1" value="0" />
+            <enum name="bottomLine1" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ViewfinderView">
+        <attr name="inner_width" format="dimension" /><!-- 控制扫描框的宽度 -->
+        <attr name="inner_height" format="dimension" /><!-- 控制扫描框的高度 -->
+        <attr name="nner_margintop" format="dimension" /><!-- 控制扫描框距离顶部的距离 -->
+        <attr name="inner_corner_color" format="color" /><!-- 控制扫描框四角的颜色 -->
+        <attr name="inner_corner_length" format="dimension" /><!-- 控制扫描框四角的长度 -->
+        <attr name="inner_corner_width" format="dimension" /><!-- 控制扫描框四角的宽度 -->
+        <attr name="inner_scan_bitmap" format="reference" /><!-- 控制扫描图 -->
+        <attr name="inner_scan_speed" format="integer" /><!-- 控制扫描速度 -->
+    </declare-styleable>
+
+</resources>

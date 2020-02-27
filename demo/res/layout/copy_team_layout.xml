@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+
+    >
+    <include layout="@layout/v_toolbar"/>
+
+    <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/icon_team_default"
+        android:id="@+id/img_team"
+        android:layout_marginTop="70dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textColor="@color/text_black"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:text="昵称"
+        android:id="@+id/team_name"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textColor="@color/text_black1"
+        android:layout_gravity="center_horizontal"
+        android:textSize="15sp"
+
+        android:text="群人数50人"
+        android:id="@+id/team_count"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/div_color_grey"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textColor="@color/text_black1"
+
+        android:textSize="15sp"
+
+        android:text="温馨提示"
+        android:layout_marginLeft="20dp"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textColor="@color/text_black1"
+        android:layout_marginTop="5dp"
+
+        android:textSize="13sp"
+
+        android:text="         工会小蜜软件温馨提示，一键复制新群后，将生成一个成员人数相同的新群。"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:layout_marginTop="60dp"
+        android:background="@color/div_color_grey"
+        />
+    
+    
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="@color/theme_color"
+        android:text="确定复制"
+        android:background="@color/white"
+        android:id="@+id/team_copy"
+        android:textSize="18sp"
+        android:gravity="center"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/div_color_grey"
+        />
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

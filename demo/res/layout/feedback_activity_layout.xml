@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/edit_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/v_toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_WordNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/200"
+            android:textSize="@dimen/sp_14"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/jrmf_dimen_5"
+            android:layout_marginRight="@dimen/jrmf_dimen_5"
+            android:visibility="gone"/>
+        <EditText
+            android:id="@+id/et_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_above="@+id/tv_WordNumber"
+            android:padding="@dimen/jrmf_dimen_5"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/black"
+            android:hint="请输入你的问题..."
+            android:gravity="top"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_Submission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:background="@drawable/login_upress"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dimen_20"/>
+
+</LinearLayout>

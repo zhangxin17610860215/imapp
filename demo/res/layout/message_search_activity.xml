@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/global_search_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/theme_color">
+
+            <TextView
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:drawableEnd="@drawable/com_back_icon"
+                android:drawableRight="@drawable/com_back_icon" />
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="276dp"
+                android:layout_height="39dp"
+                android:layout_centerInParent="true"
+                app:closeIcon="@null"
+                app:queryBackground="@drawable/sseach_bg"
+                app:queryHint="请输入账号"
+                app:searchIcon="@drawable/seach_small_icon" />
+
+            <TextView
+                android:id="@+id/text_clear_txt"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:drawableStart="@drawable/seach_cancle"
+                android:drawableLeft="@drawable/seach_cancle"
+                android:focusable="true"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <com.netease.wulewan.uikit.common.ui.listview.AutoRefreshListView
+            android:id="@+id/searchResultList"
+            style="@style/list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/white"
+            android:cacheColorHint="#00000000"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="@android:color/transparent"
+            android:smoothScrollbar="true" />
+    </LinearLayout>
+
+
+</RelativeLayout>

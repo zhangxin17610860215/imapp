@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@color/white">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextAppearance="@style/Toolbar.TitleText">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:id="@+id/tv_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="群内所有人"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_margin="@dimen/dp_10"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_15"
+        android:drawableLeft="@drawable/aitteamall_icon"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/dp_10"
+        android:visibility="gone"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/light"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.netease.wulewan.uikit.common.ui.liv.LetterIndexView
+            android:id="@+id/liv_index"
+            android:layout_width="15dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="#00000000" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/member_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/liv_index">
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+</LinearLayout>

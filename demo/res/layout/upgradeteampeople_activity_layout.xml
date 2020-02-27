@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/edit_bg">
+
+    <include layout="@layout/v_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="升级群人数"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_18"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dimen_20"/>
+            <TextView
+                android:id="@+id/tv_teamMemberLimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/sp_12"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/jrmf_dimen_5"
+                android:layout_marginBottom="@dimen/dimen_20"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="@dimen/jrmf_dimen_50"
+                android:paddingRight="@dimen/jrmf_dimen_50"
+                android:text="温馨提示:升级费用将从您的工会小蜜零钱账户中扣除,请确认您的账户余额是否充足。"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/gray"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

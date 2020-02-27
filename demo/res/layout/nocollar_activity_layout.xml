@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/edit_bg">
+
+    <RelativeLayout
+        android:id="@+id/rl_toobar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        android:background="@color/theme_color">
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/jrmf_b_top_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="禁止领取零钱红包"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_18"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tv_rightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="编辑"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/sp_14"
+            android:textColor="#fff"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_toobar">
+        <include
+            layout="@layout/no_data_bg_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_nocollar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_settingTeamMembers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="设置群成员"
+        android:textColor="@color/theme_color"
+        android:textSize="@dimen/text_size_16"
+        android:gravity="center"/>
+
+</RelativeLayout>
