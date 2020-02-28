@@ -18,12 +18,8 @@ import com.wulewan.ghxm.utils.StringUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.wulewan.ghxm.config.Constants.CONFIG_INFO.ALICARRY_ISSHOW;
-import static com.wulewan.ghxm.config.Constants.CONFIG_INFO.ALIPAY_ISSHOW;
 import static com.wulewan.ghxm.config.Constants.CONFIG_INFO.ALI_UPPERLIMIT;
 import static com.wulewan.ghxm.config.Constants.CONFIG_INFO.WALLET_EXIST;
-import static com.wulewan.ghxm.config.Constants.CONFIG_INFO.WCHATCARRY_ISSHOW;
-import static com.wulewan.ghxm.config.Constants.CONFIG_INFO.WCHATPAY_ISSHOW;
 import static com.wulewan.ghxm.config.Constants.CONFIG_INFO.WX_UPPERLIMIT;
 import static com.wulewan.ghxm.config.Constants.ERROR_REQUEST_EXCEPTION_MESSAGE;
 import static com.wulewan.ghxm.config.Constants.ERROR_REQUEST_FAILED_MESSAGE;
@@ -112,14 +108,13 @@ public class OverallApi {
                     LogUtil.e(TAG,"configInfo--------->onSuccess" + bean.getData());
                     if (Constants.SUCCESS_CODE == bean.getStatusCode()) {
                         ConfigInfoBean configInfoBean = GsonHelper.getSingleton().fromJson(bean.getData(), ConfigInfoBean.class);
-                        ConfigInfoBean.PayButtonConfigBean payButtonConfig = configInfoBean.getPayButtonConfig();
-                        ConfigInfoBean.WithdrawButtonConfigBean withdrawButtonConfig = configInfoBean.getWithdrawButtonConfig();
-
+//                        ConfigInfoBean.PayButtonConfigBean payButtonConfig = configInfoBean.getPayButtonConfig();
+//                        ConfigInfoBean.WithdrawButtonConfigBean withdrawButtonConfig = configInfoBean.getWithdrawButtonConfig();
                         instance.put(WALLET_EXIST,configInfoBean.isUserWalletExist());
-                        instance.put(ALIPAY_ISSHOW,payButtonConfig.getAli() + "");
-                        instance.put(WCHATPAY_ISSHOW,payButtonConfig.getWechat() + "");
-                        instance.put(ALICARRY_ISSHOW,withdrawButtonConfig.getAli() + "");
-                        instance.put(WCHATCARRY_ISSHOW,withdrawButtonConfig.getWechat() + "");
+//                        instance.put(ALIPAY_ISSHOW,payButtonConfig.getAli() + "");
+//                        instance.put(WCHATPAY_ISSHOW,payButtonConfig.getWechat() + "");
+//                        instance.put(ALICARRY_ISSHOW,withdrawButtonConfig.getAli() + "");
+//                        instance.put(WCHATCARRY_ISSHOW,withdrawButtonConfig.getWechat() + "");
                         if (StringUtil.isEmpty(configInfoBean.getWxUpperLimit())){
                             configInfoBean.setWxUpperLimit("500");
                         }
@@ -131,20 +126,20 @@ public class OverallApi {
 
                     }else {
                         instance.put(WALLET_EXIST,false);
-                        instance.put(ALIPAY_ISSHOW,"1");
-                        instance.put(WCHATPAY_ISSHOW,"0");
-                        instance.put(ALICARRY_ISSHOW,"1");
-                        instance.put(WCHATCARRY_ISSHOW,"0");
+//                        instance.put(ALIPAY_ISSHOW,"1");
+//                        instance.put(WCHATPAY_ISSHOW,"0");
+//                        instance.put(ALICARRY_ISSHOW,"1");
+//                        instance.put(WCHATCARRY_ISSHOW,"0");
                         instance.put(WX_UPPERLIMIT,"500");
                         instance.put(ALI_UPPERLIMIT,"500");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     instance.put(WALLET_EXIST,false);
-                    instance.put(ALIPAY_ISSHOW,"1");
-                    instance.put(WCHATPAY_ISSHOW,"0");
-                    instance.put(ALICARRY_ISSHOW,"1");
-                    instance.put(WCHATCARRY_ISSHOW,"0");
+//                    instance.put(ALIPAY_ISSHOW,"1");
+//                    instance.put(WCHATPAY_ISSHOW,"0");
+//                    instance.put(ALICARRY_ISSHOW,"1");
+//                    instance.put(WCHATCARRY_ISSHOW,"0");
                     instance.put(WX_UPPERLIMIT,"500");
                     instance.put(ALI_UPPERLIMIT,"500");
                 }
@@ -156,10 +151,10 @@ public class OverallApi {
                 LogUtil.e(TAG,"configInfo--------->onError");
 
                 instance.put(WALLET_EXIST,false);
-                instance.put(ALIPAY_ISSHOW,"1");
-                instance.put(WCHATPAY_ISSHOW,"0");
-                instance.put(ALICARRY_ISSHOW,"1");
-                instance.put(WCHATCARRY_ISSHOW,"0");
+//                instance.put(ALIPAY_ISSHOW,"1");
+//                instance.put(WCHATPAY_ISSHOW,"0");
+//                instance.put(ALICARRY_ISSHOW,"1");
+//                instance.put(WCHATCARRY_ISSHOW,"0");
                 instance.put(WX_UPPERLIMIT,"500");
                 instance.put(ALI_UPPERLIMIT,"500");
             }

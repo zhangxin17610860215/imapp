@@ -88,7 +88,7 @@
         android:text="确定"
         android:textSize="@dimen/text_size_18"
         android:textColor="@color/white"
-        android:background="@mipmap/green_bt_bg"
+        android:background="@drawable/login_upress"
         android:layout_marginLeft="26dp"
         android:layout_marginRight="26dp"
         android:gravity="center"/>

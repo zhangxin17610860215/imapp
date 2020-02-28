@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_bg"
     android:orientation="vertical">
 
     <include layout="@layout/v_toolbar"/>
-
-
 
     <com.wulewan.ghxm.UIEx.BounceScrollView
         android:layout_width="match_parent"
@@ -42,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="元"
+                    android:text="蜜币"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
@@ -54,8 +51,8 @@
                     android:layout_toLeftOf="@+id/tv_groupRed_money"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="0.00"
-                    android:inputType="numberDecimal"
+                    android:hint="0"
+                    android:inputType="number"
                     android:maxLength="10"
                     android:textColor="@color/black"
                     android:textColorHint="@color/redpacket_hint_color"
@@ -67,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/jrmf_dimen_30"
                 android:layout_marginTop="5dp"
-                android:text="单个红包金额不超过200.00元"
+                android:text="单个红包金额不超过1000个"
                 android:textColor="@color/redpacket_theme"
                 android:textSize="@dimen/text_size_12" />
 
@@ -220,7 +217,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_36"
-                android:text="¥0.00"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_30" />
 

@@ -9,34 +9,23 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_gravity="center_vertical"
-        android:paddingLeft="42dp"
+        android:paddingLeft="35dp"
         android:text="A"
         android:textSize="@dimen/text_size_15"
         android:textColor="@color/color_grey_666666"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
-        <CheckBox
-            android:id="@+id/cb_teamchoose_isSelection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
-            android:layout_marginLeft="15dp"
-            android:clickable="false"
-            android:enabled="false"
-            android:button="@drawable/choosereisselection_selector"
-            android:layout_centerVertical="true"
-            android:checked="false"/>
-        <ImageView
+        android:background="@color/white"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+        <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
             android:id="@+id/img_teamchoose_head"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/jrmf_dimen_12"
-            android:layout_toRightOf="@+id/cb_teamchoose_isSelection"/>
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/user_head_icon"/>
         <TextView
             android:id="@+id/tv_teamchoose_name"
             android:layout_width="wrap_content"
@@ -46,10 +35,38 @@
             android:textColor="@color/black"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_toRightOf="@+id/img_teamchoose_head"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp">
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="余额：100"
+                android:textSize="@dimen/text_size_15"
+                android:textColor="@color/color_999"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_theme"
+                android:text="修改"
+                android:textSize="@dimen/text_size_15"
+                android:textColor="@color/white"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="@dimen/dimen_10"
+                android:paddingRight="@dimen/dimen_10"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/jrmf_dimen_1"
-            android:layout_toRightOf="@+id/cb_teamchoose_isSelection"
             android:layout_marginLeft="@dimen/jrmf_dimen_12"
             android:layout_below="@+id/img_teamchoose_head"
             android:layout_marginTop="@dimen/jrmf_dimen_8"

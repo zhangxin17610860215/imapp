@@ -69,7 +69,7 @@ public class Constants {
         public static final int USER_RECHARGE = 3;              // 充值
         public static final int USER_WITHDRAW_DEPOSIT = 4;      // 提现
         public static final int REFUND_REDPACK = 5;             // 红包退还
-        public static final int OWNERRECEIVES_REDPACK = 6;             // 群主领取红包
+        public static final int OWNERRECEIVES_REDPACK = 6;      // 群主领取红包
     }
 
     /**

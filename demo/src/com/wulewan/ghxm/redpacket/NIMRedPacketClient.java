@@ -209,9 +209,9 @@ public class NIMRedPacketClient {
             activity.startActivityForResult(intent,requestCode);
 //            JrmfRpClient.sendGroupEnvelopeForResult(activity, targetAccount, selfInfo.getAccount(), thirdToken, count, selfInfo.getName(), selfInfo.getAvatar(), requestCode);
         } else { // 单聊红包
-            Intent intent = new Intent(activity,P2PRedPackActivity.class);
-            intent.putExtra("targetAccount",targetAccount);
-            activity.startActivityForResult(intent,requestCode);
+//            Intent intent = new Intent(activity,P2PRedPackActivity.class);
+//            intent.putExtra("targetAccount",targetAccount);
+//            activity.startActivityForResult(intent,requestCode);
 //            JrmfRpClient.sendSingleEnvelopeForResult(activity, targetAccount, selfInfo.getAccount(), thirdToken, selfInfo.getName(), selfInfo.getAvatar(), requestCode);
         }
 

@@ -139,7 +139,7 @@ public class CoinPurseActivity extends BaseAct implements View.OnClickListener {
                 case R.id.rl_coinPurse_DetailsChange:
                     //零钱明细
                     MobclickAgent.onEvent(this,COIN_CHANGEDETAILSCELL);
-                    DetailsChangeActivity.start(this);
+//                    DetailsChangeActivity.start(this);
                     break;
                 case R.id.rl_coinPurse_DetailsRedPacket:
                     //红包明细

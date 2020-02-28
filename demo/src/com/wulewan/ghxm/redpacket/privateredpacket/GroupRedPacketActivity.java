@@ -1,7 +1,6 @@
 package com.wulewan.ghxm.redpacket.privateredpacket;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,49 +19,33 @@ import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.wulewan.uikit.api.NimUIKit;
 import com.netease.wulewan.uikit.business.contact.core.item.ContactIdFilter;
 import com.netease.wulewan.uikit.business.contact.selector.activity.ContactSelectActivity;
-import com.netease.wulewan.uikit.common.ui.dialog.DialogMaker;
-import com.netease.wulewan.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.wulewan.uikit.utils.NoDoubleClickUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.wulewan.ghxm.R;
-import com.wulewan.ghxm.bean.AmountBean;
+import com.wulewan.ghxm.bean.MyTeamWalletBean;
 import com.wulewan.ghxm.bean.OrderNumberBean;
 import com.wulewan.ghxm.common.ui.BaseAct;
 import com.wulewan.ghxm.config.Constants;
 import com.wulewan.ghxm.main.activity.RedPacketContactSelectAct;
-import com.wulewan.ghxm.pay.MyALipayUtils;
-import com.wulewan.ghxm.requestutils.api.ApiUrl;
 import com.wulewan.ghxm.requestutils.api.UserApi;
 import com.wulewan.ghxm.requestutils.requestCallback;
 import com.wulewan.ghxm.user.RetrievePayPwdActivity;
-import com.wulewan.ghxm.utils.EventBusUtils;
 import com.wulewan.ghxm.utils.NumberUtil;
-import com.wulewan.ghxm.utils.PaySelect;
 import com.wulewan.ghxm.utils.RedPacketTextWatcher;
 import com.wulewan.ghxm.utils.StringUtil;
 import com.wulewan.ghxm.utils.view.PayDialogView;
-import com.wulewan.ghxm.wxapi.WXUtil;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-import static com.wulewan.ghxm.NimApplication.ALIPAY_APPID;
-import static com.wulewan.ghxm.config.Constants.WXPAY_ORDERID;
-import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_ERROR_ALIPAYERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_ERROR_CODEERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_ERROR_PASSWORDERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_TOTALNUM;
-import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_ERROR_ALIPAYERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_ERROR_CODEERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_ERROR_PASSWORDERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_TOTALNUM;
-import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_ERROR_ALIPAYERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_ERROR_CODEERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_ERROR_PASSWORDERRORNUM;
 import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_TOTALNUM;
@@ -101,12 +84,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
     private String targetIds = "";          //多个用户id总字符串
     private int count;                      //群内总人数
     private PayDialogView payDialogView;
-    private boolean isWXPay = false;
-    private Dialog dialog;
-    private boolean isQuery = false;        //是否正在查询充值接口
-    private ScheduledThreadPoolExecutor exec;
-    private int peride = 5000;              //五秒轮询一次
-    private int frequency = 0;              //轮询三次停止轮询
 
     private boolean isGroupOwner = false;                           //是否是群主
 
@@ -121,7 +98,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_group_redpacket);
         context = GroupRedPacketActivity.this;
-        EventBusUtils.register(this);
         REDPACKET_TYPE = Constants.REDPACK_TYPE.TEAM_RANDOM;
         ISEXCLUSIVE = false;
         mTeamId = getIntent().getStringExtra("teamId");
@@ -134,6 +110,7 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
             }
         }
         setToolbar(R.drawable.jrmf_b_top_back, "发红包", R.color.redpacket_theme);
+        toolbar.setBackgroundResource(R.color.redpacket_theme);
         initView();
         modifyRedType();
         initDate();
@@ -197,10 +174,10 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                                     double mul = NumberUtil.mul(inputAmount, redPacketNum);
                                     totalSum = mul + "";
                                 } else {
-                                    totalSum = "0.00";
+                                    totalSum = "0";
                                 }
                             } else {
-                                totalSum = "0.00";
+                                totalSum = "0";
                             }
                         } else {
                             //普通红包
@@ -209,10 +186,10 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                                     double mul = NumberUtil.mul(inputAmount, redPacketNum);
                                     totalSum = mul + "";
                                 } else {
-                                    totalSum = "0.00";
+                                    totalSum = "0";
                                 }
                             } else {
-                                totalSum = "0.00";
+                                totalSum = "0";
                             }
                         }
                         break;
@@ -221,13 +198,13 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                         if (StringUtil.isNotEmpty(inputAmount) && new BigDecimal(inputAmount).compareTo(new BigDecimal("0")) > 0) {
                             totalSum = inputAmount;
                         } else {
-                            totalSum = "0.00";
+                            totalSum = "0";
                         }
                         break;
                 }
-                tvMoneyNum.setText("￥ " + totalSum);
+                tvMoneyNum.setText((new Double(totalSum)).intValue() + "");
                 if (NumberUtil.compareLess("0",totalSum)){
-                    etContent.setText(tvMoneyNum.getText().toString());
+                    etContent.setText(etMoney.getText().toString());
                 }else {
                     etContent.setText("");
                 }
@@ -271,16 +248,16 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                             if (StringUtil.isNotEmpty(inputAmount) && new BigDecimal(inputAmount).compareTo(new BigDecimal("0")) > 0) {
                                 totalSum = inputAmount;
                             } else {
-                                totalSum = "0.00";
+                                totalSum = "0";
                             }
                         } else {
-                            totalSum = "0.00";
+                            totalSum = "0";
                         }
                         break;
                 }
-                tvMoneyNum.setText("￥ " + totalSum);
+                tvMoneyNum.setText((new Double(totalSum)).intValue() + "");
                 if (NumberUtil.compareLess("0",totalSum)){
-                    etContent.setText(tvMoneyNum.getText().toString());
+                    etContent.setText(etMoney.getText().toString());
                 }else {
                     etContent.setText("");
                 }
@@ -329,7 +306,7 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                     break;
                 case R.id.tv_groupRed_sendRedPacket:
                     //校验
-                    check(v);
+                    check();
                     break;
                 case R.id.et_groupRed_money:
                     setEditFocus(etMoney, true);
@@ -356,7 +333,7 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
         editText.setFocusableInTouchMode(isFocus);
     }
 
-    private void check(View v) {
+    private void check() {
         switch (REDPACKET_TYPE) {
             case Constants.REDPACK_TYPE.TEAM_ORDINARY:
                 if (ISEXCLUSIVE) {
@@ -376,16 +353,16 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                     try {
                         //总金额除以红包=红包的平均值
                         String str = NumberUtil.div_Intercept(totalSum, redPacketNum, 3);
-                        if (NumberUtil.compareLess(str, "0.01")) {
-                            toast("单个红包金额不得少于0.01");
+                        if (NumberUtil.compareLess(str, "1")) {
+                            toast("单个红包金额不得少于1蜜币");
                             return;
                         }
-                        if (NumberUtil.compareLess("200", inputAmount)) {
-                            toast("单个红包金额不得大于200");
+                        if (NumberUtil.compareLess("1000", inputAmount)) {
+                            toast("单个红包金额不得大于1000蜜币");
                             return;
                         }
                         if (NumberUtil.compareLess("20000", totalSum)) {
-                            toast("总金额单次不可大于20000");
+                            toast("总金额单次不可大于20000蜜币");
                             return;
                         }
                     } catch (Exception e) {
@@ -416,16 +393,16 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                     try {
                         //总金额除以红包=红包的平均值
                         String str = NumberUtil.div_Intercept(totalSum, redPacketNum, 3);
-                        if (NumberUtil.compareLess(str, "0.01")) {
-                            toast("单个红包金额不得少于0.01");
+                        if (NumberUtil.compareLess(str, "1")) {
+                            toast("单个红包金额不得少于1蜜币");
                             return;
                         }
-                        if (NumberUtil.compareLess("200", inputAmount)) {
-                            toast("单个红包金额不得大于200");
+                        if (NumberUtil.compareLess("1000", inputAmount)) {
+                            toast("单个红包金额不得大于1000蜜币");
                             return;
                         }
                         if (NumberUtil.compareLess("20000", totalSum)) {
-                            toast("总金额单次不可大于20000");
+                            toast("总金额单次不可大于20000蜜币");
                             return;
                         }
                     } catch (Exception e) {
@@ -457,16 +434,16 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                 try {
                     //总金额除以红包=红包的平均值
                     String str = NumberUtil.div_Intercept(totalSum, redPacketNum, 3);
-                    if (NumberUtil.compareLess(str, "0.01")) {
-                        toast("单个红包金额不得少于0.01");
+                    if (NumberUtil.compareLess(str, "1")) {
+                        toast("单个红包金额不得少于1蜜币");
                         return;
                     }
-                    if (NumberUtil.compareLess("200", totalSum)) {
-                        toast("单个红包金额不得大于200");
+                    if (NumberUtil.compareLess("1000", totalSum)) {
+                        toast("单个红包金额不得大于1000蜜币");
                         return;
                     }
                     if (NumberUtil.compareLess("20000", totalSum)) {
-                        toast("总金额单次不可大于20000");
+                        toast("总金额单次不可大于20000蜜币");
                         return;
                     }
                 } catch (Exception e) {
@@ -476,7 +453,7 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                 break;
         }
         //检验用户是否创建了钱包&&零钱包余额是否足够红包总金额
-        checkUserBalance(v);
+        checkUserBalance();
     }
 
     /**
@@ -503,17 +480,20 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
         }
     }
 
-    private void checkUserBalance(final View v) {
+    private void checkUserBalance() {
         showProgress(context, false);
-        UserApi.getAmount(this, new requestCallback() {
+        UserApi.getTeamWalletInfo(mTeamId, NimUIKit.getAccount(), mActivity, new requestCallback() {
             @Override
             public void onSuccess(int code, Object object) {
                 dismissProgress();
-                if (code == Constants.SUCCESS_CODE) {
-                    AmountBean amountBean = (AmountBean) object;
-                    String amount = amountBean.getAmount();
-                    showPayMode(amount, v);
-                } else {
+                if (code == Constants.SUCCESS_CODE){
+                    MyTeamWalletBean walletBean = (MyTeamWalletBean) object;
+                    if (NumberUtil.compareLess(walletBean.getScore(), totalSum)) {
+                        toast("钱包余额不足");
+                        return;
+                    }
+                    showPayPsdDialog();
+                }else {
                     toast((String) object);
                     statisticsSendRPError("getBalance",code);
                 }
@@ -522,240 +502,15 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(context, errMessage);
+                toast(errMessage);
             }
         });
-    }
-
-    /**
-     * 显示支付方式Dialog
-     */
-    private void showPayMode(final String amount, View v) {
-        final PaySelect paySelect = new PaySelect(context, totalSum, "红包", amount, 1);
-        new XPopup.Builder(context)
-                .atView(v)
-                .asCustom(paySelect)
-                .show();
-        paySelect.setOnClickListenerOnSure(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //立即支付
-                showPayPsdDialog(totalSum, paySelect);
-                paySelect.dismiss();
-            }
-        });
-    }
-
-//    private void getOrderNu(final String amount) {
-//        showProgress(context, false);
-//        UserApi.getOrderNumber(this, new requestCallback() {
-//            @Override
-//            public void onSuccess(int code, Object object) {
-//                dismissProgress();
-//                if (code == Constants.SUCCESS_CODE) {
-//                    OrderNumberBean bean = (OrderNumberBean) object;
-//                    String orderNO = bean.getOrderNO();
-//                    goAliPay(orderNO, amount);
-//                } else {
-//                    ToastUtil.showToast(context, (String) object);
-//                    statisticsSendRPError("getOrderId",code);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailed(String errMessage) {
-//                dismissProgress();
-//                ToastUtil.showToast(context, errMessage);
-//            }
-//        });
-//    }
-
-    private void goAliPay(final String orderNO, String amount) {
-        final MyALipayUtils.ALiPayBuilder builder = new MyALipayUtils.ALiPayBuilder();
-        MyALipayUtils myALipayUtils = builder.setAppid(ALIPAY_APPID)
-                .setMoney(amount)       //设置金额
-                .setTitle("杭州吾乐玩网络科技有限公司")     //设置商品信息
-                .setBody("杭州吾乐玩网络科技有限公司")       //设置商品信息描述
-                .setOrderTradeId(orderNO)   //设置订单ID
-                .setNotifyUrl(ApiUrl.BASE_URL_HEAD + ApiUrl.BASE_URL + "/notify/alipay") //服务器异步通知页面路径
-                .build();
-
-        String rid = "";
-        if (StringUtil.isNotEmpty(orderNO)) {
-            rid = orderNO;
-        }
-        String targetType = REDPACKET_TYPE + "";
-        String number = "";
-        String money = "";
-        switch (REDPACKET_TYPE) {
-            case Constants.REDPACK_TYPE.TEAM_RANDOM:
-                targetIds = "";
-                number = redPacketNum;
-                money = totalSum;
-                break;
-            case Constants.REDPACK_TYPE.TEAM_ORDINARY:
-                if (!ISEXCLUSIVE) {
-                    targetIds = "";
-                    number = redPacketNum;
-                    money = etMoney.getText().toString();
-                } else {
-//                    number = zhiDingPeopleNum;
-                    number = redPacketNum;
-                    money = etMoney.getText().toString();
-                }
-                break;
-        }
-        String redContent = StringUtil.isEmpty(etContent.getText().toString()) ? "恭喜发财，大吉大利！" : etContent.getText().toString();
-        myALipayUtils.goAliPay("1",2,rid,money,targetIds,targetType,redContent,payDialogView.getPayeePwd(),number,mTeamId,this, new MyALipayUtils.AlipayListener() {
-            @Override
-            public void onPaySuccess() {
-//                DialogMaker.showProgressDialog(context, "红包发送中,请勿关闭页面", false);
-//                polling(orderNO,"2");
-                finish();
-            }
-
-            @Override
-            public void onPayFailed() {
-                switch (REDPACKET_TYPE) {
-                    case Constants.REDPACK_TYPE.TEAM_ORDINARY:
-                        if (ISEXCLUSIVE) {
-                            //专属红包
-                            MobclickAgent.onEvent(context,TEAM_EXCLUSIVE_RP_SEND_ERROR_ALIPAYERRORNUM);
-                        } else {
-                            //普通红包
-                            MobclickAgent.onEvent(context,TEAM_AVERAGE_RP_SEND_ERROR_ALIPAYERRORNUM);
-                        }
-                        break;
-                    case Constants.REDPACK_TYPE.TEAM_RANDOM:
-                        //随机红包
-                        MobclickAgent.onEvent(context,TEAM_RANDOM_RP_SEND_ERROR_ALIPAYERRORNUM);
-                        break;
-                }
-                finish();
-            }
-        });
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBusUtils.unregister(this);
-        if (null != exec){
-            exec.shutdown();
-            exec = null;
-        }
-    }
-
-    /**
-     * 微信支付结果回调
-     * */
-    @Subscribe
-    public void getWXPayData(EventBusUtils.CommonEvent commonEvent){
-        if (null == commonEvent) {
-            return;
-        }
-        if (commonEvent.id != 100){
-            return;
-        }
-        if (null == commonEvent.data){
-            dismissProgress();
-            return;
-        }
-        Bundle bundle = commonEvent.data;
-        String result = (String) bundle.get("payResult");
-        if (StringUtil.isNotEmpty(result)){
-            if (result.equals("0")){
-                //支付成功
-                DialogMaker.showProgressDialog(context, "红包发送中,请勿关闭页面", false);
-                polling(WXPAY_ORDERID,"1");
-            }
-        }
-        if (null != dialog){
-            dialog.dismiss();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isWXPay){
-            showWXPayDialog();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isWXPay = false;
-    }
-
-    /**
-     * 充值查询
-     */
-    private void goRechArge(final String orderNO, String payType) {
-        UserApi.rechArgeQuery(orderNO,payType, context, new requestCallback() {
-            @Override
-            public void onSuccess(int code, Object object) {
-                if (code == Constants.SUCCESS_CODE) {
-                    dismissProgress();
-                    isQuery = true;
-                    setRedPackData(orderNO, payDialogView.getPayeePwd());
-                } else {
-                    isQuery = false;
-                    if (frequency >= 6){
-                        ToastUtil.showToast(context, "红包发送失败，请关注零钱余额");
-                        statisticsSendRPError("rechArgeQuery",code);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailed(String errMessage) {
-                isQuery = false;
-                ToastUtil.showToast(context, errMessage);
-            }
-        });
-    }
-
-    /**
-     * 轮询充值查询接口
-     * */
-    private void polling(final String orderNO, final String payType) {
-        if (null != exec){
-            exec.shutdown();
-            exec = null;
-        }
-//        if (isQuery){
-//            showProgress(context,false);
-//        }
-        exec = new ScheduledThreadPoolExecutor(1);
-        exec.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                if (!isQuery){
-                    frequency ++;
-                    if (frequency > 6){
-                        frequency = 0;
-                        exec.shutdown();
-                        exec = null;
-                        dismissProgress();
-                    }else {
-                        isQuery = true;
-                        goRechArge(orderNO,payType);
-                    }
-                }
-            }
-        },0, peride, TimeUnit.MILLISECONDS);
     }
 
     /**
      * 输入支付密码
-     *
-     * @param amount
-     * @param paySelect
      */
-    private void showPayPsdDialog(final String amount, final PaySelect paySelect) {
+    private void showPayPsdDialog() {
         payDialogView = new PayDialogView(this);
         new XPopup.Builder(this)
                 .dismissOnTouchOutside(false)
@@ -810,24 +565,8 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 //支付密码校验完成
-                PaySelect.SelectPayType type = paySelect.getCurrSeletPayType();
-                int payType = 1;
-                switch (type) {
-                    case ALI:
-                        isWXPay = false;
-                        payType = 3;
-                        break;
-                    case WCHAT:
-                        isWXPay = true;
-                        payType = 2;
-                        break;
-                    case WALLET:
-                        isWXPay = false;
-                        payType = 1;
-                        break;
-                }
                 if (!NoDoubleClickUtils.isDoubleClick(2000)){
-                    getRedPageId(amount,payType);
+                    getRedPageId();
                     payDialogView.dismiss();
                 }
 
@@ -835,21 +574,10 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
         });
     }
 
-    private void showWXPayDialog() {
-        dialog = EasyAlertDialogHelper.showOneButtonDiolag(context, null, "您的订单尚未完成，请继续。", "继续", false, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogMaker.showProgressDialog(context, "红包发送中,请勿关闭页面", false);
-                polling(WXPAY_ORDERID,"1");
-            }
-        });
-        dialog.show();
-    }
-
     /**
      * 获取红包Id
      */
-    private void getRedPageId(final String amount, final int payType) {
+    private void getRedPageId() {
         showProgress(context, false);
         UserApi.getOrderNumber(this, new requestCallback() {
             @Override
@@ -858,62 +586,7 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                 if (code == Constants.SUCCESS_CODE) {
                     OrderNumberBean bean = (OrderNumberBean) object;
                     if (null != bean) {
-                        switch (payType){
-                            case 1:
-                                //钱包余额
-                                setRedPackData(bean.getOrderNO(), payDialogView.getPayeePwd());
-                                break;
-                            case 2:
-                                //微信
-                                String rid = "";
-                                if (StringUtil.isNotEmpty(bean.getOrderNO())) {
-                                    rid = bean.getOrderNO();
-                                }
-                                String targetType = REDPACKET_TYPE + "";
-                                String number = "";
-                                String money = "";
-                                switch (REDPACKET_TYPE) {
-                                    case Constants.REDPACK_TYPE.TEAM_RANDOM:
-                                        targetIds = "";
-                                        number = redPacketNum;
-                                        money = totalSum;
-                                        break;
-                                    case Constants.REDPACK_TYPE.TEAM_ORDINARY:
-                                        if (!ISEXCLUSIVE) {
-                                            targetIds = "";
-                                            number = redPacketNum;
-                                            money = etMoney.getText().toString();
-                                        } else {
-//                    number = zhiDingPeopleNum;
-                                            number = redPacketNum;
-                                            money = etMoney.getText().toString();
-                                        }
-                                        break;
-                                }
-                                String redContent = StringUtil.isEmpty(etContent.getText().toString()) ? "恭喜发财，大吉大利！" : etContent.getText().toString();
-                                WXUtil.weiChatPay("1",amount,rid,money,targetIds,targetType, redContent,payDialogView.getPayeePwd(),number,mTeamId,context, new WXUtil.WeiChatPayCallBack() {
-                                    @Override
-                                    public void onSuccess(int code, Object object) {
-//                                        if (code == Constants.SUCCESS_CODE){
-//                                            if (isWXPay){
-//                                                showWXPayDialog();
-//                                            }
-//                                        }
-                                        finish();
-                                    }
-
-                                    @Override
-                                    public void onFailed(String errMessage) {
-                                        finish();
-                                    }
-                                });
-                                break;
-                            case 3:
-                                //支付宝
-                                goAliPay(bean.getOrderNO(),amount);
-                                break;
-                        }
-
+                        setRedPackData(bean.getOrderNO(), payDialogView.getPayeePwd());
                     }
                 } else {
                     ToastUtil.showToast(context, (String) object);
@@ -965,7 +638,8 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                 dismissProgress();
                 if (code == Constants.SUCCESS_CODE) {
                     //发送红包
-                    pushSendRedPackMessage(redPacketId);
+//                    pushSendRedPackMessage(redPacketId);
+                    finish();
                 } else {
                     toast((String) object);
                     statisticsSendRPError("sendRedPacket",code);
@@ -981,35 +655,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
     }
 
     /**
-     * 推送一条红包消息
-     */
-    private void pushSendRedPackMessage(String redPacketId) {
-        if (StringUtil.isEmpty(redPacketId)) {
-            return;
-        }
-        String redId = redPacketId;
-        String redContent = StringUtil.isEmpty(etContent.getText().toString()) ? "恭喜发财，大吉大利！" : etContent.getText().toString();
-        int mCount = count;
-        switch (REDPACKET_TYPE) {
-            case Constants.REDPACK_TYPE.TEAM_ORDINARY:
-                if (ISEXCLUSIVE) {
-                    mCount = Integer.parseInt(zhiDingPeopleNum);
-                } else {
-                    mCount = Integer.parseInt(redPacketNum);
-                }
-                break;
-            case Constants.REDPACK_TYPE.TEAM_RANDOM:
-                mCount = Integer.parseInt(redPacketNum);
-                break;
-        }
-
-        //构建红包结构Map
-        BuildRedPackStructure structure = new BuildRedPackStructure();
-        structure.build((Activity) context, REDPACKET_TYPE, ISEXCLUSIVE, redId, redContent,
-                mCount, mTeamId, totalSum, targetIds);
-    }
-
-    /**
      * 切换红包类型
      */
     private void modifyRedType() {
@@ -1017,8 +662,8 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
         etRedPacketNum.setText("");
         inputAmount = "";
         redPacketNum = "";
-        totalSum = "0.00";
-        tvMoneyNum.setText("￥ " + totalSum);
+        totalSum = "0";
+        tvMoneyNum.setText((new Double(totalSum)).intValue() + "");
         switch (REDPACKET_TYPE) {
             case Constants.REDPACK_TYPE.TEAM_ORDINARY:
                 //普通红包
@@ -1101,17 +746,13 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                 ISEXCLUSIVE = false;
                 zhiDingPeopleNum = "";
                 tvRedPacketNum.setText(zhiDingPeopleNum);
-//                totalSum = "0.00";
+//                totalSum = "0";
                 tvWho.setText("群内所有人");
 
             }
 
-            tvMoneyNum.setText("￥ " + totalSum);
+            tvMoneyNum.setText((new Double(totalSum)).intValue() + "");
             modifyRedType();
-
-
-
-
         }
     }
 

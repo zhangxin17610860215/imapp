@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/redpacket_theme">
+        android:background="@color/theme_color">
 
         <ImageView
             android:id="@+id/img_chooserecipients_back"
@@ -25,19 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="谁可以领"
+            android:text="玩家蜜币设置"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_18" />
-
-        <TextView
-            android:id="@+id/tv_chooserecipients_Determine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingRight="15dp"
-            android:text="确定"
-            android:textColor="@color/shareYellow"
             android:textSize="@dimen/text_size_18" />
     </RelativeLayout>
 

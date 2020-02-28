@@ -3,6 +3,7 @@ package com.wulewan.ghxm.utils;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.wulewan.uikit.api.NimUIKit;
+import com.wulewan.ghxm.bean.GetAllMemberWalletBean;
 
 import java.util.Comparator;
 
@@ -16,17 +17,17 @@ import java.util.Comparator;
  * @github https://github.com/nanchen2251
  */
 
-public class LetterComparator implements Comparator<TeamMember> {
+public class LetterComparator implements Comparator<GetAllMemberWalletBean.ResultsBean> {
 
     @Override
-    public int compare(TeamMember teamMember, TeamMember t1) {
-        if (teamMember == null || t1 == null) {
+    public int compare(GetAllMemberWalletBean.ResultsBean teamMember, GetAllMemberWalletBean.ResultsBean bean) {
+        if (teamMember == null || bean == null) {
             return 0;
         }
-        UserInfo userInfo = NimUIKit.getUserInfoProvider().getUserInfo(teamMember.getAccount());
-        UserInfo userInfo1 = NimUIKit.getUserInfoProvider().getUserInfo(t1.getAccount());
-        String name = StringUtil.isEmpty(teamMember.getTeamNick()) ? userInfo.getName() : teamMember.getTeamNick();
-        String name1 = StringUtil.isEmpty(t1.getTeamNick()) ? userInfo1.getName() : t1.getTeamNick();
+        UserInfo userInfo = NimUIKit.getUserInfoProvider().getUserInfo(teamMember.getUid());
+        UserInfo userInfo1 = NimUIKit.getUserInfoProvider().getUserInfo(bean.getUid());
+        String name = userInfo.getName() ;
+        String name1 = userInfo1.getName();
         String lhsSortLetters = StringUtil.getFirstSpell(name.substring(0, 1)).toUpperCase();
         String rhsSortLetters = StringUtil.getFirstSpell(name1.substring(0, 1)).toUpperCase();
         return lhsSortLetters.compareTo(rhsSortLetters);

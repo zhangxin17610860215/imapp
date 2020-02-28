@@ -55,6 +55,42 @@
                 />
 
 
+            <RelativeLayout
+                android:id="@+id/team_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+                <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+                    android:id="@+id/team_head_image"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"/>
+                <TextView
+                    android:id="@+id/item_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/nim_arrow_right"
+                    android:drawablePadding="5dp"
+                    android:gravity="right|center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:hint="@string/click_set"
+                    android:textColor="@color/color_grey_999999"
+                    android:textColorHint="@color/color_grey_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/color_split_line_d9d9d9" />
+
             <include
                 android:id="@+id/team_name_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
@@ -73,6 +109,19 @@
 
             <include
                 android:id="@+id/team_manager_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                />
+
+            <include
+                android:id="@+id/team_myTeamMiBi_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
+            <include
+                android:id="@+id/team_setMiBi_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
 
             <View

@@ -1,5 +1,6 @@
 package com.wulewan.ghxm.redpacket.wallet;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.netease.wulewan.uikit.api.NimUIKit;
 import com.wulewan.ghxm.R;
 import com.wulewan.ghxm.bean.DetailsChangeQueryBean;
 import com.wulewan.ghxm.common.ui.BaseAct;
@@ -37,7 +39,7 @@ public class DetailsChangeActivity extends BaseAct {
 
     private static final String TAG = DetailsChangeActivity.class.getSimpleName();
 
-
+    private Activity mActivity;
     private TextView tvNodata;
     private LinearLayout llNodata;
     private SmartRefreshLayout refreshLayout;
@@ -50,9 +52,11 @@ public class DetailsChangeActivity extends BaseAct {
     private int rows = 20;          //每页需要展示的数量
     private String startDate ="";   //开始时间
     private String endDate ="";     //结束时间
+    private String teamId = "";
 
-    public static void start(Context context) {
+    public static void start(Context context, String teamId) {
         Intent intent = new Intent(context, DetailsChangeActivity.class);
+        intent.putExtra("teamId",teamId);
         context.startActivity(intent);
     }
 
@@ -60,13 +64,28 @@ public class DetailsChangeActivity extends BaseAct {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailschange_activity);
+        mActivity = this;
+        teamId = getIntent().getStringExtra("teamId");
         initView();
         initData();
     }
 
     private void initData() {
         showProgress(this,false);
-        UserApi.detailsChangeQuery(page, rows, startDate, endDate, this, new requestCallback() {
+//        UserApi.detailsChangeQuery(page, rows, startDate, endDate, this, new requestCallback() {
+//            @Override
+//            public void onSuccess(int code, Object object) {
+//                dismissProgress();
+//
+//            }
+//
+//            @Override
+//            public void onFailed(String errMessage) {
+//                dismissProgress();
+//
+//            }
+//        });
+        UserApi.getTeamOrderList(page, teamId, NimUIKit.getAccount(), mActivity, new requestCallback() {
             @Override
             public void onSuccess(int code, Object object) {
                 dismissProgress();
@@ -74,15 +93,20 @@ public class DetailsChangeActivity extends BaseAct {
                     refreshLayout.finishRefresh();
                     refreshLayout.finishLoadMore();
                 }
-                DetailsChangeQueryBean bean = (DetailsChangeQueryBean) object;
-                count = bean.getCount();
-                results = bean.getResults();
-                loadData();
+                if (code == Constants.SUCCESS_CODE){
+                    DetailsChangeQueryBean bean = (DetailsChangeQueryBean) object;
+                    count = bean.getCount();
+                    results = bean.getResults();
+                    loadData();
+                }else {
+                    toast((String) object);
+                }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
+                toast(errMessage);
                 if (refreshLayout != null) {
                     refreshLayout.finishRefresh();
                     refreshLayout.finishLoadMore();
@@ -93,13 +117,13 @@ public class DetailsChangeActivity extends BaseAct {
 
     private void initView() {
 
-        setToolbar("零钱明细");
-        setRightImg(R.mipmap.query_icon, new onToolBarRightImgListener() {
-            @Override
-            public void onRight() {
-                startActivityForResult(new Intent(mActivity,DetailedQueryActivity.class),100);
-            }
-        });
+        setToolbar("收支明细");
+//        setRightImg(R.mipmap.query_icon, new onToolBarRightImgListener() {
+//            @Override
+//            public void onRight() {
+//                startActivityForResult(new Intent(mActivity,DetailedQueryActivity.class),100);
+//            }
+//        });
         tvNodata = findView(R.id.tv_noData_content);
         llNodata = findView(R.id.ll_nodata);
 
@@ -161,35 +185,11 @@ public class DetailsChangeActivity extends BaseAct {
                     TextView tvTime = viewHolder.getView(R.id.tv_item_detailschange_time);
                     TextView tvAmount = viewHolder.getView(R.id.tv_item_detailschange_amount);
                     TextView tvRemainingAmount = viewHolder.getView(R.id.tv_item_detailschange_isGone);
-                    tvRemainingAmount.setText("余额:" + resultsBean.getRemainingAmount());
-                    switch (resultsBean.getType()){
-                        case Constants.ORDER_TYPE.SEND_REDPACK:
-                            //零钱红包
-                            tvAmount.setText("-" + resultsBean.getAmount());
-                            break;
-                        case Constants.ORDER_TYPE.GET_REDPACK:
-                            //领取红包
-                            tvAmount.setText("+" + resultsBean.getAmount());
-                            break;
-                        case Constants.ORDER_TYPE.USER_RECHARGE:
-                            //充值
-                            tvAmount.setText("+" + resultsBean.getAmount());
-                            break;
-                        case Constants.ORDER_TYPE.USER_WITHDRAW_DEPOSIT:
-                            //提现
-                            tvAmount.setText("-" + resultsBean.getAmount());
-                            break;
-                        case Constants.ORDER_TYPE.REFUND_REDPACK:
-                            //红包退还
-                            tvAmount.setText("+" + resultsBean.getAmount());
-                            break;
-                        case Constants.ORDER_TYPE.OWNERRECEIVES_REDPACK:
-                            //群主领取红包
-                            tvAmount.setText("+" + resultsBean.getAmount());
-                            break;
-                    }
-                    tvTime.setText(TimeUtils.getDateToString(resultsBean.getCreateDate(),TimeUtils.TIME_TYPE_01));
-                    tvTitle.setText(resultsBean.getTile() + "");
+                    tvRemainingAmount.setText("余额:" + resultsBean.getRemainingScore());
+                    tvAmount.setText(resultsBean.getScore());
+//                    tvTime.setText(TimeUtils.getDateToString(resultsBean.getCreateDate(),TimeUtils.TIME_TYPE_01));
+                    tvTime.setText(resultsBean.getCreateDate());
+                    tvTitle.setText(resultsBean.getTitle());
                 }
             };
             mRecyclerView.setAdapter(mAssetsAdapter);

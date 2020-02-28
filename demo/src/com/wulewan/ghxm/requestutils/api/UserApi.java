@@ -14,7 +14,9 @@ import com.wulewan.ghxm.bean.AutomaticGetRedPackBean;
 import com.wulewan.ghxm.bean.BaseBean;
 import com.wulewan.ghxm.bean.DetailsChangeQueryBean;
 import com.wulewan.ghxm.bean.DetailsRedPacketBean;
+import com.wulewan.ghxm.bean.GetAllMemberWalletBean;
 import com.wulewan.ghxm.bean.LoginBean;
+import com.wulewan.ghxm.bean.MyTeamWalletBean;
 import com.wulewan.ghxm.bean.OrderNumberBean;
 import com.wulewan.ghxm.bean.RedPackOtherDataBean;
 import com.wulewan.ghxm.bean.RedPacketStateBean;
@@ -1977,6 +1979,230 @@ public class UserApi {
             public void onError(Response<String> response) {
                 super.onError(response);
                 LogUtil.e(TAG, "setTeamUpgrade--------->onError" + response.body());
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
+
+            }
+
+        });
+    }
+
+    /**
+     * 建群
+     * */
+    public static void createTeam(String tname, String members, Object object, final requestCallback callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("tname",tname);
+        map.put("members",members);
+        RequestHelp.postRequest(ApiUrl.CREATETEAM, object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "createTeam--------->onSuccess" + response.body());
+                try {
+                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
+                        callback.onSuccess(bean.getStatusCode(),bean.getData());
+                    } else {
+                        callback.onFailed(bean.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onFailed(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "createTeam--------->onError" + response.body());
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
+
+            }
+
+        });
+    }
+
+    /**
+     * 拉人进群
+     * */
+    public static void addMember(String tid, String owner, String members, Object object, final requestCallback callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("tid",tid);
+        map.put("owner",owner);
+        map.put("members",members);
+        RequestHelp.postRequest(ApiUrl.ADDMEMBER, object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "addMember--------->onSuccess" + response.body());
+                try {
+                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
+                        callback.onSuccess(bean.getStatusCode(),bean.getData());
+                    } else {
+                        callback.onFailed(bean.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onFailed(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "addMember--------->onError" + response.body());
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
+
+            }
+
+        });
+    }
+
+    /**
+     * 获取群钱包零钱
+     * */
+    public static void getTeamWalletInfo(String tid, String memberId, Object object, final requestCallback callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("tid",tid);
+        map.put("memberId",memberId);
+        RequestHelp.postRequest(ApiUrl.GETTEAMWALLETINFO, object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "getTeamWalletInfo--------->onSuccess" + response.body());
+                try {
+                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
+                        MyTeamWalletBean walletBean = GsonHelper.getSingleton().fromJson(bean.getData(), MyTeamWalletBean.class);
+                        callback.onSuccess(bean.getStatusCode(),walletBean);
+                    } else {
+                        callback.onFailed(bean.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onFailed(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "getTeamWalletInfo--------->onError" + response.body());
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
+
+            }
+
+        });
+    }
+
+    /**
+     * 设置成员钱包
+     * */
+    public static void setMemberWallet(String tid, String memberId, String score, Object object, final requestCallback callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("tid",tid);
+        map.put("memberId",memberId);
+        map.put("score",score);
+        RequestHelp.postRequest(ApiUrl.SETMEMBERWALLET, object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "setMemberWallet--------->onSuccess" + response.body());
+                try {
+                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
+                        callback.onSuccess(bean.getStatusCode(),bean.getData());
+                    } else {
+                        callback.onFailed(bean.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onFailed(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "setMemberWallet--------->onError" + response.body());
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
+
+            }
+
+        });
+    }
+
+    /**
+     * 获取所有成员钱包余额
+     * */
+    public static void getAllMemberWallet(String tid, Object object, final requestCallback callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("page","1");
+        map.put("rows","1000");
+        map.put("tid",tid);
+        RequestHelp.postRequest(ApiUrl.GETALLMEMBERWALLET, object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "getAllMemberWallet--------->onSuccess" + response.body());
+                try {
+                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
+                        GetAllMemberWalletBean walletBean = GsonHelper.getSingleton().fromJson(bean.getData(), GetAllMemberWalletBean.class);
+                        callback.onSuccess(bean.getStatusCode(),walletBean);
+                    } else {
+                        callback.onFailed(bean.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onFailed(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "getAllMemberWallet--------->onError" + response.body());
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
+
+            }
+
+        });
+    }
+
+    /**
+     * 获取收支明细
+     * */
+    public static void getTeamOrderList(int page, String tid, String memberId, Object object, final requestCallback callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("page",page+"");
+        map.put("rows","20");
+        map.put("tid",tid);
+        map.put("memberId",memberId);
+        RequestHelp.postRequest(ApiUrl.GETTEAMORDERLIST, object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "getTeamOrderList--------->onSuccess" + response.body());
+                try {
+                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
+                        DetailsChangeQueryBean detailsChangeQueryBean = GsonHelper.getSingleton().fromJson(bean.getData(), DetailsChangeQueryBean.class);
+                        callback.onSuccess(bean.getStatusCode(),detailsChangeQueryBean);
+                    } else {
+                        callback.onFailed(bean.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onFailed(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "getTeamOrderList--------->onError" + response.body());
                 callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
 
             }

@@ -774,6 +774,22 @@
             android:windowSoftInputMode="adjustResize|adjustPan" />
 
         <activity
+            android:name="com.wulewan.ghxm.team.activity.MyTeamMiBiActivity"
+            android:configChanges="orientation"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name="com.wulewan.ghxm.team.activity.SetMiBiActivity"
+            android:configChanges="orientation"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
             android:name="com.wulewan.ghxm.team.activity.NoCollarActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
@@ -906,7 +922,7 @@
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:theme="@style/RedPacketTheme"
+            android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
             android:name="com.wulewan.ghxm.redpacket.privateredpacket.RedPackDetailsActivity"

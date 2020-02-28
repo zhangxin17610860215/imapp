@@ -350,7 +350,7 @@ public class StringUtil {
             if (arr[i] > 128) {
                 try {
                     String[] temp = PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat);
-                    if (temp != null && temp.length > 1) {
+                    if (temp != null && temp.length >= 1) {
                         pybf.append(temp[0].charAt(0));
                     }
                 } catch (BadHanyuPinyinOutputFormatCombination e) {

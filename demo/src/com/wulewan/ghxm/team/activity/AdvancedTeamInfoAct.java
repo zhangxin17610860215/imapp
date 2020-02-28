@@ -2,6 +2,7 @@ package com.wulewan.ghxm.team.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,8 +16,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -24,6 +27,7 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.QueryDirectionEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
+import com.netease.nimlib.sdk.nos.NosService;
 import com.netease.nimlib.sdk.team.TeamService;
 import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.netease.nimlib.sdk.team.constant.TeamInviteModeEnum;
@@ -32,6 +36,12 @@ import com.netease.nimlib.sdk.team.constant.TeamMessageNotifyTypeEnum;
 import com.netease.nimlib.sdk.team.constant.VerifyTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
+import com.netease.wulewan.uikit.business.session.actions.PickImageAction;
+import com.netease.wulewan.uikit.business.session.constant.Extras;
+import com.netease.wulewan.uikit.business.team.activity.AdvancedTeamInfoActivity;
+import com.netease.wulewan.uikit.common.media.picker.PickImageHelper;
+import com.netease.wulewan.uikit.common.ui.imageview.HeadImageView;
+import com.netease.wulewan.uikit.common.util.log.LogUtil;
 import com.wulewan.ghxm.R;
 import com.netease.wulewan.uikit.api.NimUIKit;
 import com.netease.wulewan.uikit.api.StatisticsConstants;
@@ -64,6 +74,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.wulewan.ghxm.busevent.TeamMemberEvent;
 import com.wulewan.ghxm.common.ui.BaseAct;
 import com.wulewan.ghxm.config.Constants;
+import com.wulewan.ghxm.redpacket.privateredpacket.ChooseRecipientsListACT;
 import com.wulewan.ghxm.requestutils.api.UserApi;
 import com.wulewan.ghxm.requestutils.requestCallback;
 import com.wulewan.ghxm.session.search.SearchMessageActivity;
@@ -76,6 +87,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -98,8 +110,8 @@ import static com.netease.wulewan.uikit.api.StatisticsConstants.TEAM_MANAGER_TEA
 public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, TeamMemberHolder.TeamMemberHolderEventListener, TeamMemberAdapter.AddMemberCallback, TeamMemberAdapter.RemoveMemberCallback {
 
     private static final String EXTRA_ID = "EXTRA_ID";
+    private static final int REQUEST_PICK_ICON = 102;
     private static final int REQUEST_CODE_CONTACT_SELECT = 103;
-
     private static final int REQUEST_CODE_CONTACT_MANAGER_SELECT = 104;
     private static final int REQUEST_CODE_CONTACT_SELECT_REMOVE  = 105;
 
@@ -110,6 +122,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
     // constant
     private static final String TAG = "RegularTeamInfoActivity";
     private static final int TEAM_MEMBERS_SHOW_LIMIT = 20;
+    private static final int ICON_TIME_OUT = 30000;
 
     protected String teamId;
     public TeamInfoGridView gridView;
@@ -119,6 +132,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
     protected List<String> managerList;
     protected Team team;
     protected TeamMemberAdapter adapter;
+    private AbortableFuture<String> uploadFuture;
 
     protected UserInfoObserver userInfoObserver;
 
@@ -130,10 +144,13 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
 
 
     private View layoutTeamName;
+    private View headerLayout;
     private View layoutCardName;
     private View layoutQrCode;
     private View layoutBanner;
     private View layoutManager;
+    private View layoutMyTeamMiBi;
+    private View layoutSetMiBi;
     private View layoutChatHistory;
     private View layoutClearHistory;
     private View layoutNoReceivedRPRecord;
@@ -148,6 +165,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
     private SwitchButton swiBtn_ScreenShot;
     private SwitchButton swiBtn_MsgClear;
     private TextView tv_show_all;
+    private HeadImageView teamHeadImage;
 
     private static final String SW_KEY_LEAD_TOP = "sw_lead_top";
     private static final String SW_KEY_NEEDDISTURB = "sw_NeedDisturb";
@@ -370,11 +388,14 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             if (creator.equals(NimUIKit.getAccount())) {
                 isSelfAdmin = true;
                 layoutNoReceivedRPRecord.setVisibility(View.VISIBLE);
+                layoutSetMiBi.setVisibility(View.VISIBLE);
             }else {
                 layoutNoReceivedRPRecord.setVisibility(View.GONE);
+                layoutSetMiBi.setVisibility(View.GONE);
             }
 
             setTitle(team.getName());
+            teamHeadImage.loadTeamIconByTeam(team);
             ((TextView) layoutTeamName.findViewById(R.id.item_detail)).setText(team.getName());
             setAnnouncement(team.getAnnouncement());
             getExtension();
@@ -650,6 +671,20 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             }
         });
 
+        headerLayout = findViewById(R.id.team_header_layout);
+        teamHeadImage = (HeadImageView) findViewById(R.id.team_head_image);
+        ((TextView) headerLayout.findViewById(R.id.item_detail)).setText("设置群头像");
+        headerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isSelfAdmin || isSelfManager) {
+                    showSelector(R.string.set_head_image, REQUEST_PICK_ICON);
+                } else {
+                    toast("只有群主与管理员才能设置群头像");
+                }
+            }
+        });
+
 
         layoutCardName = findViewById(R.id.team_myInfo_layout);
         ((TextView) layoutCardName.findViewById(R.id.item_title)).setText("我的群昵称");
@@ -697,6 +732,27 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
                 TeamManagerActivity.start(AdvancedTeamInfoAct.this, teamId);
             }
         });
+
+        layoutMyTeamMiBi = findViewById(R.id.team_myTeamMiBi_layout);
+        ((TextView) layoutMyTeamMiBi.findViewById(R.id.item_title)).setText("我的群蜜币");
+        ((TextView) layoutMyTeamMiBi.findViewById(R.id.item_detail)).setHint("");
+        layoutMyTeamMiBi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyTeamMiBiActivity.start(AdvancedTeamInfoAct.this,teamId);
+            }
+        });
+
+        layoutSetMiBi = findViewById(R.id.team_setMiBi_layout);
+        ((TextView) layoutSetMiBi.findViewById(R.id.item_title)).setText("玩家蜜币设置");
+        ((TextView) layoutSetMiBi.findViewById(R.id.item_detail)).setHint("");
+        layoutSetMiBi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChooseRecipientsListACT.start(AdvancedTeamInfoAct.this,teamId);
+            }
+        });
+
         /**
          *  查看历史内容 改为 搜索历史内容
          */
@@ -1098,40 +1154,50 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         adapter.notifyDataSetChanged();
     }
 
-
-
-
     /**
      * 邀请群成员
      *
      * @param accounts 邀请帐号
      */
     private void inviteMembers(final ArrayList<String> accounts) {
-        NIMClient.getService(TeamService.class).addMembersEx(teamId, accounts, "邀请附言", "邀请扩展字段").setCallback(new RequestCallback<List<String>>() {
-            @Override
-            public void onSuccess(List<String> failedAccounts) {
-
-
+//        NIMClient.getService(TeamService.class).addMembersEx(teamId, accounts, "邀请附言", "邀请扩展字段").setCallback(new RequestCallback<List<String>>() {
+//            @Override
+//            public void onSuccess(List<String> failedAccounts) {
 //                CommonUtil.uploadTeamIcon(teamId,AdvancedTeamInfoAct.this);
-
-
-            }
-
+//            }
+//
+//            @Override
+//            public void onFailed(int code) {
+//                if (code == ResponseCode.RES_TEAM_INVITE_SUCCESS) {
+//                    ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.team_invite_members_success);
+//                } else {
+//                    ToastHelper.showToast(AdvancedTeamInfoAct.this, "invite members failed, code=" + code);
+//                }
+//            }
+//
+//            @Override
+//            public void onException(Throwable exception) {
+//
+//            }
+//        });
+        showProgress(this,false);
+        UserApi.addMember(teamId, creator, JSON.toJSONString(accounts), this, new requestCallback() {
             @Override
-            public void onFailed(int code) {
-                if (code == ResponseCode.RES_TEAM_INVITE_SUCCESS) {
-                    ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.team_invite_members_success);
-                } else {
-                    ToastHelper.showToast(AdvancedTeamInfoAct.this, "invite members failed, code=" + code);
+            public void onSuccess(int code, Object object) {
+                dismissProgress();
+                if (code == Constants.SUCCESS_CODE){
+                    toast("邀请成员成功");
+                }else {
+                    toast((String) object);
                 }
             }
 
             @Override
-            public void onException(Throwable exception) {
-
+            public void onFailed(String errMessage) {
+                dismissProgress();
+                toast(errMessage);
             }
         });
-
 
     }
 
@@ -1361,9 +1427,98 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             case AdvancedTeamNicknameActivity.REQ_CODE_TEAM_NAME:
                 setBusinessCard(data.getStringExtra(AdvancedTeamNicknameActivity.EXTRA_NAME));
                 break;
+            case REQUEST_PICK_ICON:
+                String path = data.getStringExtra(Extras.EXTRA_FILE_PATH);
+                updateTeamIcon(path);
+                break;
             default:
                 break;
         }
+    }
+
+    private void updateTeamIcon(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return;
+        }
+
+        File file = new File(path);
+        if (file == null) {
+            return;
+        }
+        DialogMaker.showProgressDialog(this, null, null, true, new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                cancelUpload(R.string.team_update_cancel);
+            }
+        }).setCanceledOnTouchOutside(true);
+        new Handler().postDelayed(outimeTask, ICON_TIME_OUT);
+        uploadFuture = NIMClient.getService(NosService.class).upload(file, PickImageAction.MIME_JPEG);
+        uploadFuture.setCallback(new RequestCallbackWrapper<String>() {
+            @Override
+            public void onResult(int code, String url, Throwable exception) {
+                if (code == ResponseCode.RES_SUCCESS && !TextUtils.isEmpty(url)) {
+                    LogUtil.i(TAG, "upload icon success, url =" + url);
+
+                    NIMClient.getService(TeamService.class).updateTeam(teamId, TeamFieldEnum.ICON, url).setCallback(new RequestCallback<Void>() {
+                        @Override
+                        public void onSuccess(Void param) {
+                            DialogMaker.dismissProgressDialog();
+                            ToastHelper.showToast(AdvancedTeamInfoAct.this, com.netease.wulewan.uikit.R.string.update_success);
+                            onUpdateDone();
+                        }
+
+                        @Override
+                        public void onFailed(int code) {
+                            DialogMaker.dismissProgressDialog();
+                            ToastHelper.showToast(AdvancedTeamInfoAct.this, String.format(getString(com.netease.wulewan.uikit.R.string.update_failed), code));
+                        }
+
+                        @Override
+                        public void onException(Throwable exception) {
+                            DialogMaker.dismissProgressDialog();
+                        }
+                    }); // 更新资料
+                } else {
+                    ToastHelper.showToast(AdvancedTeamInfoAct.this, com.netease.wulewan.uikit.R.string.team_update_failed);
+                    onUpdateDone();
+                }
+            }
+        });
+
+    }
+
+    private void cancelUpload(int resId) {
+        if (uploadFuture != null) {
+            uploadFuture.abort();
+            ToastHelper.showToast(AdvancedTeamInfoAct.this, resId);
+            onUpdateDone();
+        }
+    }
+
+    private Runnable outimeTask = new Runnable() {
+        @Override
+        public void run() {
+            cancelUpload(R.string.team_update_failed);
+        }
+    };
+
+    private void onUpdateDone() {
+        uploadFuture = null;
+        DialogMaker.dismissProgressDialog();
+    }
+
+    /**
+     * 打开图片选择器
+     */
+    private void showSelector(int titleId, final int requestCode) {
+        PickImageHelper.PickImageOption option = new PickImageHelper.PickImageOption();
+        option.titleResId = titleId;
+        option.multiSelect = false;
+        option.crop = true;
+        option.cropOutputImageWidth = 720;
+        option.cropOutputImageHeight = 720;
+
+        PickImageHelper.pickImage(AdvancedTeamInfoAct.this, requestCode, option);
     }
 
 }

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.Observer;
@@ -28,6 +29,7 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.netease.nimlib.sdk.msg.model.SystemMessage;
 import com.netease.nimlib.sdk.team.model.Team;
+import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.wulewan.ghxm.R;
 import com.netease.wulewan.avchatkit.AVChatProfile;
 import com.netease.wulewan.avchatkit.activity.AVChatActivity;
@@ -49,6 +51,7 @@ import com.netease.wulewan.uikit.support.permission.annotation.OnMPermissionNeve
 import com.wulewan.ghxm.UIEx.MyNimUIkit;
 import com.wulewan.ghxm.common.ui.BaseAct;
 import com.wulewan.ghxm.common.util.AppDemoUtils;
+import com.wulewan.ghxm.config.Constants;
 import com.wulewan.ghxm.config.preference.Preferences;
 import com.wulewan.ghxm.contact.activity.AddFriendActivity;
 import com.wulewan.ghxm.login.LogoutHelper;
@@ -627,8 +630,38 @@ public class SplashActivity extends BaseAct implements ViewPager.OnPageChangeLis
             }
         } else if (requestCode == REQUEST_CODE_ADVANCED) {
             final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
-            TeamCreateHelper.createAdvancedTeam(SplashActivity.this, selected);
+//                之前客户端通过云信建群      之后改成服务端建群
+//            TeamCreateHelper.createAdvancedTeam(SplashActivity.this, selected);
+            createTeam(selected);
         }
+    }
+
+    private void createTeam(ArrayList<String> selected) {
+        showProgress(SplashActivity.this,false);
+        String teamName = "";
+        for (int i = 0; i < selected.size(); i++){
+            if (i <= 4){
+                UserInfo userInfo = NimUIKit.getUserInfoProvider().getUserInfo(selected.get(i));
+                teamName = teamName + userInfo.getName() + ",";
+            }
+        }
+        UserApi.createTeam(teamName.substring(0,teamName.length()-1),JSON.toJSONString(selected), SplashActivity.this, new requestCallback() {
+            @Override
+            public void onSuccess(int code, Object object) {
+                dismissProgress();
+                if (code == Constants.SUCCESS_CODE){
+
+                }else {
+                    toast((String) object);
+                }
+            }
+
+            @Override
+            public void onFailed(String errMessage) {
+                dismissProgress();
+                toast(errMessage);
+            }
+        });
     }
 
     @Override

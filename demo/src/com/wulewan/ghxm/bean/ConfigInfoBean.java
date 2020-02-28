@@ -3,15 +3,13 @@ package com.wulewan.ghxm.bean;
 public class ConfigInfoBean {
 
     /**
-     * payButtonConfig : {"ali":1,"wechat":1}
+     * aliUpperLimit : 2000
      * userWalletExist : true
-     * withdrawButtonConfig : {"ali":1,"wechat":1}
+     * wxUpperLimit : 300
      */
 
-    private PayButtonConfigBean payButtonConfig;
-    private boolean userWalletExist;
-    private WithdrawButtonConfigBean withdrawButtonConfig;
     private String aliUpperLimit;
+    private boolean userWalletExist;
     private String wxUpperLimit;
 
     public String getAliUpperLimit() {
@@ -22,22 +20,6 @@ public class ConfigInfoBean {
         this.aliUpperLimit = aliUpperLimit;
     }
 
-    public String getWxUpperLimit() {
-        return wxUpperLimit;
-    }
-
-    public void setWxUpperLimit(String wxUpperLimit) {
-        this.wxUpperLimit = wxUpperLimit;
-    }
-
-    public PayButtonConfigBean getPayButtonConfig() {
-        return payButtonConfig;
-    }
-
-    public void setPayButtonConfig(PayButtonConfigBean payButtonConfig) {
-        this.payButtonConfig = payButtonConfig;
-    }
-
     public boolean isUserWalletExist() {
         return userWalletExist;
     }
@@ -46,63 +28,11 @@ public class ConfigInfoBean {
         this.userWalletExist = userWalletExist;
     }
 
-    public WithdrawButtonConfigBean getWithdrawButtonConfig() {
-        return withdrawButtonConfig;
+    public String getWxUpperLimit() {
+        return wxUpperLimit;
     }
 
-    public void setWithdrawButtonConfig(WithdrawButtonConfigBean withdrawButtonConfig) {
-        this.withdrawButtonConfig = withdrawButtonConfig;
-    }
-
-    public static class PayButtonConfigBean {
-        /**
-         * ali : 1
-         * wechat : 1
-         */
-
-        private int ali;
-        private int wechat;
-
-        public int getAli() {
-            return ali;
-        }
-
-        public void setAli(int ali) {
-            this.ali = ali;
-        }
-
-        public int getWechat() {
-            return wechat;
-        }
-
-        public void setWechat(int wechat) {
-            this.wechat = wechat;
-        }
-    }
-
-    public static class WithdrawButtonConfigBean {
-        /**
-         * ali : 1
-         * wechat : 1
-         */
-
-        private int ali;
-        private int wechat;
-
-        public int getAli() {
-            return ali;
-        }
-
-        public void setAli(int ali) {
-            this.ali = ali;
-        }
-
-        public int getWechat() {
-            return wechat;
-        }
-
-        public void setWechat(int wechat) {
-            this.wechat = wechat;
-        }
+    public void setWxUpperLimit(String wxUpperLimit) {
+        this.wxUpperLimit = wxUpperLimit;
     }
 }

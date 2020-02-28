@@ -85,5 +85,11 @@ public class ApiUrl {
     public static String GETTEAMALLOCATIONPRICE = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/level/list";
     public static String TEAMRENEW = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/level/renew";
     public static String TEAMUPGRADE = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/level/upgrade";
+    public static String GETTEAMWALLETINFO = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/member/wallet/info";
+    public static String ADDMEMBER = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/add/member";
+    public static String CREATETEAM = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/create";
+    public static String SETMEMBERWALLET = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/member/wallet/set";
+    public static String GETALLMEMBERWALLET = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/member/wallet/all/info";
+    public static String GETTEAMORDERLIST = BASE_URL_HEAD + BASE_URL + BASE_URL_DOMAIN + "/team/order/list";
 
 }
