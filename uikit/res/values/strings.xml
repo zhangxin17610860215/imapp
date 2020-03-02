@@ -10,11 +10,9 @@
     <string name="search">搜索</string>
     <string name="remove">移除</string>
     <string name="add">添加</string>
-    <string name="create">新建</string>
     <string name="edit_text">编辑</string>
     <string name="without_content">暂无</string>
     <string name="network_is_not_available">网络连接失败，请检查你的网络设置</string>
-    <string name="open">开启</string>
     <string name="close">关闭</string>
     <string name="menu">菜单</string>
     <string name="now_allow_space">不能含有空格</string>
@@ -26,7 +24,6 @@
     <string name="input_panel_video">视 频</string>
     <string name="input_panel_location">位 置</string>
     <string name="input_panel_take">拍 摄</string>
-    <string name="im_choose_pic">请选择JPG PNG BMP GIF格式的图片文件</string>
     <string name="repeat_download_message">重新下载?</string>
     <string name="repeat_send_has_blank">重 发</string>
     <string name="repeat_send_message">重发消息?</string>
@@ -63,7 +60,6 @@
     <string name="record_audio_end">松开  结束</string>
     <string name="sdcard_not_exist_error">请插入SD卡</string>
     <string name="recording_error">录音失败，请重试</string>
-    <string name="recording_init_failed">初始化录音失败</string>
     <string name="recording_cancel">手指上滑，取消发送</string>
     <string name="timer_default">00:00</string>
     <string name="recording_cancel_tip">松开手指，取消发送</string>
@@ -79,8 +75,6 @@
     <string name="look_video_fail_try_again">暂时无法播放视频，请重试</string>
     <string name="video_play">视频播放</string>
     <string name="video_record">视频录制</string>
-    <string name="video_record_symbol">REC</string>
-    <string name="video_record_begin">开始录制</string>
     <string name="connect_vedio_device_fail">无法连接视频设备 ，请稍候再试</string>
     <string name="capture_video_size_in_kb">视频文件大小为: %1$dKB,</string>
     <string name="capture_video_size_in_mb">视频文件大小为: %1$.2fMB,</string>
@@ -129,10 +123,8 @@
     <string name="team_name">群名称</string>
     <string name="team_manager">群管理</string>
     <string name="team_forbit_speak">全群禁言</string>
-    <string name="team_chat_history">查看历史内容</string>
     <string name="team_chat_search">查找聊天记录</string>
     <string name="team_clear_history">清除历史内容</string>
-    <string name="team_card">我在本群信息</string>
     <string name="team_qrcode">群二维码</string>
     <string name="team_introduce">群介绍</string>
     <string name="team_extension">扩展示例</string>
@@ -150,7 +142,6 @@
     <string name="create_team_success">创建成功</string>
     <string name="team_announce_title">标题</string>
     <string name="team_announce_content">公告内容</string>
-    <string name="team_announce_notice">请输入群公告标题</string>
     <string name="my_team_card">我的群名片</string>
     <string name="team_introduce_hint">点击填写群介绍</string>
     <string name="team_extension_hint">点击修改扩展内容</string>
@@ -158,7 +149,6 @@
     <string name="team_notification_config">消息提醒</string>
     <string name="team_transfer_without_member">没有可转移的群成员</string>
     <string name="team_invite_members_success">群成员邀请已发出</string>
-    <string name="team_invite_members_failed">群成员邀请失败</string>
     <string name="team_transfer_success">群转移成功</string>
     <string name="team_transfer_failed">群转移失败</string>
     <string name="quit_team_success">您已退群</string>
@@ -176,14 +166,11 @@
     <string name="normal_team">讨论组</string>
     <string name="team_name_toast">群名称不能为空</string>
     <string name="not_allow_empty">不能为空</string>
-    <string name="chat_setting">聊天信息</string>
     <string name="team_settings_name">设置名称</string>
     <string name="normal_team_name">讨论组名称</string>
     <string name="remove_member_success">移除成员成功</string>
-    <string name="remove_member_failed">移除成员失败</string>
     <string name="invite_member_success">邀请成员成功</string>
     <string name="invite_member_failed">邀请成员失败</string>
-    <string name="team_create_notice">请添加群成员</string>
     <string name="team_settings_set_name">取个名字吧</string>
     <string name="team_not_exist">该群不存在</string>
     <string name="normal_team_not_exist">该讨论组不存在</string>
@@ -219,22 +206,14 @@
     <string name="memory_out">内存不足</string>
     <string name="choose_from_photo_album">从手机相册选择</string>
     <string name="choose">选取</string>
-    <string name="edit">编辑</string>
     <string name="crop">裁剪</string>
 
     <!-- 消息类型 -->
-    <string name="msg_type_image">图片</string>
-    <string name="msg_type_audio">语音</string>
 
     <!-- 查看大图 -->
     <string name="download_picture_fail">图片下载失败</string>
-    <string name="look_up_original_photo_format">查看原图（%s）</string>
 
     <!--全文检索-->
-    <string name="fts_enable">全文检索(FTS4)</string>
-    <string name="fts_prefix_hit">前缀匹配高亮检索结果</string>
-    <string name="msg_search">全文检索</string>
-    <string name="msg_search_limit">全文检索显示条数</string>
     <string name="no_announce">暂无公告</string>
 
 </resources>

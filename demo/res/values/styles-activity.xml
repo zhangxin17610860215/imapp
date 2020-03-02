@@ -135,13 +135,6 @@
     </style>
 
     <!-- 搜索界面主题 -->
-    <style name="global_search_bg" parent="@style/AppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/global_bg</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
-    </style>
 
     <!-- 二维码扫描配置 -->
     <declare-styleable name="zxing_view">
@@ -168,33 +161,6 @@
 
 
     <!-- my_item -->
-    <style name="MyItem">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/my_item_height</item>
-        <item name="android:background">@color/write</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <style name="MyItemImg">
-        <item name="android:layout_width">@dimen/my_item_img_width</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:scaleType">center</item>
-    </style>
-
-    <style name="MyItemTxt">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="MyItemTxt1">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:textColor">@color/text_black</item>
-        <item name="android:textSize">@dimen/text_size_1</item>
-    </style>
 
 
     <!--仿微信字体大小调整 FontSizeView-->

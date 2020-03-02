@@ -7,16 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.friend.FriendService;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
-import com.wulewan.ghxm.R;
-import com.wulewan.ghxm.common.ui.BaseAct;
-import com.wulewan.ghxm.contact.activity.UserProfileActivity;
-import com.wulewan.ghxm.team.TeamCreateHelper;
+import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.wulewan.uikit.api.NimUIKit;
 import com.netease.wulewan.uikit.api.StatisticsConstants;
 import com.netease.wulewan.uikit.business.contact.selector.activity.ContactSelectActivity;
@@ -32,6 +30,12 @@ import com.netease.wulewan.uikit.common.ui.widget.SwitchButton;
 import com.netease.wulewan.uikit.common.util.sys.NetworkUtil;
 import com.netease.wulewan.uikit.utils.SPUtils;
 import com.wulewan.ghxm.DemoCache;
+import com.wulewan.ghxm.R;
+import com.wulewan.ghxm.common.ui.BaseAct;
+import com.wulewan.ghxm.config.Constants;
+import com.wulewan.ghxm.contact.activity.UserProfileActivity;
+import com.wulewan.ghxm.requestutils.api.UserApi;
+import com.wulewan.ghxm.requestutils.requestCallback;
 
 import java.util.ArrayList;
 
@@ -249,11 +253,41 @@ public class MessageInfoActivity extends BaseAct {
             if (requestCode == REQUEST_CODE_ADVANCE) {
                 final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
                 if (selected != null && !selected.isEmpty()) {
-                    TeamCreateHelper.createAdvancedTeam(MessageInfoActivity.this, selected);
+//                    TeamCreateHelper.createAdvancedTeam(MessageInfoActivity.this, selected);
+                    createTeam(selected);
                 } else {
                     ToastHelper.showToast(DemoCache.getContext(), "请选择至少一个联系人！");
                 }
             }
         }
+    }
+
+    private void createTeam(ArrayList<String> selected) {
+        showProgress(this,false);
+        String teamName = "";
+        for (int i = 0; i < selected.size(); i++){
+            if (i <= 4){
+                UserInfo userInfo = NimUIKit.getUserInfoProvider().getUserInfo(selected.get(i));
+                teamName = teamName + userInfo.getName() + ",";
+            }
+        }
+        UserApi.createTeam(teamName.substring(0,teamName.length()-1),JSON.toJSONString(selected), this, new requestCallback() {
+            @Override
+            public void onSuccess(int code, Object object) {
+                dismissProgress();
+                if (code == Constants.SUCCESS_CODE){
+                    toast("建群成功");
+                    finish();
+                }else {
+                    toast((String) object);
+                }
+            }
+
+            @Override
+            public void onFailed(String errMessage) {
+                dismissProgress();
+                toast(errMessage);
+            }
+        });
     }
 }
