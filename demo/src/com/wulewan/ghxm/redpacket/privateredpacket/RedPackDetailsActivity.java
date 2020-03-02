@@ -62,7 +62,7 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
     private List<RedPackOtherDataBean.RecordsBean> list = new ArrayList<>();
     private EasyRVAdapter mAssetsAdapter;
     private boolean isOptimum;
-    private boolean isMi = false;
+    private boolean isMi = false;       //是否是自己发的红包
     private String money = "";
     private String teamId = "";
 
@@ -138,11 +138,11 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
 
     private void setData() {
         for (int i = 0; i < list.size();i++){
-            if (SPUtils.getInstance().getString(Constants.USER_TYPE.ACCID).equals(list.get(i).getPayeeId())){
+            if (NimUIKit.getAccount().equals(list.get(i).getPayeeId())){
                 money = list.get(i).getAmount();
             }
         }
-        if (SPUtils.getInstance().getString(Constants.USER_TYPE.ACCID).equals(senderBean.getUserID())){
+        if (NimUIKit.getAccount().equals(senderBean.getUserID())){
             isMi = true;
         }
         switch (otherDataBean.getRedpacketType()){
@@ -152,7 +152,7 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                 mRecyclerView.setVisibility(View.GONE);
                 tvCountAndTime.setVisibility(View.GONE);
                 if (null != otherDataBean.getRecords() && otherDataBean.getRecords().size() > 0){
-                    tvAmount.setText(otherDataBean.getRecords().get(0).getAmount());
+                    tvAmount.setText(otherDataBean.getRecords().get(0).getAmount() + "个");
                 }
                 if (SPUtils.getInstance().getString(Constants.USER_TYPE.ACCID).equals(senderBean.getUserID())){
                     tvIsShow.setVisibility(View.GONE);
@@ -188,17 +188,14 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                 if (StringUtil.isEmpty(money)){
                     tvAmount.setVisibility(View.INVISIBLE);
                     tvIsShow.setVisibility(View.GONE);
+                    tvPrompting.setVisibility(View.VISIBLE);
                 }else {
                     tvAmount.setVisibility(View.VISIBLE);
                     tvIsShow.setVisibility(View.VISIBLE);
-                    tvAmount.setText(money);
-                }
-                if (otherDataBean.getStatus() == 3){
-                    tvPrompting.setVisibility(View.VISIBLE);
-                    tvPrompting.setText("该红包超过时限未被领取，已退还");
-                }else {
+                    tvAmount.setText(money + "个");
                     tvPrompting.setVisibility(View.GONE);
                 }
+
                 if (otherDataBean.getNumber() <= otherDataBean.getCount()){
                     //红包已领完
                     tvCountAndTime.setText(otherDataBean.getNumber()+"个红包，" + TimeUtils.timediff(list.get(0).getCreateDate(),list.get(list.size()-1).getCreateDate()) +"被抢光");
@@ -206,10 +203,18 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                     //红包未领完
                     if (isMi){
                         //是自己发的红包
-                        tvCountAndTime.setText("已领取" + otherDataBean.getCount()+ "/" + otherDataBean.getNumber() + "个，共"+otherDataBean.getTotalSum()+"个");
+                        if (otherDataBean.getStatus() == 3){
+                            tvCountAndTime.setText("该红包已过期，已领取" + otherDataBean.getCount()+ "/" + otherDataBean.getNumber() + "个，共"+otherDataBean.getTotalSum()+"个");
+                        }else {
+                            tvCountAndTime.setText("已领取" + otherDataBean.getCount()+ "/" + otherDataBean.getNumber() + "个，共"+otherDataBean.getTotalSum()+"个");
+                        }
                     }else {
                         //别人的红包
-                        tvCountAndTime.setText("领取" + otherDataBean.getCount()+ "/" + otherDataBean.getNumber() + "个");
+                        if (otherDataBean.getStatus() == 3){
+                            tvCountAndTime.setText("该红包已过期，领取" + otherDataBean.getCount()+ "/" + otherDataBean.getNumber() + "个");
+                        }else {
+                            tvCountAndTime.setText("领取" + otherDataBean.getCount()+ "/" + otherDataBean.getNumber() + "个");
+                        }
                     }
                 }
 
@@ -226,7 +231,7 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                     }else {
                         tvAmount.setVisibility(View.VISIBLE);
                         tvIsShow.setVisibility(View.VISIBLE);
-                        tvAmount.setText(money);
+                        tvAmount.setText(money + "个");
                     }
                     if (otherDataBean.getStatus() == 3){
                         tvPrompting.setVisibility(View.VISIBLE);
@@ -262,14 +267,14 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                         }else {
                             tvAmount.setVisibility(View.VISIBLE);
                             tvIsShow.setVisibility(View.VISIBLE);
-                            tvAmount.setText(money);
+                            tvAmount.setText(money + "个");
                         }
-                        if (otherDataBean.getStatus() == 3){
-                            tvPrompting.setVisibility(View.VISIBLE);
-                            tvPrompting.setText("该红包超过时限未被领取，已退还");
-                        }else {
-                            tvPrompting.setVisibility(View.GONE);
-                        }
+                        tvPrompting.setVisibility(View.VISIBLE);
+//                        if (otherDataBean.getStatus() == 3){
+//                            tvPrompting.setText("该红包超过时限未被领取，已退还");
+//                        }else {
+//                            tvPrompting.setVisibility(View.GONE);
+//                        }
 
                         if (otherDataBean.getNumber() <= otherDataBean.getCount()){
                             //红包已领完
@@ -289,11 +294,11 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                         tvCountAndTime.setVisibility(View.GONE);
                         tvAmount.setVisibility(View.VISIBLE);
                         tvIsShow.setVisibility(View.VISIBLE);
-                        tvAmount.setText(money);
+                        tvAmount.setText(money + "个");
+                        tvPrompting.setVisibility(View.GONE);
                     }
 
                     if (otherDataBean.getStatus() == 3){
-                        tvPrompting.setVisibility(View.VISIBLE);
                         tvPrompting.setText("该红包超过时限未被领取，已退还");
                     }else {
                         tvPrompting.setVisibility(View.GONE);
@@ -312,13 +317,14 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                     if (StringUtil.isEmpty(money)){
                         tvAmount.setVisibility(View.INVISIBLE);
                         tvIsShow.setVisibility(View.GONE);
+                        tvPrompting.setVisibility(View.VISIBLE);
                     }else {
                         tvAmount.setVisibility(View.VISIBLE);
                         tvIsShow.setVisibility(View.VISIBLE);
-                        tvAmount.setText(money);
+                        tvAmount.setText(money + "个");
+                        tvPrompting.setVisibility(View.GONE);
                     }
                     if (otherDataBean.getStatus() == 3){
-                        tvPrompting.setVisibility(View.VISIBLE);
                         tvPrompting.setText("该红包超过时限未被领取，已退还");
                     }else {
                         tvPrompting.setVisibility(View.GONE);
@@ -341,11 +347,17 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                     mRecyclerView.setVisibility(View.GONE);
                     tvCountAndTime.setVisibility(View.GONE);
 
-                    if (null != otherDataBean.getRecords() && otherDataBean.getRecords().size() > 0){
-                        tvAmount.setText(otherDataBean.getRecords().get(0).getAmount());
+                    if (StringUtil.isEmpty(money)){
+                        tvAmount.setVisibility(View.INVISIBLE);
+                        tvIsShow.setVisibility(View.GONE);
+                        tvPrompting.setVisibility(View.VISIBLE);
+                    }else {
+                        tvAmount.setVisibility(View.VISIBLE);
+                        tvIsShow.setVisibility(View.VISIBLE);
+                        tvAmount.setText(money + "个");
+                        tvPrompting.setVisibility(View.GONE);
                     }
                     if (otherDataBean.getStatus() == 3){
-                        tvPrompting.setVisibility(View.VISIBLE);
                         tvPrompting.setText("该红包超过时限未被领取，已退还");
                     }else {
                         tvPrompting.setVisibility(View.GONE);
@@ -410,7 +422,7 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                 }
 
                 tvTime.setText(TimeUtils.getDateToString(recordsBean.getCreateDate(),TIME_TYPE_01));
-                tvAmount.setText(recordsBean.getAmount() + "个");
+                tvAmount.setText(recordsBean.getAmount() + "个蜜币");
                 if (list.size() == 1 || position == pos){
                     tvIsOptimum.setVisibility(View.VISIBLE);
                 }
@@ -420,7 +432,6 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
     }
 
     private void initView() {
-
         imgHead = (ImageView) findViewById(R.id.img_redpackdetails_head);
         tvSenderName = (TextView) findViewById(R.id.tv_redpackdetails_senderName);
         tvContent = (TextView) findViewById(R.id.tv_redpackdetails_content);
@@ -434,7 +445,6 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
         llNodata = findView(R.id.ll_nodata);
         tvNodata = findView(R.id.tv_noData_content);
         tvNodata.setText("暂未被领取");
-
         tvSeeRecord.setOnClickListener(this);
     }
 

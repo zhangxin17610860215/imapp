@@ -182,9 +182,9 @@ public class AddFriendActivity extends BaseAct {
                 //我的二维码
                 Intent intent = new Intent(AddFriendActivity.this, QrCodeActivity.class);
                 intent.putExtra("type", ZXingUtils.TYPE_PERSON);
-                intent.putExtra("id", SPUtils.getInstance().getString(Constants.USER_TYPE.ACCID));
+                intent.putExtra("id", NimUIKit.getAccount());
                 NimUserInfoProvider userInfoProvider = new NimUserInfoProvider(AddFriendActivity.this);
-                UserInfo userInfo = userInfoProvider.getUserInfo(SPUtils.getInstance().getString(Constants.USER_TYPE.ACCID));
+                UserInfo userInfo = userInfoProvider.getUserInfo(NimUIKit.getAccount());
                 intent.putExtra("name", userInfo.getName());
                 intent.putExtra("icon", userInfo.getAvatar());
                 startActivity(intent);

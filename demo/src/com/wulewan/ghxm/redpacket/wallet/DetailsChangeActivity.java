@@ -11,11 +11,19 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.wulewan.uikit.api.NimUIKit;
+import com.netease.wulewan.uikit.api.wrapper.NimUserInfoProvider;
 import com.wulewan.ghxm.R;
 import com.wulewan.ghxm.bean.DetailsChangeQueryBean;
+import com.wulewan.ghxm.bean.DetailsRedPacketBean;
+import com.wulewan.ghxm.bean.RedPackOtherDataBean;
+import com.wulewan.ghxm.bean.RedPacketStateBean;
+import com.wulewan.ghxm.bean.SenderUserInfoBean;
 import com.wulewan.ghxm.common.ui.BaseAct;
 import com.wulewan.ghxm.config.Constants;
+import com.wulewan.ghxm.redpacket.privateredpacket.RedPackDetailsActivity;
+import com.wulewan.ghxm.utils.SPUtils;
 import com.wulewan.ghxm.utils.StringUtil;
 import com.wulewan.ghxm.utils.TimeUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -185,11 +193,35 @@ public class DetailsChangeActivity extends BaseAct {
                     TextView tvTime = viewHolder.getView(R.id.tv_item_detailschange_time);
                     TextView tvAmount = viewHolder.getView(R.id.tv_item_detailschange_amount);
                     TextView tvRemainingAmount = viewHolder.getView(R.id.tv_item_detailschange_isGone);
-                    tvRemainingAmount.setText("余额:" + resultsBean.getRemainingScore());
-                    tvAmount.setText(resultsBean.getScore());
+                    tvRemainingAmount.setText("余额:" + resultsBean.getRemainingScore() + "个蜜币");
+                    tvAmount.setText(resultsBean.getScore() + "个蜜币");
 //                    tvTime.setText(TimeUtils.getDateToString(resultsBean.getCreateDate(),TimeUtils.TIME_TYPE_01));
                     tvTime.setText(resultsBean.getCreateDate());
-                    tvTitle.setText(resultsBean.getTitle());
+                    switch (resultsBean.getType()){
+                        case 1:
+                            tvTitle.setText("你发了一个红包");
+                            break;
+                        case 2:
+                            tvTitle.setText("你领了一个红包");
+                            break;
+                        case 5:
+                            tvTitle.setText("你的红包超时已退还");
+                            break;
+                        case 6:
+                            tvTitle.setText("你的红包已被群主代领");
+                            break;
+                        case 8:
+                            if (resultsBean.getScore().contains("-")){
+                                tvTitle.setText("群主给你扣除了蜜币");
+                            }else {
+                                tvTitle.setText("群主给你充值了蜜币");
+                            }
+                            break;
+                        default:
+                            tvTitle.setText(resultsBean.getTitle());
+                            break;
+                    }
+
                 }
             };
             mRecyclerView.setAdapter(mAssetsAdapter);
@@ -197,6 +229,46 @@ public class DetailsChangeActivity extends BaseAct {
                 @Override
                 public void onItemClick(View view, int position, Object item) {
                     //Item点击事件
+                    if (null == list || list.size() < 0){
+                        return;
+                    }
+                    DetailsChangeQueryBean.ResultsBean resultsBean = list.get(position);
+                    if (null == resultsBean){
+                        return;
+                    }
+
+                    if (resultsBean.getType() != 1 && resultsBean.getType() != 2
+                            && resultsBean.getType() != 5 && resultsBean.getType() != 6 ){
+                        toast("非红包订单无法查看订单详情");
+                        return;
+                    }
+                    showProgress(mActivity,false);
+                    UserApi.getRedPackStatisticNew(resultsBean.getId(), mActivity, new requestCallback() {
+                        @Override
+                        public void onSuccess(int code, Object object) {
+                            dismissProgress();
+                            if (code == Constants.SUCCESS_CODE){
+                                SenderUserInfoBean senderBean = new SenderUserInfoBean();
+                                RedPackOtherDataBean bean = new RedPackOtherDataBean();
+                                RedPacketStateBean stateBean = (RedPacketStateBean) object;
+                                bean.setRedId(stateBean.getId());
+                                NimUserInfoProvider userInfoProvider = new NimUserInfoProvider(mActivity);
+                                UserInfo userInfo = userInfoProvider.getUserInfo(stateBean.getPayerId());
+                                senderBean.setUserID(userInfo.getAccount());
+                                senderBean.setAvatar(userInfo.getAvatar());
+                                senderBean.setUserName(userInfo.getName());
+                                RedPackDetailsActivity.start(mActivity,bean,senderBean);
+                            }else {
+                                toast((String) object);
+                            }
+                        }
+
+                        @Override
+                        public void onFailed(String errMessage) {
+                            dismissProgress();
+                            toast(errMessage);
+                        }
+                    });
                 }
             });
         } else {
