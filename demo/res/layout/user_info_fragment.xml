@@ -58,7 +58,7 @@
             android:layout_marginTop="13dp"
             android:layout_toEndOf="@id/user_icon"
             android:layout_toRightOf="@id/user_icon"
-            android:text="工会小蜜号："
+            android:text="公会小蜜号："
             android:textColor="@color/gray8"
             android:textSize="15sp" />
         <ImageView

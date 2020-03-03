@@ -124,7 +124,7 @@ public class DetailsRedPacketActivity extends BaseAct {
 
                     tvAmount.setText("+" + resultsBean.getAmount() + "元");
 
-                    tvGone.setText("工会小蜜");
+                    tvGone.setText("公会小蜜");
                 }else {
                     //发出的红包
                     tvAmount.setText("-" + resultsBean.getAmount() + "元");

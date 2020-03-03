@@ -70,7 +70,7 @@
 
         android:textSize="13sp"
 
-        android:text="         工会小蜜软件温馨提示，一键复制新群后，将生成一个成员人数相同的新群。"
+        android:text="         公会小蜜软件温馨提示，一键复制新群后，将生成一个成员人数相同的新群。"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
 

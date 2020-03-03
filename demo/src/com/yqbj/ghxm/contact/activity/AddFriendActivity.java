@@ -174,7 +174,7 @@ public class AddFriendActivity extends BaseAct {
                 NimUIKit.startContactSelector(this, advancedOption, REQUEST_CODE_MOBILE);
                 break;
             case 4:
-                WxUtils.shareWeb(this, DOWNLOADADDRESS, SendMessageToWX.Req.WXSceneSession, "邀请您使用工会小蜜", "我正在使用工会小蜜，一款为有共同兴趣爱好用户打造的聊天交友工具");
+                WxUtils.shareWeb(this, DOWNLOADADDRESS, SendMessageToWX.Req.WXSceneSession, "邀请您使用公会小蜜", "我正在使用公会小蜜，一款为有共同兴趣爱好用户打造的聊天交友工具");
                 break;
             case 5:
                 //我的二维码
@@ -209,7 +209,7 @@ public class AddFriendActivity extends BaseAct {
                 case REQUEST_CODE_MOBILE:
                     final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
                     if (selected != null && selected.size() > 0) {
-                        AppUtils.sendSMS(this, selected, "我正在使用工会小蜜，一款为有共同兴趣爱好用户打造的聊天交友工具  " + DOWNLOADADDRESS);
+                        AppUtils.sendSMS(this, selected, "我正在使用公会小蜜，一款为有共同兴趣爱好用户打造的聊天交友工具  " + DOWNLOADADDRESS);
                     }
                     break;
             }

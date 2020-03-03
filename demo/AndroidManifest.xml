@@ -62,14 +62,14 @@
         android:protectionLevel="signature" />
 
     <!-- 接受SDK消息广播权限， 第三方APP接入时，请将com.netease.nim.demo替换为自己的包名 -->
-    <uses-permission android:name="com.wulewan.ghxm.permission.RECEIVE_MSG" />
+    <uses-permission android:name="com.yqbj.ghxm.permission.RECEIVE_MSG" />
 
     <!-- 小米推送 -->
     <permission
         android:name="com.yqbj.ghxm.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.wulewan.ghxm.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="com.yqbj.ghxm.permission.MIPUSH_RECEIVE" />
 
     <!-- 魅族推送 -->
     <!-- 兼容flyme5.0以下版本，魅族内部集成pushSDK必填，不然无法收到消息 -->
@@ -79,7 +79,7 @@
         android:name="com.yqbj.ghxm.push.permission.MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.wulewan.ghxm.push.permission.MESSAGE" />
+    <uses-permission android:name="com.yqbj.ghxm.push.permission.MESSAGE" />
     <!-- 兼容flyme3.0配置权限 -->
     <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
 
@@ -87,7 +87,7 @@
         android:name="com.yqbj.ghxm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.wulewan.ghxm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.yqbj.ghxm.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -479,7 +479,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.wulewan.ghxm.ACTION.RECEIVE_CUSTOM_NOTIFICATION" />
+                <action android:name="com.yqbj.ghxm.ACTION.RECEIVE_CUSTOM_NOTIFICATION" />
             </intent-filter>
         </receiver>
 
@@ -601,7 +601,7 @@
                 <action android:name="com.meizu.c2dm.intent.REGISTRATION" />
                 <action android:name="com.meizu.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.wulewan.ghxm" />
+                <category android:name="com.yqbj.ghxm" />
             </intent-filter>
         </receiver>
 

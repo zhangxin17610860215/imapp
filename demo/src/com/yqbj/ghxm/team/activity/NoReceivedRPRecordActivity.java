@@ -275,7 +275,7 @@ public class NoReceivedRPRecordActivity extends BaseAct {
                     if (redPacketStateBean.getTargetType() == 1){
                         //单人红包
                         bean.setRedpacketType(2001);
-                        bean.setRedTitle("工会小蜜红包");
+                        bean.setRedTitle("公会小蜜红包");
                     }else if (redPacketStateBean.getTargetType() == 2){
                         if (map.size() > 0){
                             //专属红包

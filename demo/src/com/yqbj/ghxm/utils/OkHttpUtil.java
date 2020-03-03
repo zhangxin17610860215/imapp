@@ -212,7 +212,7 @@ public class OkHttpUtil {
                             Uri apkUri = null;
                             //判断版本是否是 7.0 及 7.0 以上
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                apkUri = FileProvider.getUriForFile(activity, "com.wulewan.ghxm.fileProvider", apkFile);
+                                apkUri = FileProvider.getUriForFile(activity, "com.yqbj.ghxm.fileProvider", apkFile);
                                 //添加这一句表示对目标应用临时授权该Uri所代表的文件
                                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             } else {

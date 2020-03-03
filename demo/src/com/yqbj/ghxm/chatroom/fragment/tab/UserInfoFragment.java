@@ -106,7 +106,7 @@ public class UserInfoFragment extends MainTabFragment implements View.OnClickLis
             imgUserIcon.setIsRect(true);
             imgUserIcon.loadAvatar(userInfo.getAvatar());
             txtUserName.setText(userInfo.getName());
-            txtUserId.setText("工会小蜜号:" + NimUIKit.getAccount());
+            txtUserId.setText("公会小蜜号:" + NimUIKit.getAccount());
             imgUserIcon.setOnClickListener(this);
         } else {
             NimUserInfoCache.getInstance().getUserInfoFromRemote(NimUIKit.getAccount(), new RequestCallbackWrapper<NimUserInfo>() {
@@ -115,7 +115,7 @@ public class UserInfoFragment extends MainTabFragment implements View.OnClickLis
                     imgUserIcon.setIsRect(true);
                     imgUserIcon.loadAvatar(result.getAvatar());
                     txtUserName.setText(result.getName());
-                    txtUserId.setText("工会小蜜号:" + NimUIKit.getAccount());
+                    txtUserId.setText("公会小蜜号:" + NimUIKit.getAccount());
                 }
             });
         }

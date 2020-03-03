@@ -146,7 +146,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="• 提现到账请查看支付宝\微信账单确认到账,如有名为“转账-杭州吾乐玩网络科技有限公司”的交易及提现则表示提现到账成功。"
+        android:text="• 提现到账请查看支付宝\微信账单确认到账,如有名为“转账-华唯环球科技有限公司”的交易及提现则表示提现到账成功。"
         android:textColor="@color/gray_deep"
         android:textSize="@dimen/text_size_10"
         android:layout_marginLeft="26dp"

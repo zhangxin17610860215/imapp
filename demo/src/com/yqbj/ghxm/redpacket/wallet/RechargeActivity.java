@@ -318,8 +318,8 @@ public class RechargeActivity extends BaseAct implements View.OnClickListener {
         final MyALipayUtils.ALiPayBuilder builder = new MyALipayUtils.ALiPayBuilder();
         final MyALipayUtils myALipayUtils = builder.setAppid(ALIPAY_APPID)
                 .setMoney(amount)       //设置金额
-                .setTitle("杭州吾乐玩网络科技有限公司")     //设置商品信息
-                .setBody("杭州吾乐玩网络科技有限公司")       //设置商品信息描述
+                .setTitle("华唯环球科技有限公司")     //设置商品信息
+                .setBody("华唯环球科技有限公司")       //设置商品信息描述
                 .setOrderTradeId(orderNO)   //设置订单ID
                 .setNotifyUrl(ApiUrl.BASE_URL_HEAD + ApiUrl.BASE_URL + "/notify/alipay") //服务器异步通知页面路径
                 .build();

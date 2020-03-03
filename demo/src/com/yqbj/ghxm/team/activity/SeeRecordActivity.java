@@ -117,7 +117,7 @@ public class SeeRecordActivity extends BaseAct {
                 if (list.size() > 0){
                     TeamRobotNotifyBean.ContentBean bean = list.get(position);
                     if (null == bean || StringUtil.isEmpty(bean.getUserId())){
-                        toast("该用户暂未绑定工会小蜜号");
+                        toast("该用户暂未绑定公会小蜜号");
                         return;
                     }
                 }

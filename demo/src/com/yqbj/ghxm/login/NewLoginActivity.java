@@ -312,7 +312,7 @@ public class NewLoginActivity extends UI implements View.OnKeyListener {
 //        //零钱助手
 //        SPUtils.getInstance().put(Constants.USER_TYPE.ACCID,"10000394");
 //        SPUtils.getInstance().put(Constants.USER_TYPE.YUNXINTOKEN,"1cd9b146dc4e07f540ba3f52e8bf1801");
-//        //工会小蜜小助手
+//        //公会小蜜小助手
 //        SPUtils.getInstance().put(Constants.USER_TYPE.ACCID,"10000395");
 //        SPUtils.getInstance().put(Constants.USER_TYPE.YUNXINTOKEN,"d3dbaec6e57738071bae73058317a072");
         final String account = SPUtils.getInstance().getString(Constants.USER_TYPE.ACCID);

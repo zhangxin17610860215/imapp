@@ -42,7 +42,7 @@
                 android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="超过三天未使用工会小蜜的群成员"
+                android:text="超过三天未使用公会小蜜的群成员"
                 android:textColor="@color/color_grey_999999"
                 android:textSize="@dimen/text_size_12" />
 

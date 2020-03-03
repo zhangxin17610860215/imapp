@@ -472,7 +472,7 @@ public class SettingsActivity extends UI implements SettingsAdapter.SwitchChange
                 if (checkState) {
                     if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
 
-                        EasyAlertDialogHelper.showCommonDialog(this, null, "系统中的工会小蜜信息通知设置已关闭，前往打开？", "确定", "取消", false, new EasyAlertDialogHelper.OnDialogActionListener() {
+                        EasyAlertDialogHelper.showCommonDialog(this, null, "系统中的公会小蜜信息通知设置已关闭，前往打开？", "确定", "取消", false, new EasyAlertDialogHelper.OnDialogActionListener() {
                             @Override
                             public void doCancelAction() {
                                 setMessageNotify(false);

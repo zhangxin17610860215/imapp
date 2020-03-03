@@ -93,7 +93,7 @@ public class UpgradeTeamPeopleAct extends BaseAct {
      * 显示弹窗
      * */
     private void showDialog(final int type, final int identity, int price, int Limit){
-        EasyAlertDialogHelper.showCommonDialog(context, "升级群", "升级将扣除您工会小蜜账户余额" + price +"元,确定要升级成" + Limit + "人群吗？", "升级", "再想想", true, new EasyAlertDialogHelper.OnDialogActionListener() {
+        EasyAlertDialogHelper.showCommonDialog(context, "升级群", "升级将扣除您公会小蜜账户余额" + price +"元,确定要升级成" + Limit + "人群吗？", "升级", "再想想", true, new EasyAlertDialogHelper.OnDialogActionListener() {
             @Override
             public void doCancelAction() {
 

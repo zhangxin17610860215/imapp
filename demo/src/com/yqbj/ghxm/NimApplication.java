@@ -276,7 +276,7 @@ public class NimApplication extends Application {
             //Debug版本不需要证书认证
             builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
 //            try {
-//                HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("wulewan.cer"));
+//                HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("hwhq.cer"));
 //                builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
 //                //配置https的域名匹配规则，详细看demo的初始化介绍，不需要就不要加入，使用不当会导致https握手失败
 //                builder.hostnameVerifier(new SafeHostnameVerifier());
@@ -285,7 +285,7 @@ public class NimApplication extends Application {
 //            }
         }else {
             try {
-                HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("wulewan.cer"));
+                HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("hwhq.cer"));
                 builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
                 //配置https的域名匹配规则，详细看demo的初始化介绍，不需要就不要加入，使用不当会导致https握手失败
                 builder.hostnameVerifier(new SafeHostnameVerifier());
@@ -328,8 +328,8 @@ public class NimApplication extends Application {
         @Override
         public boolean verify(String hostname, SSLSession session) {
             //验证主机名是否匹配
-            return hostname.equals("api.weixin.qq.com") || hostname.equals("gate.wulewan.cn") || hostname.equals("im.wulewan.cn");
-            // "https://im.wulewan.cn/"
+            return hostname.equals("api.weixin.qq.com") || hostname.equals("gate.hwhq.cn") || hostname.equals("im.hwhq.cn");
+            // "https://im.hwhq.cn/"
 //            String host = BASE_URL.substring("https://".length(), BASE_URL.length()-1);
 //            return hostname.equals(host);
 //            return true;

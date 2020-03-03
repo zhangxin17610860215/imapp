@@ -52,7 +52,7 @@ public class BuildRedPackStructure {
         switch (redPackType){
             case Constants.REDPACK_TYPE.P2P:
                 //单人红包
-                redTitle = "工会小蜜红包";
+                redTitle = "公会小蜜红包";
                 redpacketType = 2001;
                 map.put(Constants.BUILDREDSTRUCTURE.REDPACKET_RECEIVER,receivers);
                 break;

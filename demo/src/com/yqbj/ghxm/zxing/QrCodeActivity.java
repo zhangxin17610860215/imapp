@@ -58,7 +58,7 @@ public class QrCodeActivity extends UI implements View.OnClickListener {
         showName.setText(bundle.getString("name")); //用户名称，群名称
         sIcon.setIsRect(true);
         if (type.equals(ZXingUtils.TYPE_PERSON)) {
-            showId.setText("工会小蜜号:" + id);
+            showId.setText("公会小蜜号:" + id);
             title.setText("我的二维码");
             sIcon.loadAvatar(bundle.getString("icon"));
         } else if (type.equals(ZXingUtils.TYPE_GROUP)) {
