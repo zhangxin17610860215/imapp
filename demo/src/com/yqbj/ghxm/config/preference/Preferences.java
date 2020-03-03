@@ -71,6 +71,6 @@ public class Preferences {
     }
 
     static SharedPreferences getSharedPreferences() {
-        return DemoCache.getContext().getSharedPreferences("haiChui", Context.MODE_PRIVATE);
+        return DemoCache.getContext().getSharedPreferences("ghxm", Context.MODE_PRIVATE);
     }
 }

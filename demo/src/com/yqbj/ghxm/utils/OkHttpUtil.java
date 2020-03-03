@@ -125,10 +125,10 @@ public class OkHttpUtil {
         if (Environment.MEDIA_MOUNTED.equals(Environment
                 .getExternalStorageState())) {
 
-            CACHE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath()+"/haiChui/";
+            CACHE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ghxm/";
         } else {
 
-            CACHE_DIR = Environment.getRootDirectory().getAbsolutePath()+"/haiChui/";
+            CACHE_DIR = Environment.getRootDirectory().getAbsolutePath()+"/ghxm/";
         }
 
 
@@ -342,12 +342,12 @@ public class OkHttpUtil {
 
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
             File fileApp =null;
-            fileApp = new File(sdPath+"/haiChui/");
+            fileApp = new File(sdPath+"/ghxm/");
             if(!fileApp.exists()){
 
                 fileApp.mkdir();
             }
-           final File  file = new File(sdPath+"/haiChui/"+imgName);
+           final File  file = new File(sdPath+"/ghxm/"+imgName);
             if(!file.exists()){
                 try {
                     file.createNewFile();

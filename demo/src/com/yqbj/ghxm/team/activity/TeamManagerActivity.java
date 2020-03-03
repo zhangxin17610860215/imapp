@@ -248,6 +248,7 @@ public class TeamManagerActivity extends BaseAct {
         });
 
         team_UpgradeTeam_layout = findViewById(R.id.team_UpgradeTeam_layout);
+        team_UpgradeTeam_layout.setVisibility(View.GONE);
         ((TextView) team_UpgradeTeam_layout.findViewById(R.id.item_title)).setText("升级群人数");
         tvTeamPeople = team_UpgradeTeam_layout.findViewById(R.id.item_detail);
         tvTeamPeople.setHint("当前上限" + teamMemberLimit + "人");

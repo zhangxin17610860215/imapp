@@ -29,7 +29,7 @@ public class SDCardUtil {
             Field field_mPreferencesDir = obj_mBase.getClass().getDeclaredField("mPreferencesDir");
             field_mPreferencesDir.setAccessible(true);
             // 创建自定义路径
-            String FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath()+"/haiChui";
+            String FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ghxm";
             File file = new File(FILE_PATH);
             // 修改mPreferencesDir变量的值
             field_mPreferencesDir.set(obj_mBase,file);

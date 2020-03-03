@@ -2,7 +2,7 @@
 
 YQIChat://com.yuanqi.aichat/share?json
 
-客户端分享启动爱聊  scheme:YQIChat host:com.yuanqi.aichat path:share
+客户端分享启动公会小蜜  scheme:YQIChat host:com.yuanqi.aichat path:share
 
 参数打包成json
 图片json
@@ -10,7 +10,7 @@ YQIChat://com.yuanqi.aichat/share?json
  messageType:0   int  (图片为0)
  image:    string       （分享的图片base64）
  teamId:    string  （群聊ID 不为0时主动发送到指定群里）
- scheme: string (游戏客户端启动uri 到路径 qianshoupaohuzi://com.jiahe.paohuzi/joinRoom 爱聊拼上网页参数返回值 ?shareCode=0 （0成功 1 参数错误 2取消） )
+ scheme: string (游戏客户端启动uri 到路径 qianshoupaohuzi://com.jiahe.paohuzi/joinRoom 公会小蜜拼上网页参数返回值 ?shareCode=0 （0成功 1 参数错误 2取消） )
  appName:    string  （应用名字）
  appIconUrl:    string （应用图标链接）
 }
@@ -23,7 +23,7 @@ YQIChat://com.yuanqi.aichat/share?json
     teamId:    string  （群聊ID 不为0时主动发送到指定群里）
     appName:    string  （应用名字）
     appIconUrl:    string （应用图标链接）
-    scheme: string (游戏客户端启动uri 到路径 qianshoupaohuzi://com.jiahe.paohuzi/joinRoom 爱聊拼上网页参数返回值 ?shareCode=0 （0成功 1 参数错误 2取消） )
+    scheme: string (游戏客户端启动uri 到路径 qianshoupaohuzi://com.jiahe.paohuzi/joinRoom 公会小蜜拼上网页参数返回值 ?shareCode=0 （0成功 1 参数错误 2取消） )
 }
 
 
