@@ -14,7 +14,7 @@
 
         <include layout="@layout/nim_message_activity_text_layout"/>
 
-        <com.netease.wulewan.uikit.business.session.emoji.EmoticonPickerView
+        <com.netease.yqbj.uikit.business.session.emoji.EmoticonPickerView
             android:id="@+id/emoticon_picker_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

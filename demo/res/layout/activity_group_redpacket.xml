@@ -7,7 +7,7 @@
 
     <include layout="@layout/v_toolbar"/>
 
-    <com.wulewan.ghxm.UIEx.BounceScrollView
+    <com.yqbj.ghxm.UIEx.BounceScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -251,6 +251,6 @@
                     android:textSize="@dimen/text_size_12" />
             </RelativeLayout>
         </LinearLayout>
-    </com.wulewan.ghxm.UIEx.BounceScrollView>
+    </com.yqbj.ghxm.UIEx.BounceScrollView>
 
 </LinearLayout>

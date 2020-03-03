@@ -8,7 +8,7 @@
     >
     <include layout="@layout/v_toolbar"/>
 
-    <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+    <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"

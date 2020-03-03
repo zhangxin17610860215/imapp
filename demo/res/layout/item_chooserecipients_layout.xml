@@ -19,7 +19,7 @@
         android:background="@color/white"
         android:paddingTop="@dimen/dimen_10"
         android:paddingBottom="@dimen/dimen_10">
-        <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+        <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
             android:id="@+id/img_teamchoose_head"
             android:layout_width="50dp"
             android:layout_height="50dp"

@@ -44,7 +44,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.netease.wulewan.uikit.business.team.ui.TeamInfoGridView
+        <com.netease.yqbj.uikit.business.team.ui.TeamInfoGridView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/team_gird_view"
@@ -61,7 +61,7 @@
             >
 
 
-        </com.netease.wulewan.uikit.business.team.ui.TeamInfoGridView>
+        </com.netease.yqbj.uikit.business.team.ui.TeamInfoGridView>
     </ScrollView>
 
 

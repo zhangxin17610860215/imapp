@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.netease.wulewan.avchatkit.activity.AVChatSettingsFragment"
+        android:name="com.netease.yqbj.avchatkit.activity.AVChatSettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

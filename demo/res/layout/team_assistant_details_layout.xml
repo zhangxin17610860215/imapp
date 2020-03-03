@@ -13,7 +13,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="15dp">
-        <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+        <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
             android:id="@+id/img_assistantHead"
             android:layout_width="@dimen/jrmf_dimen_50"
             android:layout_height="@dimen/jrmf_dimen_50"

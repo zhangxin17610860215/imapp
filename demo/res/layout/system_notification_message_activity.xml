@@ -27,7 +27,7 @@
             android:orientation="vertical"
             tools:ignore="UselessParent">
 
-            <com.netease.wulewan.uikit.common.ui.listview.MessageListView
+            <com.netease.yqbj.uikit.common.ui.listview.MessageListView
                 android:id="@+id/messageListView"
                 style="@style/list_view"
                 android:layout_width="match_parent"

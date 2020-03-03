@@ -20,7 +20,7 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
-    <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+    <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
         android:id="@+id/message_item_portrait_left"
         android:layout_width="@dimen/avatar_size_in_session"
         android:layout_height="@dimen/avatar_size_in_session"
@@ -30,7 +30,7 @@
         android:visibility="gone"
          />
 
-    <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+    <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
         android:id="@+id/message_item_portrait_right"
         android:layout_width="@dimen/avatar_size_in_session"
         android:layout_height="@dimen/avatar_size_in_session"

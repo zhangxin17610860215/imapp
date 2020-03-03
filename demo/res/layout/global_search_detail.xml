@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.netease.wulewan.uikit.common.ui.listview.AutoRefreshListView
+    <com.netease.yqbj.uikit.common.ui.listview.AutoRefreshListView
         android:id="@+id/search_result_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

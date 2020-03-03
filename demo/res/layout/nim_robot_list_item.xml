@@ -6,7 +6,7 @@
                 android:clickable="true"
                 android:padding="8dip">
 
-    <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+    <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
         android:id="@+id/robot_avatar"
         android:layout_width="@dimen/avatar_size_default"
         android:layout_height="@dimen/avatar_size_default"/>

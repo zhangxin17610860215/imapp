@@ -8,7 +8,7 @@
 
    <include layout="@layout/v_toolbar"/>
 
-    <com.wulewan.ghxm.UIEx.BounceScrollView
+    <com.yqbj.ghxm.UIEx.BounceScrollView
         style="@style/scroll_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -23,7 +23,7 @@
             >
 
 
-            <com.netease.wulewan.uikit.business.team.ui.TeamInfoGridView
+            <com.netease.yqbj.uikit.business.team.ui.TeamInfoGridView
                 android:id="@+id/team_gird_view"
                 style="@style/grid_view"
                 android:layout_width="fill_parent"
@@ -35,7 +35,7 @@
                 android:paddingLeft="12dip"
                 android:paddingRight="12dip"
                 android:paddingTop="16dip"
-                android:verticalSpacing="16dip"></com.netease.wulewan.uikit.business.team.ui.TeamInfoGridView>
+                android:verticalSpacing="16dip"></com.netease.yqbj.uikit.business.team.ui.TeamInfoGridView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:paddingRight="15dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp">
-                <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+                <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
                     android:id="@+id/team_head_image"
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"/>
@@ -198,5 +198,5 @@
 
 
 
-    </com.wulewan.ghxm.UIEx.BounceScrollView>
+    </com.yqbj.ghxm.UIEx.BounceScrollView>
 </LinearLayout>

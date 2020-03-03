@@ -7,7 +7,7 @@
     android:background="@color/black"
     android:orientation="vertical">
 
-    <com.netease.wulewan.uikit.common.ui.widget.FixBugsViewPager
+    <com.netease.yqbj.uikit.common.ui.widget.FixBugsViewPager
         android:id="@+id/picker_image_preview_viewpager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

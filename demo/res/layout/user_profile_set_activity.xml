@@ -30,7 +30,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_17" />
 
-                <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+                <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
                     android:id="@+id/user_head"
                     android:layout_width="50dp"
                     android:layout_height="50dp"

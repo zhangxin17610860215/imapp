@@ -49,7 +49,7 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <com.netease.wulewan.uikit.common.ui.listview.AutoRefreshListView
+        <com.netease.yqbj.uikit.common.ui.listview.AutoRefreshListView
             android:id="@+id/searchResultList"
             style="@style/list_view"
             android:layout_width="fill_parent"

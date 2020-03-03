@@ -12,7 +12,7 @@
         android:layout_height="60dp"
         android:orientation="horizontal">
 
-        <com.netease.wulewan.avchatkit.common.imageview.HeadImageView
+        <com.netease.yqbj.avchatkit.common.imageview.HeadImageView
             android:id="@+id/avchat_video_head"
             android:layout_marginRight="10dp"
             android:layout_width="60dp"

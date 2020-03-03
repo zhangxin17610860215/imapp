@@ -5,7 +5,7 @@
     android:padding="15dp"
     android:background="@color/white">
 
-    <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+    <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
         android:id="@+id/img_robotHade"
 
         android:layout_width="@dimen/jrmf_dimen_50"

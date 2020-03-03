@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:background="@color/bussiness_card_gridview_bg">
 
-    <com.netease.wulewan.uikit.common.ui.ptr2.PullToRefreshLayout
+    <com.netease.yqbj.uikit.common.ui.ptr2.PullToRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,6 +15,6 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </com.netease.wulewan.uikit.common.ui.ptr2.PullToRefreshLayout>
+    </com.netease.yqbj.uikit.common.ui.ptr2.PullToRefreshLayout>
 
 </RelativeLayout>

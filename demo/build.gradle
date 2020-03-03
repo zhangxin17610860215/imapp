@@ -20,7 +20,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.wulewan.ghxm"
+        applicationId "com.yqbj.ghxm"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.appTargetSdkVersion
         versionCode rootProject.ext.versionCode

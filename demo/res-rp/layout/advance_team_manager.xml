@@ -23,7 +23,7 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <com.wulewan.ghxm.UIEx.BounceScrollView
+    <com.yqbj.ghxm.UIEx.BounceScrollView
         style="@style/scroll_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -132,5 +132,5 @@
 
 
 
-    </com.wulewan.ghxm.UIEx.BounceScrollView>
+    </com.yqbj.ghxm.UIEx.BounceScrollView>
 </LinearLayout>

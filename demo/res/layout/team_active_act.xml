@@ -5,7 +5,7 @@
     >
     <include layout="@layout/v_toolbar"/>
 
-    <com.wulewan.ghxm.common.ui.viewpager.PagerSlidingTabStrip
+    <com.yqbj.ghxm.common.ui.viewpager.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

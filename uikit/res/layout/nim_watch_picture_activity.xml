@@ -49,7 +49,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <com.netease.wulewan.uikit.common.ui.widget.ViewPagerFixed
+        <com.netease.yqbj.uikit.common.ui.widget.ViewPagerFixed
             android:id="@+id/view_pager_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

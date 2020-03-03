@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.netease.wulewan.rtskit">
+    package="com.netease.yqbj.rtskit">
 
 
     <application>
 
         <!-- 白板 -->
         <activity
-            android:name="com.netease.wulewan.rtskit.activity.RTSActivity"
+            android:name="com.netease.yqbj.rtskit.activity.RTSActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

@@ -21,7 +21,7 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <com.netease.wulewan.uikit.common.ui.imageview.CropImageView
+    <com.netease.yqbj.uikit.common.ui.imageview.CropImageView
         android:id="@+id/cropable_image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+        <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
             android:id="@+id/team_head_image"
             android:layout_width="80dp"
             android:layout_height="80dp"

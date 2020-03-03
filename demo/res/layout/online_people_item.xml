@@ -13,7 +13,7 @@
         android:layout_marginLeft="10dp"
         android:visibility="gone"/>
 
-    <com.wulewan.ghxm.chatroom.widget.ChatRoomImageView
+    <com.yqbj.ghxm.chatroom.widget.ChatRoomImageView
         android:id="@+id/user_head"
         android:layout_width="35dp"
         android:layout_height="35dp"

@@ -26,7 +26,7 @@
 
     <include layout="@layout/com_bar_layout" />
 
-    <com.netease.wulewan.uikit.common.ui.widget.ClearableEditTextWithIcon
+    <com.netease.yqbj.uikit.common.ui.widget.ClearableEditTextWithIcon
         android:id="@+id/edittext"
         style="@style/edit_style"
         android:layout_width="match_parent"

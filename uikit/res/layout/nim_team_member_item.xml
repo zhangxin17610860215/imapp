@@ -9,7 +9,7 @@
         android:layout_height="55dp"
         android:layout_centerHorizontal="true">
 
-        <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+        <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
             android:id="@+id/imageViewHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

@@ -22,7 +22,7 @@
         android:background="@color/white"
         android:layout_marginLeft="@dimen/dp_40"
         android:layout_marginRight="@dimen/dp_40" >
-        <com.wulewan.ghxm.utils.view.PayPsdInputView
+        <com.yqbj.ghxm.utils.view.PayPsdInputView
             android:id="@+id/et_checkpaypswd"
             android:layout_width="match_parent"
             android:layout_height="@dimen/jrmf_dimen_50"

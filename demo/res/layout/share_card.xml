@@ -36,7 +36,7 @@
             android:textColor="@color/color_b3b3b3"
             android:textSize="12sp" />
 
-        <com.netease.wulewan.uikit.common.ui.imageview.MsgThumbImageView
+        <com.netease.yqbj.uikit.common.ui.imageview.MsgThumbImageView
             android:id="@+id/message_item_thumb_thumbnail"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -57,7 +57,7 @@
         android:layout_marginTop="3dp"
         android:gravity="center"
         android:orientation="horizontal">
-        <com.netease.wulewan.uikit.common.ui.imageview.MsgThumbImageView
+        <com.netease.yqbj.uikit.common.ui.imageview.MsgThumbImageView
             android:id="@+id/app_icon"
             android:layout_width="16dp"
             android:layout_height="16dp"

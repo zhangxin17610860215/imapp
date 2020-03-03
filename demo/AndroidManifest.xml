@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wulewan.ghxm"
+    package="com.yqbj.ghxm"
     android:installLocation="auto">
 
     <uses-sdk tools:overrideLibrary="com.huawei.android.hms.base,com.huawei.android.hms.push" />
@@ -58,7 +58,7 @@
     <!-- SDK权限申明, 第三方APP接入时，请将com.netease.nim.demo替换为自己的包名 -->
     <!-- 和下面的uses-permission一起加入到你的AndroidManifest文件中。 -->
     <permission
-        android:name="com.wulewan.ghxm.permission.RECEIVE_MSG"
+        android:name="com.yqbj.ghxm.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
 
     <!-- 接受SDK消息广播权限， 第三方APP接入时，请将com.netease.nim.demo替换为自己的包名 -->
@@ -66,7 +66,7 @@
 
     <!-- 小米推送 -->
     <permission
-        android:name="com.wulewan.ghxm.permission.MIPUSH_RECEIVE"
+        android:name="com.yqbj.ghxm.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.wulewan.ghxm.permission.MIPUSH_RECEIVE" />
@@ -76,7 +76,7 @@
     <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />
 
     <permission
-        android:name="com.wulewan.ghxm.push.permission.MESSAGE"
+        android:name="com.yqbj.ghxm.push.permission.MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.wulewan.ghxm.push.permission.MESSAGE" />
@@ -84,7 +84,7 @@
     <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
 
     <permission
-        android:name="com.wulewan.ghxm.permission.C2D_MESSAGE"
+        android:name="com.yqbj.ghxm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.wulewan.ghxm.permission.C2D_MESSAGE" />
@@ -92,7 +92,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="com.wulewan.ghxm.NimApplication"
+        android:name="com.yqbj.ghxm.NimApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
@@ -131,7 +131,7 @@
 
         <!-- 导航页 -->
         <activity
-            android:name="com.wulewan.ghxm.main.activity.WelcomeActivity"
+            android:name="com.yqbj.ghxm.main.activity.WelcomeActivity"
             android:configChanges="keyboardHidden|orientation"
             android:hardwareAccelerated="true"
             android:label="@string/app_name"
@@ -157,7 +157,7 @@
 
         <!-- 主界面 -->
         <activity
-            android:name="com.wulewan.ghxm.main.activity.MainActivity"
+            android:name="com.yqbj.ghxm.main.activity.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
@@ -165,7 +165,7 @@
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.RedPacketContactSelectAct"
+            android:name="com.yqbj.ghxm.main.activity.RedPacketContactSelectAct"
             android:configChanges="keyboardHidden|orientation"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
@@ -175,7 +175,7 @@
 
         <!-- 多端登录管理 -->
         <activity
-            android:name="com.wulewan.ghxm.main.activity.MultiportActivity"
+            android:name="com.yqbj.ghxm.main.activity.MultiportActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -183,7 +183,7 @@
 
         <!-- 登录界面 -->
         <activity
-            android:name="com.wulewan.ghxm.login.LoginActivity"
+            android:name="com.yqbj.ghxm.login.LoginActivity"
             android:configChanges="orientation"
             android:label="@string/login"
             android:screenOrientation="portrait"
@@ -192,118 +192,118 @@
 
         <!-- 关于 -->
         <activity
-            android:name="com.wulewan.ghxm.main.activity.AboutActivity"
+            android:name="com.yqbj.ghxm.main.activity.AboutActivity"
             android:configChanges="orientation"
             android:label="@string/about"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.SettingsActivity"
+            android:name="com.yqbj.ghxm.main.activity.SettingsActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.NoDisturbActivity"
+            android:name="com.yqbj.ghxm.main.activity.NoDisturbActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.AddFriendActivity"
+            android:name="com.yqbj.ghxm.contact.activity.AddFriendActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.UserProfileActivity"
+            android:name="com.yqbj.ghxm.contact.activity.UserProfileActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.UserProfileSettingActivity"
+            android:name="com.yqbj.ghxm.contact.activity.UserProfileSettingActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.ModifyBindPhoneGuideActivity"
+            android:name="com.yqbj.ghxm.contact.activity.ModifyBindPhoneGuideActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.ModifyBindPhoneActivity"
+            android:name="com.yqbj.ghxm.contact.activity.ModifyBindPhoneActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.UserProfileEditItemActivity"
+            android:name="com.yqbj.ghxm.contact.activity.UserProfileEditItemActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.BlackListActivity"
+            android:name="com.yqbj.ghxm.contact.activity.BlackListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.SetFontSizeActivity"
+            android:name="com.yqbj.ghxm.contact.activity.SetFontSizeActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 文件管理器 -->
         <activity
-            android:name="com.wulewan.ghxm.file.browser.FileBrowserActivity"
+            android:name="com.yqbj.ghxm.file.browser.FileBrowserActivity"
             android:configChanges="orientation"
             android:label="@string/file_browser"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.SystemMessageActivity"
+            android:name="com.yqbj.ghxm.main.activity.SystemMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.CustomNotificationActivity"
+            android:name="com.yqbj.ghxm.main.activity.CustomNotificationActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.wulewan.ghxm.session.activity.MessageHistoryActivity"
+            android:name="com.yqbj.ghxm.session.activity.MessageHistoryActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.wulewan.ghxm.session.activity.MessageInfoActivity"
+            android:name="com.yqbj.ghxm.session.activity.MessageInfoActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.AdvancedTeamSearchActivity"
+            android:name="com.yqbj.ghxm.team.activity.AdvancedTeamSearchActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.AdvancedTeamJoinActivity"
+            android:name="com.yqbj.ghxm.team.activity.AdvancedTeamJoinActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.TeamListActivity"
+            android:name="com.yqbj.ghxm.main.activity.TeamListActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
@@ -311,43 +311,43 @@
 
         <!-- 全局搜索 -->
         <activity
-            android:name="com.wulewan.ghxm.main.activity.GlobalSearchActivity"
+            android:name="com.yqbj.ghxm.main.activity.GlobalSearchActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateUnspecified" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.GlobalSearchDetailActivity"
+            android:name="com.yqbj.ghxm.main.activity.GlobalSearchDetailActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.GlobalSearchDetailActivity2"
+            android:name="com.yqbj.ghxm.main.activity.GlobalSearchDetailActivity2"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 查看阅后即焚 -->
         <activity
-            android:name="com.wulewan.ghxm.session.activity.WatchSnapChatPictureActivity"
+            android:name="com.yqbj.ghxm.session.activity.WatchSnapChatPictureActivity"
             android:configChanges="keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 下载文件 -->
         <activity
-            android:name="com.wulewan.ghxm.session.activity.FileDownloadActivity"
+            android:name="com.yqbj.ghxm.session.activity.FileDownloadActivity"
             android:configChanges="keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- map -->
         <activity
-            android:name="com.wulewan.ghxm.location.activity.LocationAmapActivity"
+            android:name="com.yqbj.ghxm.location.activity.LocationAmapActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/location_map"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
         <activity
-            android:name="com.wulewan.ghxm.location.activity.NavigationAmapActivity"
+            android:name="com.yqbj.ghxm.location.activity.NavigationAmapActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/location_navigate"
             android:screenOrientation="portrait"
@@ -355,13 +355,13 @@
 
         <!-- 消息历史搜索 -->
         <activity
-            android:name="com.wulewan.ghxm.session.search.SearchMessageActivity"
+            android:name="com.yqbj.ghxm.session.search.SearchMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustPan|stateUnspecified" />
         <activity
-            android:name="com.wulewan.ghxm.session.search.DisplayMessageActivity"
+            android:name="com.yqbj.ghxm.session.search.DisplayMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
@@ -369,12 +369,12 @@
 
         <!-- 聊天室 -->
         <activity
-            android:name="com.wulewan.ghxm.chatroom.activity.ChatRoomActivity"
+            android:name="com.yqbj.ghxm.chatroom.activity.ChatRoomActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.wulewan.ghxm.jsbridge.JsBridgeActivity"
+            android:name="com.yqbj.ghxm.jsbridge.JsBridgeActivity"
             android:label="@string/js_bridge"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
@@ -382,34 +382,34 @@
 
         <!-- 机器人 -->
         <activity
-            android:name="com.wulewan.ghxm.main.activity.RobotListActivity"
+            android:name="com.yqbj.ghxm.main.activity.RobotListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 已读回执 -->
         <activity
-            android:name="com.wulewan.ghxm.session.activity.SendAckMsgActivity"
+            android:name="com.yqbj.ghxm.session.activity.SendAckMsgActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 已读回执详情 -->
         <activity
-            android:name="com.wulewan.ghxm.session.activity.AckMsgInfoActivity"
+            android:name="com.yqbj.ghxm.session.activity.AckMsgInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.RobotProfileActivity"
+            android:name="com.yqbj.ghxm.contact.activity.RobotProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.PrivatizationConfigActivity"
+            android:name="com.yqbj.ghxm.main.activity.PrivatizationConfigActivity"
             android:configChanges="orientation"
             android:label="@string/privatization_config"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.MsgMigrationActivity"
+            android:name="com.yqbj.ghxm.main.activity.MsgMigrationActivity"
             android:configChanges="orientation"
             android:label="@string/local_db_migration"
             android:screenOrientation="portrait"
@@ -418,7 +418,7 @@
 
         <!-- 我的二维码 -->
         <activity
-            android:name="com.wulewan.ghxm.zxing.QrCodeActivity"
+            android:name="com.yqbj.ghxm.zxing.QrCodeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme" />
 
@@ -460,12 +460,12 @@
         <!-- android:authorities="{包名}.ipc.provider", 请将com.netease.nim.demo替换为自己的包名 -->
         <provider
             android:name="com.netease.nimlib.ipc.NIMContentProvider"
-            android:authorities="com.wulewan.ghxm.ipc.provider"
+            android:authorities="com.yqbj.ghxm.ipc.provider"
             android:exported="false"
             android:process=":core" />
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.wulewan.ghxm.fileProvider"
+            android:authorities="com.yqbj.ghxm.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -475,7 +475,7 @@
 
         <!-- 申明自定义通知的广播接收器，第三方APP集成时，action中的com.netease.nim.demo请替换为自己的包名 -->
         <receiver
-            android:name="com.wulewan.ghxm.receiver.CustomNotificationReceiver"
+            android:name="com.yqbj.ghxm.receiver.CustomNotificationReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -539,7 +539,7 @@
 
         <provider
             android:name="com.huawei.hms.update.provider.UpdateProvider"
-            android:authorities="com.wulewan.ghxm.hms.update.provider"
+            android:authorities="com.yqbj.ghxm.hms.update.provider"
             android:exported="false"
             android:grantUriPermissions="true" />
 
@@ -620,19 +620,19 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.wxapi.WXEntryActivity"
+            android:name="com.yqbj.ghxm.wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.wxapi.WXPayEntryActivity"
+            android:name="com.yqbj.ghxm.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.main.SplashActivity"
+            android:name="com.yqbj.ghxm.main.SplashActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
@@ -640,141 +640,133 @@
             android:theme="@style/SplashTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.login.NewLoginActivity"
+            android:name="com.yqbj.ghxm.login.NewLoginActivity"
             android:configChanges="orientation"
             android:label="@string/login"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.share.ShareSchemeActivity"
+            android:name="com.yqbj.ghxm.share.ShareSchemeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"/>
         <activity
-            android:name="com.wulewan.ghxm.utils.MainWebViewActivity"
+            android:name="com.yqbj.ghxm.utils.MainWebViewActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.wulewan.ghxm.user.BindPhoneActivity"
+            android:name="com.yqbj.ghxm.user.BindPhoneActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/BindPhoneTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.privateredpacket.GroupRedPacketActivity"
+            android:name="com.yqbj.ghxm.redpacket.privateredpacket.GroupRedPacketActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/RedPacketTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.privateredpacket.P2PRedPackActivity"
+            android:name="com.yqbj.ghxm.redpacket.privateredpacket.P2PRedPackActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/RedPacketTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.wallet.CoinPurseActivity"
+            android:name="com.yqbj.ghxm.redpacket.wallet.CoinPurseActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.zxing.CaptureActivity"
+            android:name="com.yqbj.ghxm.zxing.CaptureActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.wallet.SettingPayPasswordActivity"
-            android:configChanges="orientation"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
-            android:name="com.wulewan.ghxm.team.activity.OneKeyCopyTeamAct"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
-            android:name="com.wulewan.ghxm.redpacket.wallet.DetailsChangeActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
-            android:name="com.wulewan.ghxm.redpacket.wallet.DetailedQueryActivity"
+            android:name="com.yqbj.ghxm.redpacket.wallet.SettingPayPasswordActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.TeamActiveInfoAct"
+            android:name="com.yqbj.ghxm.team.activity.OneKeyCopyTeamAct"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+        <activity
+            android:name="com.yqbj.ghxm.redpacket.wallet.DetailsChangeActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+        <activity
+            android:name="com.yqbj.ghxm.redpacket.wallet.DetailedQueryActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.TeamManagerActivity"
+            android:name="com.yqbj.ghxm.main.activity.TeamActiveInfoAct"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.TeamAssistantActivity"
+            android:name="com.yqbj.ghxm.team.activity.TeamManagerActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.AlbumActivity"
+            android:name="com.yqbj.ghxm.team.activity.TeamAssistantActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.contact.activity.AlbumDetailActivity"
+            android:name="com.yqbj.ghxm.contact.activity.AlbumActivity"
+            android:configChanges="orientation"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+        <activity
+            android:name="com.yqbj.ghxm.contact.activity.AlbumDetailActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/FullTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.SeeRecordActivity"
+            android:name="com.yqbj.ghxm.team.activity.SeeRecordActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.RobotWebViewActivity"
+            android:name="com.yqbj.ghxm.team.activity.RobotWebViewActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.NoReceivedRPRecordActivity"
-            android:configChanges="orientation"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-
-        <activity
-            android:name="com.wulewan.ghxm.team.activity.MyTeamMiBiActivity"
+            android:name="com.yqbj.ghxm.team.activity.NoReceivedRPRecordActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -782,7 +774,7 @@
             android:windowSoftInputMode="adjustResize|adjustPan" />
 
         <activity
-            android:name="com.wulewan.ghxm.team.activity.SetMiBiActivity"
+            android:name="com.yqbj.ghxm.team.activity.MyTeamMiBiActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -790,42 +782,50 @@
             android:windowSoftInputMode="adjustResize|adjustPan" />
 
         <activity
-            android:name="com.wulewan.ghxm.team.activity.NoCollarActivity"
+            android:name="com.yqbj.ghxm.team.activity.SetMiBiActivity"
+            android:configChanges="orientation"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name="com.yqbj.ghxm.team.activity.NoCollarActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.UpgradeTeamPeopleAct"
+            android:name="com.yqbj.ghxm.team.activity.UpgradeTeamPeopleAct"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.TeamRedPacketAssistantActivity"
+            android:name="com.yqbj.ghxm.team.activity.TeamRedPacketAssistantActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.DelayedCollectionRPAct"
+            android:name="com.yqbj.ghxm.team.activity.DelayedCollectionRPAct"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.TeamTimeSettingActivity"
+            android:name="com.yqbj.ghxm.team.activity.TeamTimeSettingActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.TeamAssistantDetailsActivity"
+            android:name="com.yqbj.ghxm.team.activity.TeamAssistantDetailsActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -833,21 +833,21 @@
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.AdvancedTeamInfoAct"
+            android:name="com.yqbj.ghxm.team.activity.AdvancedTeamInfoAct"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.InactiveDetailInfoAct"
+            android:name="com.yqbj.ghxm.team.activity.InactiveDetailInfoAct"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.wallet.DetailsRedPacketActivity"
+            android:name="com.yqbj.ghxm.redpacket.wallet.DetailsRedPacketActivity"
             android:configChanges="orientation"
             android:launchMode="singleTask"
             android:hardwareAccelerated="true"
@@ -855,84 +855,84 @@
             android:theme="@style/RedPacketTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.user.PasswordManageActivity"
+            android:name="com.yqbj.ghxm.user.PasswordManageActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.user.CheckPayPswdActivity"
+            android:name="com.yqbj.ghxm.user.CheckPayPswdActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.user.RetrievePayPwdActivity"
+            android:name="com.yqbj.ghxm.user.RetrievePayPwdActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.AdvancedTeamMemberInfoAct"
+            android:name="com.yqbj.ghxm.team.activity.AdvancedTeamMemberInfoAct"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.team.activity.AdvanceTeamAllMemAct"
+            android:name="com.yqbj.ghxm.team.activity.AdvanceTeamAllMemAct"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.user.BindALiPayActivity"
+            android:name="com.yqbj.ghxm.user.BindALiPayActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.main.activity.FeedbackActivity"
+            android:name="com.yqbj.ghxm.main.activity.FeedbackActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.wallet.CarryActivity"
+            android:name="com.yqbj.ghxm.redpacket.wallet.CarryActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.wallet.RechargeActivity"
+            android:name="com.yqbj.ghxm.redpacket.wallet.RechargeActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.privateredpacket.ChooseRecipientsListACT"
+            android:name="com.yqbj.ghxm.redpacket.privateredpacket.ChooseRecipientsListACT"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.redpacket.privateredpacket.RedPackDetailsActivity"
+            android:name="com.yqbj.ghxm.redpacket.privateredpacket.RedPackDetailsActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/RedPacketDetailsTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.wulewan.ghxm.user.AgreementActivity"
+            android:name="com.yqbj.ghxm.user.AgreementActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"

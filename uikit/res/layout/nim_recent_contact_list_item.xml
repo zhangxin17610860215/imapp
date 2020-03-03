@@ -24,7 +24,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true">
 
-            <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+            <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
                 android:id="@+id/img_head"
                 android:layout_width="@dimen/avatar_size_default"
                 android:layout_height="@dimen/avatar_size_default"
@@ -117,7 +117,7 @@
         </LinearLayout>
 
 
-        <com.netease.wulewan.uikit.common.ui.drop.DropFake
+        <com.netease.yqbj.uikit.common.ui.drop.DropFake
             android:id="@+id/unread_number_tip"
             android:layout_width="@dimen/dp_22"
             android:layout_height="@dimen/dp_22"

@@ -15,7 +15,7 @@
         android:layout_height="109dp"
         android:background="@drawable/linear_layout_select">
 
-        <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+        <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
             android:id="@+id/user_icon"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"

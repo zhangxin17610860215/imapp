@@ -18,7 +18,7 @@
             android:paddingTop="13dp"
             android:paddingBottom="13dp">
 
-            <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+            <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
                 android:id="@+id/user_head_image"
                 android:layout_width="@dimen/avatar_size_in_profile"
                 android:layout_height="@dimen/avatar_size_in_profile"

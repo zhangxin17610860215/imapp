@@ -40,7 +40,7 @@
             <!--</FrameLayout>-->
         </RelativeLayout>
 
-        <com.netease.wulewan.avchatkit.common.imageview.HeadImageView
+        <com.netease.yqbj.avchatkit.common.imageview.HeadImageView
             android:id="@+id/avchat_audio_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

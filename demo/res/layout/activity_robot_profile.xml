@@ -22,13 +22,13 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+    <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
         android:id="@+id/hv_robot"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp">
-    </com.netease.wulewan.uikit.common.ui.imageview.HeadImageView>
+    </com.netease.yqbj.uikit.common.ui.imageview.HeadImageView>
 
     <TextView
         android:id="@+id/tv_robot_name"

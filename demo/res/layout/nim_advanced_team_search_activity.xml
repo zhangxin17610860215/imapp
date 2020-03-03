@@ -24,7 +24,7 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <com.netease.wulewan.uikit.common.ui.widget.ClearableEditTextWithIcon
+    <com.netease.yqbj.uikit.common.ui.widget.ClearableEditTextWithIcon
         android:id="@+id/team_search_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

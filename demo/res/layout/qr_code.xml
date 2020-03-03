@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/qr_bg" />
 
-        <com.netease.wulewan.uikit.common.ui.imageview.HeadImageView
+        <com.netease.yqbj.uikit.common.ui.imageview.HeadImageView
             android:id="@+id/user_head"
             android:layout_width="60dp"
             android:layout_height="60dp"

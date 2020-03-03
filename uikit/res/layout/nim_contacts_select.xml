@@ -129,7 +129,7 @@
                     android:textSize="40sp"
                     android:visibility="invisible" />
 
-                <com.netease.wulewan.uikit.common.ui.liv.LetterIndexView
+                <com.netease.yqbj.uikit.common.ui.liv.LetterIndexView
                     android:id="@+id/liv_index"
                     android:layout_width="15dip"
                     android:layout_height="fill_parent"
