@@ -3,6 +3,7 @@ package com.yqbj.ghxm.team.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.business.team.activity.AdvancedTeamMemberInfoActivity;
@@ -10,6 +11,8 @@ import com.netease.yqbj.uikit.business.team.helper.IAdvancedTeamMember;
 import com.netease.yqbj.uikit.common.CommonUtil;
 import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.ui.dialog.DialogMaker;
+import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
+import com.yqbj.ghxm.bean.BaseBean;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.contact.activity.AlbumActivity;
 import com.yqbj.ghxm.contact.activity.AlbumDetailActivity;
@@ -71,14 +74,23 @@ public class AdvancedTeamMemberInfoAct extends AdvancedTeamMemberInfoActivity {
         UserApi.kickTeam(teamId, account, this, new requestCallback() {
             @Override
             public void onSuccess(int code, Object object) {
-                Log.e("踢人成功","踢人成功");
-                CommonUtil.uploadTeamIcon(teamId,AdvancedTeamMemberInfoAct.this);
+                dismissProgress();
+                if (code == Constants.SUCCESS_CODE){
+                    CommonUtil.uploadTeamIcon(teamId,AdvancedTeamMemberInfoAct.this);
+                    DialogMaker.dismissProgressDialog();
+                    makeIntent(account, isSetAdmin, true);
+                    finish();
+                }else if (code == Constants.RESPONSE_CODE.CODE_40014){
+                    BaseBean bean = (BaseBean) object;
+                    EasyAlertDialogHelper.showOneButtonDiolag(AdvancedTeamMemberInfoAct.this, "移出群聊失败", bean.getMessage(), "知道了", true, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-
-                DialogMaker.dismissProgressDialog();
-                makeIntent(account, isSetAdmin, true);
-                finish();
-                ToastHelper.showToastLong(AdvancedTeamMemberInfoAct.this, com.netease.yqbj.uikit.R.string.update_success);
+                        }
+                    }).show();
+                }else {
+                    toast((String) object);
+                }
 
             }
 

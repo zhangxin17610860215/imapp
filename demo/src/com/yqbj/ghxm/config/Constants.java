@@ -171,6 +171,8 @@ public class Constants {
         public static final int CODE_40006 = 40006;            // 用户主动离群失败
         public static final int CODE_40007 = 40007;            // 踢用户离群失败
         public static final int CODE_40008 = 40008;            // 群配置信息不存在
+        public static final int CODE_40013 = 40013;            // 群成员有余额不能解散
+        public static final int CODE_40014 = 40014;            // 群成员有余额不能离群
 
         public static final int CODE_50001 = 50001;            // 用户钱包账户已存在
         public static final int CODE_50002 = 50002;            // 用户钱包账户不存在

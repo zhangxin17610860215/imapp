@@ -22,6 +22,7 @@ import com.netease.nimlib.sdk.team.constant.TeamMemberType;
 import com.netease.nimlib.sdk.team.constant.VerifyTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
+import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.yqbj.ghxm.R;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.api.model.SimpleCallback;
@@ -40,7 +41,9 @@ import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.adapter.TAdapterDelegate;
 import com.netease.yqbj.uikit.common.adapter.TViewHolder;
 import com.netease.yqbj.uikit.common.ui.dialog.DialogMaker;
+import com.yqbj.ghxm.bean.BaseBean;
 import com.yqbj.ghxm.common.ui.BaseAct;
+import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.utils.StringUtil;
@@ -341,12 +344,21 @@ public class AdvanceTeamAllMemAct extends BaseAct implements TAdapterDelegate,Te
             @Override
             public void onSuccess(int code, Object object) {
                 DialogMaker.dismissProgressDialog();
-                CommonUtil.uploadTeamIcon(teamId,AdvanceTeamAllMemAct.this);
-                requestMembers();
-                ToastHelper.showToast(AdvanceTeamAllMemAct.this, R.string.remove_member_success);
+                if (code == Constants.SUCCESS_CODE){
+                    CommonUtil.uploadTeamIcon(teamId,AdvanceTeamAllMemAct.this);
+                    requestMembers();
+                    ToastHelper.showToast(AdvanceTeamAllMemAct.this, R.string.remove_member_success);
+                }else if (code == Constants.RESPONSE_CODE.CODE_40014){
+                    BaseBean bean = (BaseBean) object;
+                    EasyAlertDialogHelper.showOneButtonDiolag(AdvanceTeamAllMemAct.this, "移出群聊失败", bean.getMessage(), "知道了", true, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-
-
+                        }
+                    }).show();
+                }else {
+                    toast((String) object);
+                }
             }
 
             @Override

@@ -70,6 +70,7 @@ import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.yqbj.uikit.common.ui.widget.SwitchButton;
 import com.netease.yqbj.uikit.utils.SPUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.yqbj.ghxm.bean.BaseBean;
 import com.yqbj.ghxm.busevent.TeamMemberEvent;
 import com.yqbj.ghxm.common.ui.BaseAct;
 import com.yqbj.ghxm.config.Constants;
@@ -1214,17 +1215,26 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             public void onSuccess(int code, Object object) {
                 DialogMaker.dismissProgressDialog();
 //                CommonUtil.uploadTeamIcon(teamId,AdvancedTeamInfoAct.this);
-                requestMembers();
-                ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.remove_member_success);
+                if (code == Constants.SUCCESS_CODE){
+                    requestMembers();
+                    ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.remove_member_success);
+                }else if (code == Constants.RESPONSE_CODE.CODE_40014){
+                    BaseBean bean = (BaseBean) object;
+                    EasyAlertDialogHelper.showOneButtonDiolag(AdvancedTeamInfoAct.this, "移出群聊失败", bean.getMessage(), "知道了", true, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-
-
+                        }
+                    }).show();
+                }else {
+                    toast((String) object);
+                }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 DialogMaker.dismissProgressDialog();
-
+                toast(errMessage);
             }
         });
 
@@ -1273,15 +1283,27 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             @Override
             public void onSuccess(int code, Object object) {
                 DialogMaker.dismissProgressDialog();
-                ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.quit_team_success);
-                setResult(Activity.RESULT_OK, new Intent().putExtra(RESULT_EXTRA_REASON, RESULT_EXTRA_REASON_QUIT));
-                finish();
+                if (code == Constants.SUCCESS_CODE){
+                    ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.quit_team_success);
+                    setResult(Activity.RESULT_OK, new Intent().putExtra(RESULT_EXTRA_REASON, RESULT_EXTRA_REASON_QUIT));
+                    finish();
+                }else if (code == Constants.RESPONSE_CODE.CODE_40014){
+                    BaseBean bean = (BaseBean) object;
+                    EasyAlertDialogHelper.showOneButtonDiolag(AdvancedTeamInfoAct.this, "不可退群", bean.getMessage(), "知道了", true, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).show();
+                }else {
+                    toast((String) object);
+                }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 DialogMaker.dismissProgressDialog();
-                ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.quit_team_failed);
+                ToastHelper.showToast(AdvancedTeamInfoAct.this, errMessage);
             }
         });
 
@@ -1304,6 +1326,16 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
                     setResult(Activity.RESULT_OK, new Intent().putExtra(RESULT_EXTRA_REASON, RESULT_EXTRA_REASON_DISMISS));
                     ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.dismiss_team_success);
                     finish();
+                }else if (code == Constants.RESPONSE_CODE.CODE_40013){
+                    BaseBean bean = (BaseBean) object;
+                    EasyAlertDialogHelper.showOneButtonDiolag(AdvancedTeamInfoAct.this, "不可解散", bean.getMessage(), "知道了", true, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).show();
+                }else {
+                    toast((String) object);
                 }
 
             }
@@ -1312,7 +1344,6 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             public void onFailed(String errMessage) {
                 DialogMaker.dismissProgressDialog();
                 toast(errMessage);
-//                ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.quit_team_failed);
             }
         });
 

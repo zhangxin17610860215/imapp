@@ -899,7 +899,7 @@ public class UserApi {
                 LogUtil.e(TAG, "LEAVE_TEAM--------->onSuccess" + response.body());
                 try {
                     BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE || bean.getStatusCode() == Constants.RESPONSE_CODE.CODE_40014) {
                         callback.onSuccess(bean.getStatusCode(), bean);
                     } else {
                         callback.onFailed(bean.getMessage());
@@ -933,7 +933,7 @@ public class UserApi {
                 LogUtil.e(TAG, "removeTeam--------->onSuccess" + response.body());
                 try {
                     BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE || bean.getStatusCode() == Constants.RESPONSE_CODE.CODE_40013) {
                         callback.onSuccess(bean.getStatusCode(), bean);
                     } else {
                         callback.onFailed(bean.getMessage());
@@ -968,7 +968,7 @@ public class UserApi {
                 LogUtil.e(TAG, "kickTeam--------->onSuccess" + response.body());
                 try {
                     BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE || bean.getStatusCode() == Constants.RESPONSE_CODE.CODE_40014) {
                         callback.onSuccess(bean.getStatusCode(), bean);
                     } else {
                         callback.onFailed(bean.getMessage());
@@ -1002,7 +1002,7 @@ public class UserApi {
                 LogUtil.e(TAG, "kickTeamByOnce--------->onSuccess" + response.body());
                 try {
                     BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE || bean.getStatusCode() == Constants.RESPONSE_CODE.CODE_40014) {
                         callback.onSuccess(bean.getStatusCode(), bean);
                     } else {
                         callback.onFailed(bean.getMessage());
