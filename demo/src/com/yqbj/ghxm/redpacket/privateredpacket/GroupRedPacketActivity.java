@@ -356,7 +356,7 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                             toast("单个红包金额不得少于1蜜币");
                             return;
                         }
-                        if (NumberUtil.compareLess("1000", inputAmount)) {
+                        if (NumberUtil.compareLess("1000", str)) {
                             toast("单个红包金额不得大于1000蜜币");
                             return;
                         }
@@ -396,7 +396,7 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                             toast("单个红包金额不得少于1蜜币");
                             return;
                         }
-                        if (NumberUtil.compareLess("1000", inputAmount)) {
+                        if (NumberUtil.compareLess("1000", str)) {
                             toast("单个红包金额不得大于1000蜜币");
                             return;
                         }
@@ -437,7 +437,7 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                         toast("单个红包金额不得少于1蜜币");
                         return;
                     }
-                    if (NumberUtil.compareLess("1000", totalSum)) {
+                    if (NumberUtil.compareLess("1000", str)) {
                         toast("单个红包金额不得大于1000蜜币");
                         return;
                     }
