@@ -145,7 +145,7 @@ public class NimApplication extends Application {
         instance = this;
         disableAPIDialog();
         initTinker();
-        if (isApkInDebug()){
+        if (Constants.DEBUG){
             ALIPAY_APPID = "2019032063603734";
             ALIPAY_PID = "2088331211860731";
             APP_ID = "wx9767fd8beab57eb6";
@@ -233,7 +233,7 @@ public class NimApplication extends Application {
          * 设置组件化的Log开关
          * 参数: boolean 默认为false，如需查看LOG设置为true
          */
-        UMConfigure.setLogEnabled(!Constants.DEBUG);
+        UMConfigure.setLogEnabled(Constants.DEBUG);
     }
 
     private void initOkgo() {
@@ -272,7 +272,7 @@ public class NimApplication extends Application {
         //方法四：使用bks证书和密码管理客户端证书（双向认证），使用预埋证书，校验服务端证书（自签名证书）
         //HttpsUtils.SSLParams sslParams4 = HttpsUtils.getSslSocketFactory(getAssets().open("xxx.bks"), "123456", getAssets().open("yyy.cer"));
 
-        if (isApkInDebug()){
+        if (Constants.DEBUG){
             //Debug版本不需要证书认证
             builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
 //            try {

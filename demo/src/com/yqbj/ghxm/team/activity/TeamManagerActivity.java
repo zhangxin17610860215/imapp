@@ -83,7 +83,7 @@ public class TeamManagerActivity extends BaseAct {
 
 
     private String teamId;
-    private String teamMemberLimit = ApiUrl.isDebug ? "200":"500";
+    private String teamMemberLimit = Constants.DEBUG ? "200":"500";
 
     private Team team;
     private String creator;

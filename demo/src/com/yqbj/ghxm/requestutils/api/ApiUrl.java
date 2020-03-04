@@ -1,5 +1,7 @@
 package com.yqbj.ghxm.requestutils.api;
 
+import com.yqbj.ghxm.config.Constants;
+
 /**
  * URL
  */
@@ -9,8 +11,6 @@ public class ApiUrl {
 //    public static String BASE_URL = "139.196.106.67";                       //测试服务器
 //    public static String BASE_URL = "192.168.1.199";                      //服务端本地IP
 
-    public static boolean isDebug = true;                        //是否是测试环境
-
 
     public static String BASE_URL_HEAD;
     public static String BASE_URL;
@@ -19,7 +19,7 @@ public class ApiUrl {
     public static String CHECK_VERSION;
     public static String OVERALL_GET_KEY;
     static {
-        if (isDebug){
+        if (Constants.DEBUG){
             BASE_URL_HEAD = "http://";
             BASE_URL = "139.196.106.67";
             OVERALL_GET_KEY = BASE_URL_HEAD + BASE_URL + "/IM_new_key_server/app/im/access";
