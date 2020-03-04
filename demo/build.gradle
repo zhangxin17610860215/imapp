@@ -56,8 +56,8 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            manifestPlaceholders = [AMAP_KEY: "0b36584d3edf672c0cdc255d715d8756",
-                                    UMENG_APPKEY_VALUE:"5cee449d570df341810003d9",
+            manifestPlaceholders = [AMAP_KEY: "2377101a304076ff20aa2fc03cc2714f",
+                                    UMENG_APPKEY_VALUE:"5e5f814c0cafb2918100013c",
                                     NIM_KEY:"b58dcb056d20a2482cd8bc8213bb91db",
                                     HUAWEI_PUSH_APIKEY:"100832525"]
 //            manifestPlaceholders = [AMAP_KEY: "0b36584d3edf672c0cdc255d715d8756",
@@ -74,8 +74,8 @@ android {
             zipAlignEnabled true
             proguardFile('proguard.cfg')
             signingConfig signingConfigs.release
-            manifestPlaceholders = [AMAP_KEY: "0b36584d3edf672c0cdc255d715d8756",
-                                    UMENG_APPKEY_VALUE:"5cee449d570df341810003d9",
+            manifestPlaceholders = [AMAP_KEY: "2377101a304076ff20aa2fc03cc2714f",
+                                    UMENG_APPKEY_VALUE:"5e5f814c0cafb2918100013c",
                                     NIM_KEY:"53c935d9e16b6d8c1a09799d4fba2fdb",
                                     HUAWEI_PUSH_APIKEY:"100832525"]
             ext.enableCrashlytics = true

@@ -233,7 +233,7 @@ public class NimApplication extends Application {
          * 设置组件化的Log开关
          * 参数: boolean 默认为false，如需查看LOG设置为true
          */
-        UMConfigure.setLogEnabled(false);
+        UMConfigure.setLogEnabled(!Constants.DEBUG);
     }
 
     private void initOkgo() {
