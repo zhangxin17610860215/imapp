@@ -766,7 +766,6 @@ public class MsgMigrationActivity extends UI implements View.OnClickListener {
         int passwordLen = password.getBytes(CHAR_SET).length;
         // 长度必须256 bit
         if (passwordLen != passwordKey.length) {
-            Log.e(TAG, "password len is not 256 bit , password = " + password);
             return null;
         }
         System.arraycopy(password.getBytes(CHAR_SET), 0, passwordKey, 0, passwordLen);

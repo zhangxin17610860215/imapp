@@ -90,12 +90,12 @@ public class MasterFragment extends TFragment {
 
             @Override
             public void onFailed(int code) {
-                LogUtil.d(TAG, "fetch room info failed:" + code);
+
             }
 
             @Override
             public void onException(Throwable exception) {
-                LogUtil.d(TAG, "fetch room info exception:" + exception);
+
             }
         });
     }

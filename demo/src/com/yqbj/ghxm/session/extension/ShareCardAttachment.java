@@ -25,7 +25,6 @@ public class ShareCardAttachment extends CustomAttachment {
 
     @Override
     protected void parseData(JSONObject data) {
-        Log.e("ShareCardAttachment",">>>>>>>>" + data.toJSONString());
         appIconUrl = data.getString("appIconUrl");
         appName = data.getString("appName");
         title = data.getString("title");

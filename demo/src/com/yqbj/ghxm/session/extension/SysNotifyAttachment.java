@@ -20,7 +20,6 @@ public class SysNotifyAttachment extends CustomAttachment {
 
     @Override
     protected void parseData(JSONObject data) {
-        Log.e("SysNotifyAttachment",">>>>>>>>" + data.toJSONString());
 
         msgType = data.getIntValue("msgType");
         cardType = data.getIntValue("msgType");

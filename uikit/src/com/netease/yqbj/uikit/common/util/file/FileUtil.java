@@ -65,7 +65,6 @@ public class FileUtil {
             MimeTypeMap mime = MimeTypeMap.getSingleton();
             type = mime.getMimeTypeFromExtension(extension);
         }
-        Log.i(TAG, "url:" + filePath + " " + "type:" + type);
 
         if (StringUtil.isEmpty(type) && filePath.endsWith("aac")) {
             type = "audio/aac";

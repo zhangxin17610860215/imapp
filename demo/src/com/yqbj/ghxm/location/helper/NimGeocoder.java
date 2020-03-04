@@ -182,7 +182,6 @@ public class NimGeocoder {
                     }
                 }
             } catch (IOException e) {
-                LogUtil.e(TAG, e + "");
             }
             return ret;
         }

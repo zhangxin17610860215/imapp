@@ -90,7 +90,6 @@ public class ImageLoaderKit {
     }
 
     private void loadAvatarBitmapToCache(String url) {
-        Log.e("TAG","UserHeadImgPath>>>>>>>>>>>" + url);
         if (TextUtils.isEmpty(url)) {
             return;
         }

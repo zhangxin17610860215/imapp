@@ -94,9 +94,7 @@ public class RobotWebViewActivity extends BaseAct {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("group_id").append(teamId).append("owner_id").append(NimUIKit.getAccount()).append("robot_id").append(robotBean.getAccid()).append("QYcuSJ7zoBH4T4Gq");
         String str = stringBuilder.toString();
-        Log.e("TAG",">>>>>str>>>>>" + str);
         String md5Str = CrypticUtil.md5(str).toLowerCase();
-        Log.e("TAG",">>>>>md5Str>>>>>" + md5Str);
 
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(robotBean.getBindingUrl())
@@ -110,7 +108,6 @@ public class RobotWebViewActivity extends BaseAct {
                 .append("sign=")
                 .append(md5Str);
         String url = urlBuilder.toString();
-        Log.e("TAG",">>>>>url>>>>>" + url);
         webView.loadUrl(url);
     }
 

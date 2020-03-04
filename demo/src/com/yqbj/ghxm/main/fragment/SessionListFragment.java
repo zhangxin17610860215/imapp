@@ -194,7 +194,7 @@ public class SessionListFragment extends MainTabFragment {
                 OnlineClient client = onlineClients.get(0);
 
                 for (OnlineClient temp : onlineClients) {
-                    Log.d(TAG, "type : " + temp.getClientType() + " , customTag : " + temp.getCustomTag());
+
                 }
 
                 switch (client.getClientType()) {

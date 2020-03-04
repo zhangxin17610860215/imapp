@@ -78,7 +78,6 @@ public class NimLocationManager implements AMapLocationListener {
             }
             return client.getLastKnownLocation();
         } catch (Exception e) {
-            LogUtil.i(TAG, "get last known location failed: " + e.toString());
         }
         return null;
     }
@@ -216,7 +215,6 @@ public class NimLocationManager implements AMapLocationListener {
                 ret = true;
             }
         } catch (IOException e) {
-            LogUtil.e(TAG, e + "");
         }
 
         int what = ret ? MSG_LOCATION_WITH_ADDRESS_OK : MSG_LOCATION_POINT_OK;

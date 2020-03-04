@@ -16,7 +16,6 @@ public class TeamRobotNotifyAttachment extends CustomAttachment {
 
     @Override
     protected void parseData(JSONObject data) {
-        Log.e("TeamRobotNotify",">>>>>>>>" + data.toJSONString());
         otherDataBean = GsonHelper.getSingleton().fromJson(data.toJSONString(), TeamRobotNotifyBean.class);
 
     }

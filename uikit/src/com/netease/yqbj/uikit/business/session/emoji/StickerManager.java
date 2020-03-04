@@ -46,7 +46,7 @@ public class StickerManager {
     }
 
     public void init() {
-        Log.i(TAG, "Sticker Manager init...");
+
     }
 
     private void initStickerOrder() {

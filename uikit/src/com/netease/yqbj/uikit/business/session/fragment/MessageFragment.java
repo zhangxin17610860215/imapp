@@ -267,7 +267,6 @@ public class MessageFragment extends TFragment implements ModuleProxy {
             NIMClient.getService(MsgService.class).sendMessage(message, false).setCallback(new RequestCallback<Void>() {
                 @Override
                 public void onSuccess(Void param) {
-                    Log.e("sendMessage","onSuccess>>>>>>>>>>>>>");
                 }
 
                 @Override
@@ -276,7 +275,6 @@ public class MessageFragment extends TFragment implements ModuleProxy {
                     try {
                         Class aClass = Class.forName("com.yqbj.ghxm.session.extension.RedPacketAttachment");
                         if (null != msg.getAttachment().getClass().getName() || msg.getAttachment().getClass().getName().equals(aClass.getName())){
-                            Log.e("sendMessage","onFailed>>>>>>>>>>>>>" + code);
                             sendRpError(code);
                         }
                     } catch (Exception e) {
@@ -288,7 +286,7 @@ public class MessageFragment extends TFragment implements ModuleProxy {
 
                 @Override
                 public void onException(Throwable exception) {
-                    Log.e("sendMessage","onException>>>>>>>>>>>>>" + exception.getMessage());
+
                 }
             });
 

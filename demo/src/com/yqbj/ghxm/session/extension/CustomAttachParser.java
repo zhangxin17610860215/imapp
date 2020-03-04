@@ -79,7 +79,6 @@ public class CustomAttachParser implements MsgAttachmentParser {
                 attachment.fromJson(data);
             }
         } catch (Exception e) {
-            Log.e("TAG",">>>>>>>>>>>>>>>>>>" + e.getMessage());
         }
 
         return attachment;

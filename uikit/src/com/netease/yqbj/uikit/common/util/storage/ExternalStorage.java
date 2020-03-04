@@ -214,7 +214,6 @@ public class ExternalStorage {
      */
     private boolean checkPermission(Context context) {
         if (context == null) {
-            Log.e(TAG, "checkMPermission context null");
             return false;
         }
 
@@ -222,7 +221,6 @@ public class ExternalStorage {
         PackageManager pm = context.getPackageManager();
         if (PackageManager.PERMISSION_GRANTED !=
                 pm.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context.getApplicationInfo().packageName)) {
-            Log.e(TAG, "without permission to access storage");
             return false;
         }
 
@@ -239,7 +237,6 @@ public class ExternalStorage {
 
         hasPermission = checkPermission(context); // 检查是否已经获取权限了
         if (hasPermission) {
-            Log.i(TAG, "get permission to access storage");
 
             // 已经重新获得权限，那么重新检查一遍初始化过程
             createSubFolders();

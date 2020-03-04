@@ -53,7 +53,6 @@ public class HttpClientWrapper {
     }
 
     public static HttpResult<String> get(final String urlStr, final Map<String, String> headers) {
-        LogUtil.d(TAG, "http get url=" + urlStr);
         HttpResult<String> result = new HttpResult<>();
 
         HttpURLConnection urlConnection = null;
@@ -67,14 +66,13 @@ public class HttpClientWrapper {
             // response
             if (resCode == RES_CODE_SUCCESS) {
                 result.obj = buildString(urlConnection.getInputStream());
-                LogUtil.d(TAG, "http get success, result=" + result.obj + ", url=" + urlStr);
             } else {
-                LogUtil.e(TAG, "http get failed, code=" + resCode + ", url=" + urlStr);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
             result.e = e;
-            LogUtil.e(TAG, "http get error, e=" + e.getMessage() + ", url=" + urlStr);
+
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -85,7 +83,6 @@ public class HttpClientWrapper {
     }
 
     public static <T> HttpResult<String> post(final String urlStr, final Map<String, String> headers, T body) {
-        LogUtil.d(TAG, "http post url=" + urlStr);
         HttpResult<String> result = new HttpResult<>();
 
         HttpURLConnection urlConnection = null;
@@ -99,14 +96,13 @@ public class HttpClientWrapper {
             // response
             if (resCode == RES_CODE_SUCCESS) {
                 result.obj = buildString(urlConnection.getInputStream());
-                LogUtil.d(TAG, "http post success, result=" + result + ", url=" + urlStr);
             } else {
-                LogUtil.e(TAG, "http post failed, code=" + resCode + ", url=" + urlStr);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
             result.e = e;
-            LogUtil.e(TAG, "http post error, e=" + e.getMessage() + ", url=" + urlStr);
+
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();

@@ -442,7 +442,6 @@ public class AlbumDetailActivity extends BaseAct {
         upload.setCallback(new RequestCallbackWrapper<String>() {
             @Override
             public void onResult(int i, final String url, Throwable throwable) {
-                Log.e("TAG",">>>>>>>>" + url);
                 if (StringUtil.isEmpty(url)){
                     return;
                 }
@@ -464,7 +463,6 @@ public class AlbumDetailActivity extends BaseAct {
                 }
                 Gson gson = new Gson();
                 String cardUrlInfo = gson.toJson(urlList);
-                Log.e("TAG",">>>>>>>" + cardUrlInfo);
                 UserApi.upDateUserBusinessCard(cardUrlInfo, context, new requestCallback() {
                     @Override
                     public void onSuccess(int code, Object object) {

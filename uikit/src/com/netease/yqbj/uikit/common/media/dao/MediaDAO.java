@@ -21,7 +21,6 @@ public class MediaDAO {
                     null, MediaStore.Images.Thumbnails._ID + " DESC");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "getAllMediaThumbnails exception");
         }
         return cursor;
     }
@@ -34,7 +33,6 @@ public class MediaDAO {
                     null, MediaStore.Images.Media.DATE_MODIFIED + " DESC");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "getAllMediaPhotos exception");
         }
 
         return cursor;

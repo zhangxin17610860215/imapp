@@ -342,7 +342,6 @@ public class NetworkUtil {
         }
 
         String proxyHost = android.net.Proxy.getDefaultHost();
-        LogUtil.e(TAG, "proxyHost:" + proxyHost);
         return proxyHost;
     }
 
@@ -356,7 +355,6 @@ public class NetworkUtil {
         }
 
         String proxyHost = android.net.Proxy.getDefaultHost();
-        LogUtil.e(TAG, "proxyHost:" + proxyHost);
         return proxyHost;
     }
 

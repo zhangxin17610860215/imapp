@@ -27,7 +27,6 @@ public class FileUtils {
             File file = new File(path);
             File dir = file.getParentFile();
             if (dir == null) {
-                Log.e(TAG, "file's parent dir is null, path=" + file.getCanonicalPath());
                 return null;
             }
 
@@ -40,12 +39,11 @@ public class FileUtils {
             }
 
             if (!file.exists() && !file.createNewFile()) {
-                Log.e(TAG, "can not create dest file, path=" + path);
                 return null;
             }
             return file;
         } catch (Throwable e) {
-            Log.e(TAG, "create dest file error, path=" + path, e);
+
         }
 
         return null;

@@ -58,7 +58,6 @@ public class RequestHelp {
             return;
         }
         Map<String, String> fullParam = getKeyHeaders(url,map);
-        LogUtil.e("okgo", "getRequest----->" + url + ">>>>>>>>>>>" + fullParam.toString());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.headersMap.putAll(fullParam);
         GetRequest<String> getRequest = OkGo.<String>get(url)

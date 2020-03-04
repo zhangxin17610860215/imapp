@@ -64,7 +64,6 @@ public class ScreenUtil {
         ydpi = dm.ydpi;
         densityDpi = dm.densityDpi;
 
-        Log.d(TAG, "screenWidth=" + screenWidth + " screenHeight=" + screenHeight + " density=" + density);
     }
 
 
@@ -98,7 +97,6 @@ public class ScreenUtil {
         densityDpi = dm.densityDpi;
         statusbarheight = getStatusBarHeight(context);
         navbarheight = getNavBarHeight(context);
-        Log.d(TAG, "screenWidth=" + screenWidth + " screenHeight=" + screenHeight + " density=" + density);
     }
 
     public static int getStatusBarHeight(Context context) {

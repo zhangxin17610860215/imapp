@@ -329,11 +329,9 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
 
         // 只有拉人入群才可以设置自定义字段
         String customInfo = message.getCustomInfo();
-        Log.e(TAG, "system message , customInfo = " + customInfo);
 
         // 获取系统通知的内容。例如：申请附言，拒绝理由
         String content = message.getContent();
-        Log.e(TAG, "system message , content = " + content);
 
         refresh();
         // 收集未知用户资料的账号集合并从远程获取

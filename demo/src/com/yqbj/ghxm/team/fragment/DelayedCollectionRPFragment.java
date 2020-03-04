@@ -33,6 +33,5 @@ public class DelayedCollectionRPFragment extends BaseFragment {
     protected void onInit() {
         Bundle bundle = getArguments();
         data = (List<AutomaticGetRedPackBean.ResultsBean>) bundle.getSerializable("data");
-        Log.e("TAG",">>>>>>>>>>>>>>" + data.size());
     }
 }

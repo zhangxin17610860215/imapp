@@ -406,8 +406,6 @@ public class MessageListPanelEx {
             }
             IMMessage message = notification.getMessage();
             // 获取通知类型： 1表示是离线，2表示是漫游 ， 默认 0
-            Log.i(TAG, "notification type = " + notification.getNotificationType());
-
             if (!container.account.equals(message.getSessionId())) {
                 return;
             }

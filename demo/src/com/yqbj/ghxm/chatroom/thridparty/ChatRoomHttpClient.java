@@ -95,8 +95,6 @@ public class ChatRoomHttpClient {
             @Override
             public void onResponse(String response, int code, Throwable exception) {
                 if (code != 200 || exception != null) {
-                    LogUtil.e(TAG, "fetchChatRoomList failed : code = " + code + ", errorMsg = "
-                            + (exception != null ? exception.getMessage() : "null"));
                     if (callback != null) {
                         callback.onFailed(code, exception != null ? exception.getMessage() : "null");
                     }

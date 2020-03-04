@@ -43,7 +43,6 @@ public class DataCacheManager {
             @Override
             public void run() {
                 buildDataCache();
-                LogUtil.i(TAG, "build data cache completed");
                 NimUIKitImpl.notifyCacheBuildComplete();
             }
         });

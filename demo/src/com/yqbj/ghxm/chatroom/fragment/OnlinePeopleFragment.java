@@ -505,12 +505,12 @@ public class OnlinePeopleFragment extends TFragment {
 
             @Override
             public void onFailed(int code) {
-                Log.d(TAG, "kick member failed:" + code);
+
             }
 
             @Override
             public void onException(Throwable exception) {
-                Log.d(TAG, "kick member exception:" + exception);
+
             }
         });
     }
@@ -528,7 +528,7 @@ public class OnlinePeopleFragment extends TFragment {
 
                     @Override
                     public void onFailed(int code) {
-                        Log.d(TAG, "set muted failed:" + code);
+
                     }
 
                     @Override
@@ -550,7 +550,7 @@ public class OnlinePeopleFragment extends TFragment {
 
                     @Override
                     public void onFailed(int code) {
-                        Log.d(TAG, "set black list failed:" + code);
+
                     }
 
                     @Override
@@ -573,7 +573,7 @@ public class OnlinePeopleFragment extends TFragment {
 
                     @Override
                     public void onFailed(int code) {
-                        Log.d(TAG, "set admin failed:" + code);
+
                     }
 
                     @Override
