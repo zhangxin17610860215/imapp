@@ -15,6 +15,15 @@ public class TeamRobotNotifyBean implements Serializable {
     private String userCodeList;
     private String title;
     private List<ContentBean> content;
+    private int settlementFlag;
+
+    public int getSettlementFlag() {
+        return settlementFlag;
+    }
+
+    public void setSettlementFlag(int settlementFlag) {
+        this.settlementFlag = settlementFlag;
+    }
 
     public List<ContentBean> getContent() {
         return content;

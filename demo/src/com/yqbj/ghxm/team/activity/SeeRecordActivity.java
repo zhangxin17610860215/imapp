@@ -30,6 +30,7 @@ public class SeeRecordActivity extends BaseAct {
     private TeamRobotNotifyBean otherDataBean;
     private TextView tv_title;
     private TextView tv_time;
+    private TextView tv_isSettlement;
     private RecyclerView recyclerView;
     private List<TeamRobotNotifyBean.ContentBean> list;
     private EasyRVAdapter mAdapter;
@@ -72,6 +73,13 @@ public class SeeRecordActivity extends BaseAct {
                 tv_time.setVisibility(View.GONE);
             }
         }
+
+        if (otherDataBean.getSettlementFlag() == 0){
+            tv_isSettlement.setText("战绩未结算");
+        }else if (otherDataBean.getSettlementFlag() == 1){
+            tv_isSettlement.setText("战绩已结算");
+        }
+
         list = new ArrayList<>();
         list.clear();
 
@@ -145,6 +153,7 @@ public class SeeRecordActivity extends BaseAct {
     private void initView() {
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_time = (TextView) findViewById(R.id.tv_time);
+        tv_isSettlement = (TextView) findViewById(R.id.tv_isSettlement);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
     }

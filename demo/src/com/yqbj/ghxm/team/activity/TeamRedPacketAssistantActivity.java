@@ -12,6 +12,7 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.team.TeamService;
 import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.netease.nimlib.sdk.team.model.Team;
+import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.yqbj.ghxm.R;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.bean.TeamConfigBean;
@@ -22,8 +23,10 @@ import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.utils.NumberUtil;
 import com.yqbj.ghxm.utils.StringUtil;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSETTLEMENT;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.RPRECEIVEDELAYTIME;
 
 /**
@@ -36,7 +39,7 @@ public class TeamRedPacketAssistantActivity extends BaseAct implements View.OnCl
     private RelativeLayout rlSettingTime;
     private TextView tvIsOpen;
     private String teamId;
-    private TeamConfigBean teamConfigBean;
+//    private TeamConfigBean teamConfigBean;
     private Team team;
 
     public static void start(Context context, String teamId) {
@@ -147,8 +150,20 @@ public class TeamRedPacketAssistantActivity extends BaseAct implements View.OnCl
 
                 }
 
+                String extensionJsonStr = team.getExtension();
+                String settlement = "0";
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(extensionJsonStr);
+                    if (jsonObject.has(ISSETTLEMENT)){
+                        settlement =  jsonObject.getBoolean(ISSETTLEMENT) ? "1" : "0";
+                    }
+                } catch (Exception e) {
+                    settlement = "0";
+                }
+
                 final String finalString = String.valueOf(NumberUtil.mul(string,"60"));
-                UserApi.teamConfigSet(teamId, null,time,null,null,this, new requestCallback() {
+                UserApi.teamConfigSet(teamId, null,time,null,null,settlement,this, new requestCallback() {
                     @Override
                     public void onSuccess(int code, Object object) {
                         if (code == Constants.SUCCESS_CODE){

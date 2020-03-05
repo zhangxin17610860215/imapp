@@ -9,6 +9,7 @@ import com.yqbj.ghxm.utils.GsonHelper;
 public class TeamRobotNotifyAttachment extends CustomAttachment {
 
     private TeamRobotNotifyBean otherDataBean;
+    private int settlementFlag;
 
     public TeamRobotNotifyAttachment(){
         super(CustomAttachmentType.teamRobot);
@@ -16,8 +17,10 @@ public class TeamRobotNotifyAttachment extends CustomAttachment {
 
     @Override
     protected void parseData(JSONObject data) {
+        Log.e("TAG>>>>>>>>>>>>>>>",data.toString());
+        settlementFlag = data.getInteger("settlementFlag");
         otherDataBean = GsonHelper.getSingleton().fromJson(data.toJSONString(), TeamRobotNotifyBean.class);
-
+        otherDataBean.setSettlementFlag(settlementFlag);
     }
 
     @Override

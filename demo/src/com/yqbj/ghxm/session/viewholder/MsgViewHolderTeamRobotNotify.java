@@ -26,6 +26,7 @@ public class MsgViewHolderTeamRobotNotify extends MsgViewHolderBase {
     private TeamRobotNotifyAttachment attachment;
     private TextView tv_title;
     private TextView tv_time;
+    private TextView tv_isSettlement;
     private RecyclerView recyclerView;
     private TeamRobotNotifyBean otherDataBean;
     private List<TeamRobotNotifyBean.ContentBean> list;
@@ -47,6 +48,7 @@ public class MsgViewHolderTeamRobotNotify extends MsgViewHolderBase {
         }
         tv_title = view.findViewById(R.id.tv_title);
         tv_time = view.findViewById(R.id.tv_time);
+        tv_isSettlement = view.findViewById(R.id.tv_isSettlement);
         recyclerView = view.findViewById(R.id.recyclerView);
     }
 
@@ -67,6 +69,12 @@ public class MsgViewHolderTeamRobotNotify extends MsgViewHolderBase {
                 tv_title.setText(otherDataBean.getTitle());
                 tv_time.setVisibility(View.GONE);
             }
+        }
+
+        if (otherDataBean.getSettlementFlag() == 0){
+            tv_isSettlement.setText("战绩未结算");
+        }else if (otherDataBean.getSettlementFlag() == 1){
+            tv_isSettlement.setText("战绩已结算");
         }
 
         if (null == otherDataBean.getContent()){

@@ -89,6 +89,15 @@
                 />
 
             <include
+                android:id="@+id/team_settlement_layout"
+                layout="@layout/advanced_team_switch_diver_item" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                />
+
+            <include
                 android:id="@+id/team_copy_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
 

@@ -69,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:ellipsize="end"
-                android:text="sssss时代的"
                 android:textColor="@color/color_grey_666666"
                 android:textSize="12sp" />
         </LinearLayout>

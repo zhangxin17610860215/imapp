@@ -15,6 +15,7 @@ public class StatisticsConstants {
     public static final String REGULARCLEARTIME = "RegularClearTimestamp";                      //36小时定时清理开启的时间戳
     public static final String ISSCREENSHOT = "IsOpenScreenCapture";                            //截图通知
     public static final String ISSAFEMODE = "IsOpenMemberProtect";                              //群成员保护模式（安全模式）
+    public static final String ISSETTLEMENT = "IsSettlement";                              //群成员保护模式（安全模式）
     public static final String ISHAVEROBOT = "teamRobotUrl";                                    //是否有机器人（群助手）
     public static final String UPDATETEAMCONFIG = "updateTeamConfig";                           //固定修改群配置字符串
     public static final String RPRECEIVEDELAYTIME = "RPReceiveDelaytime";                       //红包延时设置

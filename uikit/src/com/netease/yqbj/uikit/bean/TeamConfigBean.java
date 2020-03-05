@@ -21,6 +21,15 @@ public class TeamConfigBean implements Serializable {
     private int regularClear;
     private int rollbackOwner;
     private int screenCapture;
+    private int settlement;
+
+    public int getSettlement() {
+        return settlement;
+    }
+
+    public void setSettlement(int settlement) {
+        this.settlement = settlement;
+    }
 
     public int getExpsecond() {
         return expsecond;

@@ -1577,11 +1577,12 @@ public class UserApi {
     /**
      * 设置群配置
      * @param teamMemberProtect 群成员保护
+     * @param teamMemberProtect 群成员保护
      * @param expsecond 退还群主红包时指定的失效时间, 传0为关闭
      * @param regularClear 36小时定时清理
      * @param screenCapture 截屏通知
      * */
-    public static void teamConfigSet(String tid, String teamMemberProtect, String expsecond, String regularClear,String screenCapture, Object object, final requestCallback callback){
+    public static void teamConfigSet(String tid, String teamMemberProtect, String expsecond, String regularClear, String screenCapture, String settlement, Object object, final requestCallback callback){
         if (StringUtil.isEmpty(tid)){
             return;
         }
@@ -1597,7 +1598,7 @@ public class UserApi {
         map.put("expsecond",expsecond);
         map.put("regularClear","0");
         map.put("screenCapture","0");
-        LogUtil.e(TAG, "teamConfigSet--------->param" + map.toString());
+        map.put("settlement",settlement);
         RequestHelp.postRequest(ApiUrl.TEAMCONFIGSET, object, map, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

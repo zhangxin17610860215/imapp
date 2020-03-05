@@ -47,6 +47,7 @@ import com.yqbj.ghxm.utils.NumberUtil;
 import com.yqbj.ghxm.utils.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSAFEMODE;
+import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSETTLEMENT;
+import static com.netease.yqbj.uikit.api.StatisticsConstants.RPRECEIVEDELAYTIME;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_COPYNEWTEAM;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_PROTECTMEMBER;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_SETTEAMMANAGER;
@@ -71,6 +74,7 @@ public class TeamManagerActivity extends BaseAct {
     private static final String SW_KEY_SAFE_MODE = "sw_safe_mode";
     private static final String SW_KEY_CREDIT = "sw_credit";
     private static final String SW_KEY_FORBIT_SPEAK = "sw_forbit_speak";
+    private static final String SW_KEY_SETTLEMENT = "sw_settlement";
 
     private boolean isSelfAdmin = false;
 
@@ -90,7 +94,9 @@ public class TeamManagerActivity extends BaseAct {
 
     private View team_manager_layout;
     private View team_forbit_speak_layout;
+    private View team_settlement_layout;
     private SwitchButton swiBtn_forbit;
+    private SwitchButton swiBtn_settlement;
 
     private View team_active_layout;
     private View team_NoCollar_layout;
@@ -109,7 +115,7 @@ public class TeamManagerActivity extends BaseAct {
 
     private String teamRobotName = "未配置";
     private TeamRobotDetatlsBean bean;
-    private TeamConfigBean teamConfigBean;
+//    private TeamConfigBean teamConfigBean;
     private int responseCode;
     private TeamAllocationPriceBean priceBean;
 
@@ -138,7 +144,7 @@ public class TeamManagerActivity extends BaseAct {
         members = new ArrayList<>();
         managerList = new ArrayList<>();
         noCollarList = new ArrayList<>();
-        teamConfigBean = StatisticsConstants.TEAMCONFIGBEAN;
+//        teamConfigBean = null == StatisticsConstants.TEAMCONFIGBEAN ? new TeamConfigBean() : StatisticsConstants.TEAMCONFIGBEAN;
         loadTeamInfo();
         requestMembers();
         registerObservers(true);
@@ -298,7 +304,12 @@ public class TeamManagerActivity extends BaseAct {
             }
         });
 
+        team_settlement_layout = findViewById(R.id.team_settlement_layout);
+        ((TextView) team_settlement_layout.findViewById(R.id.item_title)).setText("战绩自动结算");
 
+        swiBtn_settlement = (SwitchButton) team_settlement_layout.findViewById(R.id.setting_item_toggle);
+        swiBtn_settlement.setTag(SW_KEY_SETTLEMENT);
+        swiBtn_settlement.setOnChangedListener(onChangedListener);
 
         team_copy_layout = findViewById(R.id.team_copy_layout);
         ((TextView) team_copy_layout.findViewById(R.id.item_title)).setText("一键复制新群");
@@ -421,6 +432,23 @@ public class TeamManagerActivity extends BaseAct {
                 MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_TEAMAUTH);
                 NIMClient.getService(TeamService.class).updateTeam(teamId,TeamFieldEnum.VerifyType,checkState?VerifyTypeEnum.Apply:VerifyTypeEnum.Free);
 
+            }else if (key.equals(SW_KEY_SETTLEMENT)){
+                //战绩自动结算
+                boolean isSettlement;
+                try {
+                    isSettlement = checkState;
+                    double rPReceiveDelaytime = 0;
+                    String extensionJsonStr = team.getExtension();
+                    JSONObject jsonObject = new JSONObject(extensionJsonStr);
+                    if (jsonObject.has(RPRECEIVEDELAYTIME)){
+                        rPReceiveDelaytime = jsonObject.getDouble(RPRECEIVEDELAYTIME);
+                    }
+
+                    setTeamConfig(isSettlement? 1: 0,null,new Double(rPReceiveDelaytime).intValue()+"",
+                            null, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -488,17 +516,22 @@ public class TeamManagerActivity extends BaseAct {
     private void updateExtensionInfo(){
         String extensionJsonStr = team.getExtension();
         boolean isSafeMode = false;
+        boolean isSettlement = false;
         if(!TextUtils.isEmpty(extensionJsonStr)){
             try {
                 JSONObject jsonObject = new JSONObject(extensionJsonStr);
                 if (jsonObject.has(ISSAFEMODE)){
                     isSafeMode =  jsonObject.getBoolean(ISSAFEMODE);
                 }
+                if (jsonObject.has(ISSETTLEMENT)){
+                    isSettlement =  jsonObject.getBoolean(ISSETTLEMENT);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         swiBtn_safeMode.setCheck(isSafeMode);
+        swiBtn_settlement.setCheck(isSettlement);
     }
 
     /**
@@ -680,13 +713,26 @@ public class TeamManagerActivity extends BaseAct {
     /**
      * 设置群配置
      * */
-    private void setTeamConfig(String teamMemberProtect, String expsecond, String regularClear,String screenCapture) {
-        UserApi.teamConfigSet(teamId, teamMemberProtect,expsecond,regularClear,screenCapture,this, new requestCallback() {
+    private void setTeamConfig(final int settlement, String teamMemberProtect, String expsecond, String regularClear, String screenCapture) {
+        UserApi.teamConfigSet(teamId, teamMemberProtect,expsecond,regularClear,screenCapture,settlement+"",this, new requestCallback() {
             @Override
             public void onSuccess(int code, Object object) {
                 if (code == Constants.SUCCESS_CODE){
-                    toast("设置成功");
-                    StatisticsConstants.TEAMCONFIGBEAN.setProtect(protect);
+//                  设置群远程字段
+                    try {
+                        String extensionJsonStr = team.getExtension();
+                        JSONObject jsonObject = null;
+                        if (StringUtil.isNotEmpty(extensionJsonStr)){
+                            jsonObject = new JSONObject(extensionJsonStr);
+                        }else {
+                            jsonObject = new JSONObject();
+                        }
+                        jsonObject.put(ISSETTLEMENT, settlement == 1);
+                        NIMClient.getService(TeamService.class).updateTeam(teamId,TeamFieldEnum.Extension,jsonObject.toString());
+                        toast("设置成功");
+                    }catch (Exception e){
+
+                    }
                 }else {
                     toast((String) object);
                 }

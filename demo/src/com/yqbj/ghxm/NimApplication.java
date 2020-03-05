@@ -157,11 +157,6 @@ public class NimApplication extends Application {
             SECRET = "b4d630ad645b132f262b609d6421a4a5";
         }
 
-        ALIPAY_APPID = "2019060365466232";
-        ALIPAY_PID = "2088531221113007";
-        APP_ID = "wxf8fd85aa6f55069a";
-        SECRET = "b4d630ad645b132f262b609d6421a4a5";
-
         initUMeng();
         initWeiXin();
         initOkgo();
