@@ -1576,13 +1576,10 @@ public class UserApi {
 
     /**
      * 设置群配置
-     * @param teamMemberProtect 群成员保护
-     * @param teamMemberProtect 群成员保护
+     * @param settlement 战绩自动结算  1开  0关闭
      * @param expsecond 退还群主红包时指定的失效时间, 传0为关闭
-     * @param regularClear 36小时定时清理
-     * @param screenCapture 截屏通知
      * */
-    public static void teamConfigSet(String tid, String teamMemberProtect, String expsecond, String regularClear, String screenCapture, String settlement, Object object, final requestCallback callback){
+    public static void teamConfigSet(String tid, String expsecond, String settlement, Object object, final requestCallback callback){
         if (StringUtil.isEmpty(tid)){
             return;
         }

@@ -439,15 +439,20 @@ public class TeamManagerActivity extends BaseAct {
                     isSettlement = checkState;
                     double rPReceiveDelaytime = 0;
                     String extensionJsonStr = team.getExtension();
-                    JSONObject jsonObject = new JSONObject(extensionJsonStr);
+                    JSONObject jsonObject;
+                    if (StringUtil.isEmpty(extensionJsonStr)){
+                        jsonObject = new JSONObject();
+                    }else {
+                        jsonObject = new JSONObject(extensionJsonStr);
+                    }
                     if (jsonObject.has(RPRECEIVEDELAYTIME)){
                         rPReceiveDelaytime = jsonObject.getDouble(RPRECEIVEDELAYTIME);
                     }
 
-                    setTeamConfig(isSettlement? 1: 0,null,new Double(rPReceiveDelaytime).intValue()+"",
-                            null, null);
+                    setTeamConfig(isSettlement, new Double(rPReceiveDelaytime).intValue()+"");
                 } catch (Exception e) {
                     e.printStackTrace();
+                    swiBtn_settlement.setCheck(!checkState);
                 }
             }
 
@@ -713,8 +718,8 @@ public class TeamManagerActivity extends BaseAct {
     /**
      * 设置群配置
      * */
-    private void setTeamConfig(final int settlement, String teamMemberProtect, String expsecond, String regularClear, String screenCapture) {
-        UserApi.teamConfigSet(teamId, teamMemberProtect,expsecond,regularClear,screenCapture,settlement+"",this, new requestCallback() {
+    private void setTeamConfig(final boolean settlement, String expsecond) {
+        UserApi.teamConfigSet(teamId, expsecond,settlement?"1":"0",this, new requestCallback() {
             @Override
             public void onSuccess(int code, Object object) {
                 if (code == Constants.SUCCESS_CODE){
@@ -727,20 +732,22 @@ public class TeamManagerActivity extends BaseAct {
                         }else {
                             jsonObject = new JSONObject();
                         }
-                        jsonObject.put(ISSETTLEMENT, settlement == 1);
+                        jsonObject.put(ISSETTLEMENT, settlement);
                         NIMClient.getService(TeamService.class).updateTeam(teamId,TeamFieldEnum.Extension,jsonObject.toString());
-                        toast("设置成功");
                     }catch (Exception e){
 
                     }
+                    toast("设置成功");
                 }else {
                     toast((String) object);
+                    swiBtn_settlement.setCheck(!settlement);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 toast(errMessage);
+                swiBtn_settlement.setCheck(!settlement);
             }
         });
     }

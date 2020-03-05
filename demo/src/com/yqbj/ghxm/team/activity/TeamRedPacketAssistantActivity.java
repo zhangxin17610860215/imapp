@@ -70,26 +70,6 @@ public class TeamRedPacketAssistantActivity extends BaseAct implements View.OnCl
 
     private void initData() {
         teamId = getIntent().getStringExtra("teamId");
-//        if (null == teamConfigBean){
-//            teamConfigBean = StatisticsConstants.TEAMCONFIGBEAN;
-//        }
-//
-//        if (null == teamConfigBean){
-//            tvIsOpen.setText("关闭");
-//        }else {
-//            if (teamConfigBean.getRollbackOwner() == 1){
-//                //开启
-//                try {
-//                    String time = NumberUtil.div_Intercept(teamConfigBean.getExpsecond() + "", "60", 0);
-//                    tvIsOpen.setText(time + "分钟");
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }else if (teamConfigBean.getRollbackOwner() == 0){
-//                //关闭
-//                tvIsOpen.setText("关闭");
-//            }
-//        }
         team = NimUIKit.getTeamProvider().getTeamById(teamId);
         String rPReceiveDelaytime = "";
         try {
@@ -147,14 +127,17 @@ public class TeamRedPacketAssistantActivity extends BaseAct implements View.OnCl
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
 
                 String extensionJsonStr = team.getExtension();
                 String settlement = "0";
-                JSONObject jsonObject = null;
+                JSONObject jsonObject;
                 try {
-                    jsonObject = new JSONObject(extensionJsonStr);
+                    if (StringUtil.isEmpty(extensionJsonStr)){
+                        jsonObject = new JSONObject();
+                    }else {
+                        jsonObject = new JSONObject(extensionJsonStr);
+                    }
                     if (jsonObject.has(ISSETTLEMENT)){
                         settlement =  jsonObject.getBoolean(ISSETTLEMENT) ? "1" : "0";
                     }
@@ -163,7 +146,7 @@ public class TeamRedPacketAssistantActivity extends BaseAct implements View.OnCl
                 }
 
                 final String finalString = String.valueOf(NumberUtil.mul(string,"60"));
-                UserApi.teamConfigSet(teamId, null,time,null,null,settlement,this, new requestCallback() {
+                UserApi.teamConfigSet(teamId, time, settlement,this, new requestCallback() {
                     @Override
                     public void onSuccess(int code, Object object) {
                         if (code == Constants.SUCCESS_CODE){
