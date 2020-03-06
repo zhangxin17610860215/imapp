@@ -8,33 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
-import com.netease.nimlib.sdk.RequestCallbackWrapper;
-import com.netease.nimlib.sdk.uinfo.constant.UserInfoFieldEnum;
-import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.bean.AliPayInfoBean;
-import com.yqbj.ghxm.bean.SignParamsBean;
-import com.yqbj.ghxm.bean.UserInfoBean;
-import com.yqbj.ghxm.pay.AliPayResult;
 import com.netease.yqbj.uikit.api.NimUIKit;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.utils.NoDoubleClickUtils;
-import com.umeng.analytics.MobclickAgent;
+import com.yqbj.ghxm.R;
+import com.yqbj.ghxm.bean.UserInfoBean;
 import com.yqbj.ghxm.common.ui.BaseAct;
 import com.yqbj.ghxm.config.Constants;
-import com.yqbj.ghxm.contact.helper.UserUpdateHelper;
-import com.yqbj.ghxm.login.AliPayLogin;
-import com.yqbj.ghxm.login.AuthorizationState;
 import com.yqbj.ghxm.redpacket.wallet.SettingPayPasswordActivity;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
-import com.yqbj.ghxm.utils.Base64;
-import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.netease.yqbj.uikit.api.StatisticsConstants.COIN_ALIBIND_SUCCESSNUM;
 
 /**
  * 找回支付密码  or 绑定支付宝短信验证
@@ -102,7 +86,7 @@ public class RetrievePayPwdActivity extends BaseAct implements View.OnClickListe
                     //确定
                     code = etCode.getText().toString();
                     if (StringUtil.isEmpty(code)){
-                        ToastUtil.showToast(this,"请输入验证码");
+                        ToastHelper.showToast(this,"请输入验证码");
                         return;
                     }
                     if (type.equals("1")){
@@ -124,7 +108,7 @@ public class RetrievePayPwdActivity extends BaseAct implements View.OnClickListe
                 if (code != Constants.SUCCESS_CODE){
                     toast((String) object);
                 }else {
-                    goAliPayLogin();
+
                 }
             }
 
@@ -132,124 +116,6 @@ public class RetrievePayPwdActivity extends BaseAct implements View.OnClickListe
             public void onFailed(String errMessage) {
                 dismissProgress();
                 toast(errMessage);
-            }
-        });
-    }
-
-    private void goAliPayLogin() {
-        final AliPayLogin payLogin = new AliPayLogin(this);
-        String info = payLogin.getInfo(false);
-        String baseInfo = "";
-        try {
-            baseInfo = Base64.encode(info.getBytes("UTF-8"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        showProgress(this, false);
-        UserApi.singParams("3",baseInfo, 1,null,null,null,null,null,null,null,null,this, new requestCallback() {
-            @Override
-            public void onSuccess(int code, Object object) {
-                dismissProgress();
-                if (code == Constants.SUCCESS_CODE) {
-                    SignParamsBean bean = (SignParamsBean) object;
-                    payLogin.goAliPayLogin(RetrievePayPwdActivity.this, payLogin.getInfo(true), bean.getSign(), new AuthorizationState() {
-                        @Override
-                        public void onSuccess(String code, AliPayResult object) {
-                            //授权成功
-                            if (code.equals("9000")) {
-                                authorizationSuccess(object);
-                            } else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        toast("授权失败");
-                                        dismissProgress();
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onFailed(final String errMessage) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (errMessage.equals("6001")) {
-                                        toast("用户已取消");
-                                    } else {
-                                        toast("授权失败");
-                                    }
-                                    dismissProgress();
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    toast((String) object);
-                    dismissProgress();
-                }
-            }
-
-            @Override
-            public void onFailed(String errMessage) {
-                dismissProgress();
-                toast(errMessage);
-            }
-        });
-    }
-
-    private void authorizationSuccess(AliPayResult object) {
-        AliPayResult payResult = object;
-        if (null == payResult) {
-            return;
-        }
-        if (StringUtil.isEmpty(payResult.getResult())) {
-            return;
-        }
-        String[] strs = payResult.getResult().split("&");
-        Map<String, String> map = new HashMap<>();
-        for (String s : strs) {
-            String[] ms = s.split("=");
-            map.put(ms[0], ms[1]);
-        }
-
-        getAliPayInfo(map.get("auth_code"));
-    }
-
-    private void getAliPayInfo(String authCode) {
-//        showProgress(this,false);
-        UserApi.getAliPayInfo(authCode, this, new requestCallback() {
-            @Override
-            public void onSuccess(int code, Object object) {
-                dismissProgress();
-                if (code == Constants.SUCCESS_CODE) {
-                    MobclickAgent.onEvent(RetrievePayPwdActivity.this,COIN_ALIBIND_SUCCESSNUM);
-                    AliPayInfoBean bean = (AliPayInfoBean) object;
-                    SPUtils instance = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME);
-                    instance.put(Constants.ALIPAY_USERINFO.ISBINDALIPAY, true);
-                    instance.put(Constants.ALIPAY_USERINFO.AVATAR, bean.getAvatar());
-                    instance.put(Constants.ALIPAY_USERINFO.NICKNAME, bean.getNickName());
-                    instance.put(Constants.ALIPAY_USERINFO.USERID, bean.getUserId());
-
-                    Map<String, Object> extensionMap = new HashMap<>();
-                    extensionMap.put(Constants.ALI_USERNAME,bean.getNickName());
-                    extensionMap.put(Constants.ALI_USERID,bean.getUserId());
-                    UserUpdateHelper.update(UserInfoFieldEnum.EXTEND, extensionMap, new RequestCallbackWrapper<Void>() {
-                        @Override
-                        public void onResult(int i, Void aVoid, Throwable throwable) {
-                            //用户信息保存成功
-                        }
-                    });
-                } else {
-                    ToastUtil.showToast(RetrievePayPwdActivity.this, (String) object);
-                }
-                finish();
-            }
-
-            @Override
-            public void onFailed(String errMessage) {
-                dismissProgress();
-                ToastUtil.showToast(RetrievePayPwdActivity.this, errMessage);
             }
         });
     }
@@ -288,14 +154,14 @@ public class RetrievePayPwdActivity extends BaseAct implements View.OnClickListe
                     SettingPayPasswordActivity.start(RetrievePayPwdActivity.this,"retrieve",code);
                     finish();
                 }else {
-                    ToastUtil.showToast(RetrievePayPwdActivity.this, (String) object);
+                    ToastHelper.showToast(RetrievePayPwdActivity.this, (String) object);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(RetrievePayPwdActivity.this,errMessage);
+                ToastHelper.showToast(RetrievePayPwdActivity.this,errMessage);
             }
         });
     }
@@ -343,14 +209,14 @@ public class RetrievePayPwdActivity extends BaseAct implements View.OnClickListe
                 if (code == Constants.SUCCESS_CODE){
                     initData();
                 }else {
-                    ToastUtil.showToast(RetrievePayPwdActivity.this, (String) object);
+                    ToastHelper.showToast(RetrievePayPwdActivity.this, (String) object);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(RetrievePayPwdActivity.this,errMessage);
+                ToastHelper.showToast(RetrievePayPwdActivity.this,errMessage);
             }
         });
     }

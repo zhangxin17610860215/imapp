@@ -73,7 +73,6 @@
     <dimen name="jrmf_dimen_16">16dp</dimen>
     <dimen name="jrmf_dimen_28">28dp</dimen>
     <dimen name="jrmf_dimen_30">30dp</dimen>
-    <dimen name="jrmf_dimen_32">32dp</dimen>
     <dimen name="jrmf_dimen_50">50dp</dimen>
     <dimen name="jrmf_dimen_80">80dp</dimen>
 </resources>

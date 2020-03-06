@@ -1,12 +1,10 @@
 package com.yqbj.ghxm.main.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
 import com.netease.nimlib.sdk.NIMClient;
@@ -237,7 +235,7 @@ public class SessionListFragment extends MainTabFragment {
 //        LoginActivity.start(getActivity(), true);
         WelcomeActivity.setFirstEnterState(true);
         AppDemoUtils.simpleToAct(getContext(), WelcomeActivity.class);
-        ToastUtil.showToast(getContext(),"你的帐号被踢出下线，请注意帐号信息安全");
+        ToastHelper.showToast(getContext(),"你的帐号被踢出下线，请注意帐号信息安全");
         getActivity().finish();
     }
 

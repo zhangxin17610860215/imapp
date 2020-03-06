@@ -31,7 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 选择谁可以领取红包页面
+ * 玩家蜜币设置页面
  * */
 public class ChooseRecipientsListACT extends UI implements View.OnClickListener {
 

@@ -9,13 +9,13 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.lxj.xpopup.core.CenterPopupView;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.utils.StringUtil;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
+import com.yqbj.ghxm.utils.StringUtil;
 
 public class PayDialogView extends CenterPopupView{
 
@@ -88,13 +88,13 @@ public class PayDialogView extends CenterPopupView{
                                     imm.hideSoftInputFromWindow(etCheckpaypswd.getWindowToken(), 0);
                                     rigntListener.onClick(tvComplete);
                                 }else {
-                                    ToastUtil.showToast(context, (String) object);
+                                    ToastHelper.showToast(context, (String) object);
                                 }
                             }
 
                             @Override
                             public void onFailed(String errMessage) {
-                                ToastUtil.showToast(context, errMessage);
+                                ToastHelper.showToast(context, errMessage);
                             }
                         });
                     }
@@ -116,11 +116,11 @@ public class PayDialogView extends CenterPopupView{
             @Override
             public void onClick(final View v) {
                 if (StringUtil.isEmpty(getPayeePwd())){
-                    ToastUtil.showToast(context,"请输入支付密码");
+                    ToastHelper.showToast(context,"请输入支付密码");
                     return;
                 }
                 if (getPayeePwd().length()<6){
-                    ToastUtil.showToast(context,"请输入正确的支付密码");
+                    ToastHelper.showToast(context,"请输入正确的支付密码");
                     return;
                 }
                 if (rigntListener != null) {
@@ -132,13 +132,13 @@ public class PayDialogView extends CenterPopupView{
                                 imm.hideSoftInputFromWindow(etCheckpaypswd.getWindowToken(), 0);
                                 rigntListener.onClick(v);
                             }else {
-                                ToastUtil.showToast(context, (String) object);
+                                ToastHelper.showToast(context, (String) object);
                             }
                         }
 
                         @Override
                         public void onFailed(String errMessage) {
-                            ToastUtil.showToast(context, errMessage);
+                            ToastHelper.showToast(context, errMessage);
                         }
                     });
                 }

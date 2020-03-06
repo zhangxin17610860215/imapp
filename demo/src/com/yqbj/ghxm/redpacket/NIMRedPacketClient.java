@@ -5,13 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.jrmf360.normallib.JrmfClient;
-import com.jrmf360.normallib.base.http.OkHttpModelCallBack;
-import com.jrmf360.normallib.rp.JrmfRpClient;
-import com.jrmf360.normallib.rp.bean.GrabRpBean;
-import com.jrmf360.normallib.rp.http.model.BaseModel;
-import com.jrmf360.normallib.rp.utils.callback.GrabRpCallBack;
-import com.jrmf360.normallib.wallet.JrmfWalletClient;
 import com.lxj.xpopup.XPopup;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -27,7 +20,6 @@ import com.netease.nimlib.sdk.uinfo.UserServiceObserve;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.yqbj.uikit.api.NimUIKit;
-import com.netease.yqbj.uikit.common.util.log.LogUtil;
 import com.yqbj.ghxm.DemoCache;
 import com.yqbj.ghxm.bean.RedPackOtherDataBean;
 import com.yqbj.ghxm.bean.RedPacketStateBean;
@@ -122,29 +114,12 @@ public class NIMRedPacketClient {
      * @param context
      */
     public static void init(Context context) {
-//        initJrmfSDK(context);
         init = true;
 
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(observer, true);
         NIMClient.getService(UserServiceObserve.class).observeUserInfoUpdate(userInfoUpdateObserver, true);
 
         RpOpenedMessageFilter.startFilter();
-    }
-
-    /**
-     * 初始化金融魔方SDK
-     *
-     * @param context
-     */
-    private static void initJrmfSDK(Context context) {
-        //初始化红包sdk
-        JrmfClient.isDebug(false);
-
-        JrmfClient.init(context);
-
-        // com.jrmf360.neteaselib.base.utils.LogUtil.init(true);
-        // 设置微信appid，如果不使用微信支付可以不调用，此处需要开发者到微信支付申请appid
-        // JrmfClient.setWxAppid("xxxxxx");
     }
 
     public static boolean isEnable() {
@@ -172,17 +147,6 @@ public class NIMRedPacketClient {
      */
     public static void clear() {
         thirdToken = null;
-    }
-
-    /**
-     * 跳转至我的钱包界面
-     *
-     * @param activity context
-     */
-    public static void startWalletActivity(Activity activity) {
-        if (checkValid()) {
-            JrmfWalletClient.intentWallet(activity, DemoCache.getAccount(), getThirdToken(), selfInfo.getName(), selfInfo.getAvatar());
-        }
     }
 
     /**
@@ -228,14 +192,6 @@ public class NIMRedPacketClient {
         if (!checkValid()) {
             return;
         }
-        GrabRpCallBack callBack = new GrabRpCallBack() {
-            @Override
-            public void grabRpResult(GrabRpBean grabRpBean) {
-                if (grabRpBean.isHadGrabRp()) {
-                    cb.sendMessage(selfInfo.getAccount(), briberyId, grabRpBean.getHasLeft() == 0);
-                }
-            }
-        };
         Map<String, Object> remoteExtension = message.getRemoteExtension();
 
 //        String senderId = (String) remoteExtension.get(REDPACKET_SENDER);
@@ -326,14 +282,6 @@ public class NIMRedPacketClient {
         if (!checkValid()) {
             return;
         }
-        GrabRpCallBack callBack = new GrabRpCallBack() {
-            @Override
-            public void grabRpResult(GrabRpBean grabRpBean) {
-                if (grabRpBean.isHadGrabRp()) {
-                    cb.sendMessage(selfInfo.getAccount(), briberyId, grabRpBean.getHasLeft() == 0);
-                }
-            }
-        };
 
         String senderId = bean.getPayerId();
         SenderUserInfoBean senderUserInfoBean = new SenderUserInfoBean();
@@ -397,7 +345,6 @@ public class NIMRedPacketClient {
             RedPackDetailsActivity.start(activity,otherDataBean,senderUserInfoBean);
         }else if (bean.getStatus() == 2){
             //红包已领取
-
             if (bean.getTargetType() == 2 && null != bean.targetSignMap || bean.targetSignMap.size() > 0){
                 //普通红包 专属红包 当前用户是红包发送者，不显示弹窗
                 if (NimUIKit.getAccount().equals(senderUserInfoBean.getUserID())){
@@ -407,7 +354,6 @@ public class NIMRedPacketClient {
             }
 
             if(sessionTypeEnum == SessionTypeEnum.Team){
-
                 if (null != bean.getPayeeIdList() && bean.getPayeeIdList().size() > 0 && bean.getPayeeIdList().contains(NimUIKit.getAccount())){
                     //当前用户已经领取过该红包
                     RedPackDetailsActivity.start(activity,otherDataBean,senderUserInfoBean);
@@ -423,7 +369,6 @@ public class NIMRedPacketClient {
 
         }else if (bean.getStatus() == 1){
             //红包待领取     显示弹窗
-
             if (bean.getTargetType() == 2 && null != bean.targetSignMap || bean.targetSignMap.size() > 0){
                 //普通红包 专属红包 当前用户是红包发送者，不显示弹窗
                 if (NimUIKit.getAccount().equals(senderUserInfoBean.getUserID())){
@@ -458,7 +403,6 @@ public class NIMRedPacketClient {
                             .dismissOnTouchOutside(false)
                             .asCustom(redPackDialog)
                             .show();
-//            JrmfRpClient.openGroupRp(activity, selfInfo.getAccount(), getThirdToken(), selfInfo.getName(), selfInfo.getAvatar(), briberyId, callBack);
                 } else if (sessionTypeEnum == SessionTypeEnum.P2P) {
                     //先判断即将领取红包的用户是否是红包发送者
                     SenderUserInfoBean senderBean = (SenderUserInfoBean) map.get("SenderUserInfoBean");
@@ -473,7 +417,6 @@ public class NIMRedPacketClient {
                                 .asCustom(redPackDialog)
                                 .show();
                     }
-//                    JrmfRpClient.openSingleRp(activity, selfInfo.getAccount(), getThirdToken(), selfInfo.getName(), selfInfo.getAvatar(), briberyId, callBack);
                 }
             }
         });
@@ -481,21 +424,16 @@ public class NIMRedPacketClient {
 
     private static void showRedPackDialog(final Activity activity, Map<String, Object> buderMap, final RedPackOtherDataBean otherDataBean, final SessionTypeEnum sessionTypeEnum, final NIMOpenRpCallback cb) {
         //解析红包数据，并赋值给三个Bean
-
-
         AnalyticalRedPackData data = new AnalyticalRedPackData();
         data.analytical(buderMap, new RedPackDataCallBack() {
             @Override
             public void getRedPackData(Map<String, Object> map) {
                 if (sessionTypeEnum == SessionTypeEnum.Team) {
-
-
                     final RedPackDialog redPackDialog = new RedPackDialog(activity,map,otherDataBean, cb);
                     new XPopup.Builder(activity)
                             .dismissOnTouchOutside(false)
                             .asCustom(redPackDialog)
                             .show();
-//            JrmfRpClient.openGroupRp(activity, selfInfo.getAccount(), getThirdToken(), selfInfo.getName(), selfInfo.getAvatar(), briberyId, callBack);
                 } else if (sessionTypeEnum == SessionTypeEnum.P2P) {
                     //先判断即将领取红包的用户是否是红包发送者
                     SenderUserInfoBean senderBean = (SenderUserInfoBean) map.get("SenderUserInfoBean");
@@ -510,42 +448,9 @@ public class NIMRedPacketClient {
                                 .asCustom(redPackDialog)
                                 .show();
                     }
-//                    JrmfRpClient.openSingleRp(activity, selfInfo.getAccount(), getThirdToken(), selfInfo.getName(), selfInfo.getAvatar(), briberyId, callBack);
                 }
             }
         });
     }
 
-    /**
-     * 打开红包详情界面
-     *
-     * @param activity context
-     * @param packetId 红包id
-     */
-    public static void startRpDetailActivity(Activity activity, String packetId) {
-        if (checkValid()) {
-            JrmfRpClient.openRpDetail(activity, selfInfo.getAccount(), getThirdToken(), packetId, selfInfo.getName(), selfInfo.getAvatar());
-        }
-    }
-
-
-    /**
-     * 更新个人信息到jrmf
-     */
-    public static void updateMyInfo() {
-        if (init && selfInfo != null) {
-            JrmfRpClient.updateUserInfo(selfInfo.getAccount(), getThirdToken(), selfInfo.getName(), selfInfo.getAvatar(), new OkHttpModelCallBack<BaseModel>() {
-
-                @Override
-                public void onSuccess(BaseModel baseModel) {
-                    LogUtil.ui("update jrmf userInfo success");
-                }
-
-                @Override
-                public void onFail(String s) {
-                    LogUtil.ui("update jrmf userInfo fail" + s);
-                }
-            });
-        }
-    }
 }

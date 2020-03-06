@@ -25,7 +25,6 @@
     <color name="color_b3b3b3">#b3b3b3</color>
     <color name="color_red_ccfa3c55">#ccfa3c55</color>
     <color name="color_black_b3000000">#b3000000</color>
-    <color name="color_white_66ffffff">#66ffffff</color>
     <color name="color_grey_eaeaea">#eaeaea</color>
     <color name="color_yellow_fcf3cd">#fcf3cd</color>
     <color name="color_green_89fbff">#89fbff</color>
@@ -80,16 +79,13 @@
     <color name="text_black">#444444</color>
     <color name="grey_rp">#EFEFEF</color>
     <color name="write">#ffffff</color>
-    <color name="bottom_bg">#f8f8f8</color>
     <color name="deliver_color">#e0e0e0</color>
     <color name="text_grey_color">#808080</color>
     <color name="div_color_grey">#f6f6f6</color>
     <color name="process_grey">#d7d7d7</color>
-    <color name="yellow">#ffcc00</color>
     <color name="blue">#66ccff</color>
     <color name="refresh_1">#00b9ff</color>
 
-    <color name="side_bar_text">#4A4A4A</color>
     <color name="edit_bg">#EFEFF4</color>
     <color name="darker_gray">#9b9b9b</color>
 
@@ -98,12 +94,6 @@
     <color name="divider">#E5E5E5</color>
     <color name="shadow">#AAEBEBEB</color>
     <color name="gray">#8c8c8c</color>
-    <color name="gray_deep">#5c5c5c</color>
-
-    <color name="text_Yellow">#F67F05</color>
-
-
-
 
 
 </resources>

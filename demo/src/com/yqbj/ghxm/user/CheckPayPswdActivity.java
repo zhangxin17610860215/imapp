@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
-import com.yqbj.ghxm.R;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.utils.NoDoubleClickUtils;
+import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.common.ui.BaseAct;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.redpacket.wallet.SettingPayPasswordActivity;
@@ -55,11 +55,11 @@ public class CheckPayPswdActivity extends BaseAct implements View.OnClickListene
                     //确定更改支付密码
                     payPwd = payEt.getPasswordString();
                     if (StringUtil.isEmpty(payPwd)){
-                        ToastUtil.showToast(this,"请输入原零钱支付密码");
+                        ToastHelper.showToast(this,"请输入原零钱支付密码");
                         return;
                     }
                     if (payPwd.length() < 6){
-                        ToastUtil.showToast(this,"支付密码必须是六位数字");
+                        ToastHelper.showToast(this,"支付密码必须是六位数字");
                         return;
                     }
                     checkPwd();
@@ -79,14 +79,14 @@ public class CheckPayPswdActivity extends BaseAct implements View.OnClickListene
                     SettingPayPasswordActivity.start(CheckPayPswdActivity.this,"check",payPwd);
                     finish();
                 }else {
-                    ToastUtil.showToast(CheckPayPswdActivity.this, (String) object);
+                    ToastHelper.showToast(CheckPayPswdActivity.this, (String) object);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(CheckPayPswdActivity.this, errMessage);
+                ToastHelper.showToast(CheckPayPswdActivity.this, errMessage);
             }
         });
     }

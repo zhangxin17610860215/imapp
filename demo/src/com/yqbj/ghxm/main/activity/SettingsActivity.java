@@ -341,7 +341,7 @@ public class SettingsActivity extends UI implements SettingsAdapter.SwitchChange
                 startActivity(new Intent(SettingsActivity.this, JsBridgeActivity.class));
                 break;
             case TAG_JRMFWAllET:
-                NIMRedPacketClient.startWalletActivity(this);
+
                 break;
 
             case TAG_PRIVATE_CONFIG:

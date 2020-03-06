@@ -1,7 +1,6 @@
 package com.yqbj.ghxm.redpacket;
 
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
@@ -12,13 +11,11 @@ import com.netease.nimlib.sdk.team.constant.TeamMemberType;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
-import com.netease.yqbj.uikit.common.ToastHelper;
-import com.netease.yqbj.uikit.impl.cache.TeamDataCache;
-import com.yqbj.ghxm.session.extension.RedPacketOpenedAttachment;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.business.session.module.ModuleProxy;
+import com.netease.yqbj.uikit.impl.cache.TeamDataCache;
 import com.yqbj.ghxm.DemoCache;
-import com.yqbj.ghxm.utils.StringUtil;
+import com.yqbj.ghxm.session.extension.RedPacketOpenedAttachment;
 
 import java.util.List;
 

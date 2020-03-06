@@ -12,12 +12,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.lxj.xpopup.XPopup;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.business.contact.core.item.ContactIdFilter;
 import com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.utils.NoDoubleClickUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.yqbj.ghxm.R;
@@ -588,14 +588,14 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                         setRedPackData(bean.getOrderNO(), payDialogView.getPayeePwd());
                     }
                 } else {
-                    ToastUtil.showToast(context, (String) object);
+                    ToastHelper.showToast(context, (String) object);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(context, errMessage);
+                ToastHelper.showToast(context, errMessage);
             }
         });
     }

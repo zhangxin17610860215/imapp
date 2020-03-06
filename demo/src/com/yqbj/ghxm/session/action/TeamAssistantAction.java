@@ -1,16 +1,16 @@
 package com.yqbj.ghxm.session.action;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.nimlib.sdk.team.model.Team;
+import com.netease.yqbj.uikit.api.NimUIKit;
+import com.netease.yqbj.uikit.business.session.actions.BaseAction;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.TeamRobotDetatlsBean;
 import com.yqbj.ghxm.config.Constants;
-import com.yqbj.ghxm.team.activity.RobotWebViewActivity;
-import com.yqbj.ghxm.team.activity.TeamAssistantActivity;
-import com.netease.yqbj.uikit.api.NimUIKit;
-import com.netease.yqbj.uikit.business.session.actions.BaseAction;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
+import com.yqbj.ghxm.team.activity.RobotWebViewActivity;
+import com.yqbj.ghxm.team.activity.TeamAssistantActivity;
 
 public class TeamAssistantAction extends BaseAction {
 
@@ -36,7 +36,7 @@ public class TeamAssistantAction extends BaseAction {
         if (isGroupOwner){
             queryRobot();
         }else {
-            ToastUtil.showToast(getActivity(),"群助手功能仅限群主使用");
+            ToastHelper.showToast(getActivity(),"群助手功能仅限群主使用");
         }
     }
 

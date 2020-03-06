@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
@@ -182,11 +181,11 @@ public class BindPhoneActivity extends BaseAct implements View.OnClickListener {
                 mobile = etPhone.getText().toString().trim();
                 code = etVerCode.getText().toString().trim();
                 if (TextUtils.isEmpty(mobile)) {
-                    ToastUtil.showToast(this, "请输入手机号");
+                    ToastHelper.showToast(this, "请输入手机号");
                     return;
                 }
                 if (TextUtils.isEmpty(code)) {
-                    ToastUtil.showToast(this, "请输入验证码");
+                    ToastHelper.showToast(this, "请输入验证码");
                     return;
                 }
 
@@ -202,11 +201,11 @@ public class BindPhoneActivity extends BaseAct implements View.OnClickListener {
                 mobile = etPhone.getText().toString().trim();
                 if (null == mRunnable) {
                     if (TextUtils.isEmpty(mobile)) {
-                        ToastUtil.showToast(this, "请输入手机号");
+                        ToastHelper.showToast(this, "请输入手机号");
                         return;
                     }
                     if (!StringUtil.isMobileNO(mobile)) {
-                        ToastUtil.showToast(this, "请输入正确的手机号码");
+                        ToastHelper.showToast(this, "请输入正确的手机号码");
                         return;
                     }
                     if (isPhoneLogin) {
@@ -285,7 +284,7 @@ public class BindPhoneActivity extends BaseAct implements View.OnClickListener {
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(BindPhoneActivity.this, errMessage);
+                ToastHelper.showToast(BindPhoneActivity.this, errMessage);
             }
         });
     }
@@ -349,7 +348,7 @@ public class BindPhoneActivity extends BaseAct implements View.OnClickListener {
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(BindPhoneActivity.this, errMessage);
+                ToastHelper.showToast(BindPhoneActivity.this, errMessage);
             }
         });
     }

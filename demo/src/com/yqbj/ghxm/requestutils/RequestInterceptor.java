@@ -1,15 +1,15 @@
 package com.yqbj.ghxm.requestutils;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.yqbj.ghxm.NimApplication;
 import com.yqbj.ghxm.bean.BaseBean;
 import com.yqbj.ghxm.bean.LoginBean;
 import com.yqbj.ghxm.config.Constants;
+import com.yqbj.ghxm.requestutils.api.OverallApi;
+import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.utils.GsonHelper;
 import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
-import com.yqbj.ghxm.requestutils.api.OverallApi;
-import com.yqbj.ghxm.requestutils.api.UserApi;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -59,9 +59,9 @@ public class RequestInterceptor implements Interceptor {
                 BaseBean bean = GsonHelper.getSingleton().fromJson(bodyString, BaseBean.class);
                 if(null != bean){
                     if (bean.getStatusCode() == Constants.RESPONSE_CODE.CODE_10028){
-                        ToastUtil.showToast(NimApplication.getInstance(),bean.getMessage());
+                        ToastHelper.showToast(NimApplication.getInstance(),bean.getMessage());
                     } else if (bean.getStatusCode() == Constants.RESPONSE_CODE.CODE_10003){
-                        ToastUtil.showToast(NimApplication.getInstance(),"认证过期，请重试");
+                        ToastHelper.showToast(NimApplication.getInstance(),"认证过期，请重试");
                         OverallApi.getKey(NimApplication.getInstance(), new requestCallback() {
                             @Override
                             public void onSuccess(int code, Object object) {

@@ -4,21 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.auth.LoginInfo;
-import com.yqbj.ghxm.NimApplication;
-import com.yqbj.ghxm.bean.WXMesBean;
-import com.yqbj.ghxm.utils.EventBusUtils;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.activity.UI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.yqbj.ghxm.NimApplication;
+import com.yqbj.ghxm.bean.WXMesBean;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.requestutils.api.OverallApi;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
+import com.yqbj.ghxm.utils.EventBusUtils;
 
 public class WXEntryActivity extends UI implements IWXAPIEventHandler {
     public static final String TAG = WXEntryActivity.class.getSimpleName();
@@ -59,19 +59,19 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
         }
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-//                ToastUtil.showToast(this,"登录成功");
+//                ToastHelper.showToast(this,"登录成功");
                 goWX_Login();
                 finish();
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                ToastUtil.showToast(this,"取消登录");
+                ToastHelper.showToast(this,"取消登录");
                 EventBusUtils.CommonEvent commonEvent = new EventBusUtils.CommonEvent();
                 commonEvent.id = 101;
                 EventBusUtils.post(commonEvent);
                 finish();
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                ToastUtil.showToast(this,"登录失败，请稍后重试");
+                ToastHelper.showToast(this,"登录失败，请稍后重试");
                 EventBusUtils.CommonEvent commonEvent1 = new EventBusUtils.CommonEvent();
                 commonEvent1.id = 101;
                 EventBusUtils.post(commonEvent1);
@@ -109,7 +109,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
                             WXEntryActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ToastUtil.showToast(WXEntryActivity.this,errMessage);
+                                    ToastHelper.showToast(WXEntryActivity.this,errMessage);
                                 }
                             });
                         }
@@ -119,7 +119,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
 
             @Override
             public void onFailed(String errMessage) {
-                ToastUtil.showToast(WXEntryActivity.this,errMessage);
+                ToastHelper.showToast(WXEntryActivity.this,errMessage);
             }
         });
 

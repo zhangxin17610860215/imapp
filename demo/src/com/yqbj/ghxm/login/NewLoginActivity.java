@@ -8,9 +8,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.jrmf360.normallib.base.utils.StringUtil;
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
@@ -48,6 +45,7 @@ import com.yqbj.ghxm.share.ShareSchemeActivity;
 import com.yqbj.ghxm.user.BindPhoneActivity;
 import com.yqbj.ghxm.utils.EventBusUtils;
 import com.yqbj.ghxm.utils.SPUtils;
+import com.yqbj.ghxm.utils.StringUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -269,13 +267,13 @@ public class NewLoginActivity extends UI implements View.OnKeyListener {
                     getRobotList();
                     return;
                 }
-                ToastUtil.showToast(NewLoginActivity.this, "登录失败");
+                ToastHelper.showToast(NewLoginActivity.this, "登录失败");
             }
 
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(NewLoginActivity.this, errMessage);
+                ToastHelper.showToast(NewLoginActivity.this, errMessage);
             }
         });
     }
@@ -299,7 +297,7 @@ public class NewLoginActivity extends UI implements View.OnKeyListener {
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(NewLoginActivity.this, errMessage);
+                ToastHelper.showToast(NewLoginActivity.this, errMessage);
             }
         });
     }

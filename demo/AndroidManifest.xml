@@ -181,15 +181,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
-        <!-- 登录界面 -->
-        <activity
-            android:name="com.yqbj.ghxm.login.LoginActivity"
-            android:configChanges="orientation"
-            android:label="@string/login"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-
         <!-- 关于 -->
         <activity
             android:name="com.yqbj.ghxm.main.activity.AboutActivity"
@@ -626,12 +617,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />
         <activity
-            android:name="com.yqbj.ghxm.wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|adjustUnspecified|stateHidden" />
-        <activity
             android:name="com.yqbj.ghxm.main.SplashActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
@@ -672,19 +657,6 @@
             android:theme="@style/RedPacketTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.yqbj.ghxm.redpacket.privateredpacket.P2PRedPackActivity"
-            android:configChanges="orientation"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/RedPacketTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
-            android:name="com.yqbj.ghxm.redpacket.wallet.CoinPurseActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
             android:name="com.yqbj.ghxm.zxing.CaptureActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -706,13 +678,6 @@
         <activity
             android:name="com.yqbj.ghxm.redpacket.wallet.DetailsChangeActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
-            android:name="com.yqbj.ghxm.redpacket.wallet.DetailedQueryActivity"
-            android:configChanges="orientation"
-            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
@@ -847,14 +812,6 @@
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.yqbj.ghxm.redpacket.wallet.DetailsRedPacketActivity"
-            android:configChanges="orientation"
-            android:launchMode="singleTask"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/RedPacketTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
             android:name="com.yqbj.ghxm.user.PasswordManageActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
@@ -890,28 +847,7 @@
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
-            android:name="com.yqbj.ghxm.user.BindALiPayActivity"
-            android:configChanges="orientation"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
             android:name="com.yqbj.ghxm.main.activity.FeedbackActivity"
-            android:configChanges="orientation"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
-            android:name="com.yqbj.ghxm.redpacket.wallet.CarryActivity"
-            android:configChanges="orientation"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustResize|adjustPan" />
-        <activity
-            android:name="com.yqbj.ghxm.redpacket.wallet.RechargeActivity"
             android:configChanges="orientation"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"

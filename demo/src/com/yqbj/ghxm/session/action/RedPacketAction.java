@@ -3,7 +3,6 @@ package com.yqbj.ghxm.session.action;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.friend.FriendService;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
@@ -29,12 +28,12 @@ import com.yqbj.ghxm.utils.StringUtil;
 import java.util.List;
 import java.util.Map;
 
-import static com.yqbj.ghxm.config.Constants.BUILDREDSTRUCTURE.REDPACKET_TYPE;
-import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.WALLET_EXIST;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.PERSONAL_RP_SEND_SUCCESSNUM;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_SUCCESSNUM;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_SUCCESSNUM;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_SUCCESSNUM;
+import static com.yqbj.ghxm.config.Constants.BUILDREDSTRUCTURE.REDPACKET_TYPE;
+import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.WALLET_EXIST;
 
 public class RedPacketAction extends BaseAction {
 
@@ -59,7 +58,7 @@ public class RedPacketAction extends BaseAction {
             requestCode = makeRequestCode(CREATE_SINGLE_RED_PACKET);
 
             if (!NIMClient.getService(FriendService.class).isMyFriend(getAccount())){
-                ToastUtil.showToast(getActivity(),"对方不是你的好友，无法发红包");
+                ToastHelper.showToast(getActivity(),"对方不是你的好友，无法发红包");
                 return;
             }
         } else {
@@ -95,7 +94,7 @@ public class RedPacketAction extends BaseAction {
         if (teamMembers.size() > 0){
             for (TeamMember teamMember : teamMembers){
                 if (NimUIKit.getAccount().equals(teamMember.getAccount())){
-                    ToastUtil.showToast(getActivity(),"您已被禁言，无法发送红包");
+                    ToastHelper.showToast(getActivity(),"您已被禁言，无法发送红包");
                     return true;
                 }
             }
@@ -104,7 +103,7 @@ public class RedPacketAction extends BaseAction {
         if (team.isAllMute() && StringUtil.isNotEmpty(getAccount()) && StringUtil.isNotEmpty(NimUIKit.getAccount())){
             TeamMember teamMember = TeamDataCache.getInstance().getTeamMember(getAccount(),NimUIKit.getAccount());
             if (teamMember.getType() == TeamMemberType.Normal){
-                ToastUtil.showToast(getActivity(),"全员禁言中，无法发送红包");
+                ToastHelper.showToast(getActivity(),"全员禁言中，无法发送红包");
                 return true;
             }
         }

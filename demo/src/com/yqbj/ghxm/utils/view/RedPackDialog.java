@@ -10,9 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.CenterPopupView;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.ReceiverUserInfoBean;
 import com.yqbj.ghxm.bean.RedPackOtherDataBean;
@@ -307,22 +307,22 @@ public class RedPackDialog extends CenterPopupView implements View.OnClickListen
                     if (isHave){
                         //拆红包
                         if (redPackOtherDataBean.getStatus() == 2){
-                            ToastUtil.showToast(context,"已领取该红包");
+                            ToastHelper.showToast(context,"已领取该红包");
                             dismiss();
                             return;
                         }
                         if (redPackOtherDataBean.getStatus() == 3){
-                            ToastUtil.showToast(context,"红包已过期");
+                            ToastHelper.showToast(context,"红包已过期");
                             dismiss();
                             return;
                         }
                         if (redPackOtherDataBean.getStatus() == 4){
-                            ToastUtil.showToast(context,"红包已被领取完");
+                            ToastHelper.showToast(context,"红包已被领取完");
                             dismiss();
                             return;
                         }
                         if (redPackOtherDataBean.getCount() >= redPackOtherDataBean.getNumber()){
-                            ToastUtil.showToast(context,"红包已被领取完");
+                            ToastHelper.showToast(context,"红包已被领取完");
                             dismiss();
                             return;
                         }
@@ -369,14 +369,14 @@ public class RedPackDialog extends CenterPopupView implements View.OnClickListen
                                 .show();
                     }
                 }else {
-                    ToastUtil.showToast(context, (String) object);
+                    ToastHelper.showToast(context, (String) object);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 DialogMaker.dismissProgressDialog();
-                ToastUtil.showToast(context,errMessage);
+                ToastHelper.showToast(context,errMessage);
             }
         });
     }
@@ -402,14 +402,14 @@ public class RedPackDialog extends CenterPopupView implements View.OnClickListen
                     //红包已领完
                     getRedPackStatistic(2);
                 }else {
-                    ToastUtil.showToast(context, (String) object);
+                    ToastHelper.showToast(context, (String) object);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 DialogMaker.dismissProgressDialog();
-                ToastUtil.showToast(context,errMessage);
+                ToastHelper.showToast(context,errMessage);
             }
         });
         dismiss();

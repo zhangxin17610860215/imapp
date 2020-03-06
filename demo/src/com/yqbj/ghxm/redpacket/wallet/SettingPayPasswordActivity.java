@@ -7,15 +7,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
+import com.netease.yqbj.uikit.common.ToastHelper;
+import com.netease.yqbj.uikit.common.activity.UI;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.config.Constants;
+import com.yqbj.ghxm.requestutils.api.UserApi;
+import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
 import com.yqbj.ghxm.utils.view.PayPsdInputView;
-import com.netease.yqbj.uikit.common.activity.UI;
-import com.yqbj.ghxm.requestutils.api.UserApi;
-import com.yqbj.ghxm.requestutils.requestCallback;
 
 import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.WALLET_EXIST;
 
@@ -73,16 +73,16 @@ public class SettingPayPasswordActivity extends UI implements View.OnClickListen
                 //确定
                 paymentPwd = payEtOne.getPasswordString();
                 if (StringUtil.isEmpty(paymentPwd) || paymentPwd.length() < 6){
-                    ToastUtil.showToast(this,"请输入支付密码");
+                    ToastHelper.showToast(this,"请输入支付密码");
                     return;
                 }
                 paymentPwd = payEtTwo.getPasswordString();
                 if (StringUtil.isEmpty(paymentPwd) || paymentPwd.length() < 6){
-                    ToastUtil.showToast(this,"请再次输入支付密码");
+                    ToastHelper.showToast(this,"请再次输入支付密码");
                     return;
                 }
                 if (!payEtOne.getPasswordString().equals(payEtTwo.getPasswordString())){
-                    ToastUtil.showToast(this,"两次输入的密码不相同");
+                    ToastHelper.showToast(this,"两次输入的密码不相同");
                     return;
                 }
                 if (StringUtil.isNotEmpty(mType)){
@@ -108,7 +108,7 @@ public class SettingPayPasswordActivity extends UI implements View.OnClickListen
             public void onSuccess(int code, Object object) {
                 dismissProgress();
                 if (code == Constants.SUCCESS_CODE){
-                    ToastUtil.showToast(SettingPayPasswordActivity.this,"密码设置成功");
+                    ToastHelper.showToast(SettingPayPasswordActivity.this,"密码设置成功");
                     finish();
                 }
             }
@@ -116,7 +116,7 @@ public class SettingPayPasswordActivity extends UI implements View.OnClickListen
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(SettingPayPasswordActivity.this,errMessage);
+                ToastHelper.showToast(SettingPayPasswordActivity.this,errMessage);
             }
         });
     }
@@ -128,7 +128,7 @@ public class SettingPayPasswordActivity extends UI implements View.OnClickListen
             public void onSuccess(int code, Object object) {
                 dismissProgress();
                 if (code == Constants.SUCCESS_CODE){
-                    ToastUtil.showToast(SettingPayPasswordActivity.this,"密码修改成功");
+                    ToastHelper.showToast(SettingPayPasswordActivity.this,"密码修改成功");
                     finish();
                 }
             }
@@ -136,7 +136,7 @@ public class SettingPayPasswordActivity extends UI implements View.OnClickListen
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(SettingPayPasswordActivity.this,errMessage);
+                ToastHelper.showToast(SettingPayPasswordActivity.this,errMessage);
             }
         });
     }
@@ -149,7 +149,7 @@ public class SettingPayPasswordActivity extends UI implements View.OnClickListen
             public void onSuccess(int code, Object object) {
                 dismissProgress();
                 if (code == Constants.SUCCESS_CODE){
-                    ToastUtil.showToast(SettingPayPasswordActivity.this,"密码设置成功");
+                    ToastHelper.showToast(SettingPayPasswordActivity.this,"密码设置成功");
                     SPUtils instance = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME);
                     instance.put(WALLET_EXIST,true);
                     finish();
@@ -161,7 +161,7 @@ public class SettingPayPasswordActivity extends UI implements View.OnClickListen
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(SettingPayPasswordActivity.this,errMessage);
+                ToastHelper.showToast(SettingPayPasswordActivity.this,errMessage);
             }
         });
     }

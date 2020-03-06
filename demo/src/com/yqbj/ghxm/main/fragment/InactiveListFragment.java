@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -135,9 +135,6 @@ public class InactiveListFragment extends MainTabFragment {
             @Override
             public void onItemClick(View view, int position, Object item) {
                 //Item点击事件
-
-                Log.e("uid====",list.get(position).getUid());
-
                 UserProfileActivity.start(getContext(),list.get(position).getUid());
             }
         });
@@ -165,7 +162,7 @@ public class InactiveListFragment extends MainTabFragment {
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(getContext(),errMessage);
+                ToastHelper.showToast(getContext(),errMessage);
                 if (refreshLayout != null) {
                     refreshLayout.finishRefresh();
                 }

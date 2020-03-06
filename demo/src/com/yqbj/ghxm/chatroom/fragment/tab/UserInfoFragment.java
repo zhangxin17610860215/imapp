@@ -12,10 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.common.util.AppDemoUtils;
 import com.yqbj.ghxm.config.Constants;
@@ -34,7 +34,6 @@ import com.netease.yqbj.uikit.common.util.GlideUtil;
 import com.netease.yqbj.uikit.impl.cache.NimUserInfoCache;
 import com.netease.yqbj.uikit.utils.NoDoubleClickUtils;
 import com.yqbj.ghxm.DemoCache;
-import com.yqbj.ghxm.redpacket.wallet.CoinPurseActivity;
 import com.yqbj.ghxm.redpacket.wallet.SettingPayPasswordActivity;
 
 import java.util.List;
@@ -134,7 +133,7 @@ public class UserInfoFragment extends MainTabFragment implements View.OnClickLis
             public boolean onLongClick(View v) {
                 ClipboardManager cmb = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText(NimUIKit.getAccount().trim());
-                ToastUtil.showToast(getActivity(),"复制成功");
+                ToastHelper.showToast(getActivity(),"复制成功");
                 return true;
             }
         });
@@ -199,7 +198,7 @@ public class UserInfoFragment extends MainTabFragment implements View.OnClickLis
             //用户钱包账户不存在
             SettingPayPasswordActivity.start(getContext());
         } else {
-            CoinPurseActivity.start(getContext());
+
         }
     }
 

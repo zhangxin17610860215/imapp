@@ -84,7 +84,6 @@
             android:textColor="@color/black"
             android:textColorHint="@color/color_b3b3b3"
             android:background="@null"
-            android:textCursorDrawable="@drawable/jrmf_b_selector_cursor"
             android:textSize="12sp" />
         <ImageView
             android:layout_width="match_parent"

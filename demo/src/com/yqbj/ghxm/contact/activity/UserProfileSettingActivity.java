@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
@@ -21,13 +20,6 @@ import com.netease.nimlib.sdk.nos.NosService;
 import com.netease.nimlib.sdk.uinfo.constant.GenderEnum;
 import com.netease.nimlib.sdk.uinfo.constant.UserInfoFieldEnum;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
-import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.bean.UserInfoBean;
-import com.yqbj.ghxm.config.Constants;
-import com.yqbj.ghxm.contact.helper.UserUpdateHelper;
-import com.yqbj.ghxm.main.model.Extras;
-import com.yqbj.ghxm.utils.StringUtil;
-import com.yqbj.ghxm.zxing.ZXingUtils;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.api.model.SimpleCallback;
 import com.netease.yqbj.uikit.business.session.actions.PickImageAction;
@@ -38,9 +30,16 @@ import com.netease.yqbj.uikit.common.ui.dialog.DialogMaker;
 import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
 import com.netease.yqbj.uikit.common.util.GlideUtil;
 import com.netease.yqbj.uikit.common.util.log.LogUtil;
+import com.yqbj.ghxm.R;
+import com.yqbj.ghxm.bean.UserInfoBean;
+import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.contact.constant.UserConstant;
+import com.yqbj.ghxm.contact.helper.UserUpdateHelper;
+import com.yqbj.ghxm.main.model.Extras;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
+import com.yqbj.ghxm.utils.StringUtil;
+import com.yqbj.ghxm.zxing.ZXingUtils;
 
 import org.json.JSONArray;
 
@@ -198,7 +197,7 @@ public class UserProfileSettingActivity extends UI implements View.OnClickListen
             public boolean onLongClick(View v) {
                 ClipboardManager cmb = (ClipboardManager)UserProfileSettingActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText(NimUIKit.getAccount().trim());
-                ToastUtil.showToast(UserProfileSettingActivity.this,"复制成功");
+                ToastHelper.showToast(UserProfileSettingActivity.this,"复制成功");
                 return true;
             }
         });

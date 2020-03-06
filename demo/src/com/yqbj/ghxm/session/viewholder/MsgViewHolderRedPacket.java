@@ -5,11 +5,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jrmf360.normallib.base.utils.ToastUtil;
 import com.netease.yqbj.uikit.business.chatroom.adapter.ChatRoomMsgAdapter;
 import com.netease.yqbj.uikit.business.session.module.ModuleProxy;
 import com.netease.yqbj.uikit.business.session.module.list.MsgAdapter;
 import com.netease.yqbj.uikit.business.session.viewholder.MsgViewHolderBase;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.yqbj.uikit.common.ui.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
 import com.yqbj.ghxm.R;
@@ -167,14 +167,14 @@ public class MsgViewHolderRedPacket extends MsgViewHolderBase {
                     NIMOpenRpCallback cb = new NIMOpenRpCallback(message.getFromAccount(), message.getSessionId(), message.getSessionType(), proxy);
                     NIMRedPacketClient.startOpenRpDialog((Activity) context, message.getSessionType(), attachment.getRpId(),message, cb, bean);
                 }else {
-                    ToastUtil.showToast(context, (String) object);
+                    ToastHelper.showToast(context, (String) object);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(context,errMessage);
+                ToastHelper.showToast(context,errMessage);
             }
         });
     }
@@ -198,14 +198,14 @@ public class MsgViewHolderRedPacket extends MsgViewHolderBase {
                     NIMOpenRpCallback cb = new NIMOpenRpCallback(message.getFromAccount(), message.getSessionId(), message.getSessionType(), proxy);
                     NIMRedPacketClient.startOpenRpDialog((Activity) context, message.getSessionType(), attachment.getRpId(),message, cb, bean);
                 }else {
-                    ToastUtil.showToast(context, (String) object);
+                    ToastHelper.showToast(context, (String) object);
                 }
             }
 
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
-                ToastUtil.showToast(context,errMessage);
+                ToastHelper.showToast(context,errMessage);
             }
         });
     }
