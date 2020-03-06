@@ -38,12 +38,10 @@ import com.yqbj.ghxm.config.preference.UserPreferences;
 import com.yqbj.ghxm.contact.activity.BlackListActivity;
 import com.yqbj.ghxm.contact.activity.SetFontSizeActivity;
 import com.yqbj.ghxm.contact.activity.UserProfileSettingActivity;
-import com.yqbj.ghxm.jsbridge.JsBridgeActivity;
 import com.yqbj.ghxm.main.SplashActivity;
 import com.yqbj.ghxm.main.adapter.SettingsAdapter;
 import com.yqbj.ghxm.main.model.SettingTemplate;
 import com.yqbj.ghxm.main.model.SettingType;
-import com.yqbj.ghxm.redpacket.NIMRedPacketClient;
 import com.yqbj.ghxm.utils.AppUtils;
 import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
@@ -338,7 +336,6 @@ public class SettingsActivity extends UI implements SettingsAdapter.SwitchChange
                 netDetectForNrtc();
                 break;
             case TAG_JS_BRIDGE:
-                startActivity(new Intent(SettingsActivity.this, JsBridgeActivity.class));
                 break;
             case TAG_JRMFWAllET:
 

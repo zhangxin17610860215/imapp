@@ -183,8 +183,6 @@
     <string name="Invalid_format">格式错误</string>
 
     <!-- JsBridge -->
-    <string name="js_bridge">NIM JS Bridge</string>
-    <string name="js_bridge_demonstration">Js Bridge演示</string>
 
     <!--机器人-->
     <string name="nim_robot_title">云小信机器人</string>

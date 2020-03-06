@@ -3,6 +3,13 @@ package com.netease.yqbj.uikit.api;
 import android.app.Activity;
 import android.content.Context;
 
+import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomResultData;
+import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
+import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.yqbj.uikit.api.model.chatroom.ChatRoomMemberChangedObservable;
 import com.netease.yqbj.uikit.api.model.chatroom.ChatRoomProvider;
 import com.netease.yqbj.uikit.api.model.chatroom.ChatRoomSessionCustomization;
@@ -21,7 +28,6 @@ import com.netease.yqbj.uikit.api.model.team.TeamChangedObservable;
 import com.netease.yqbj.uikit.api.model.team.TeamProvider;
 import com.netease.yqbj.uikit.api.model.user.IUserInfoProvider;
 import com.netease.yqbj.uikit.api.model.user.UserInfoObservable;
-import com.netease.yqbj.uikit.business.chatroom.viewholder.ChatRoomMsgViewHolderBase;
 import com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity;
 import com.netease.yqbj.uikit.business.session.module.MsgForwardFilter;
 import com.netease.yqbj.uikit.business.session.module.MsgRevokeFilter;
@@ -32,13 +38,6 @@ import com.netease.yqbj.uikit.impl.customization.DefaultTeamSessionCustomization
 import com.netease.yqbj.uikit.impl.provider.DefaultContactProvider;
 import com.netease.yqbj.uikit.impl.provider.DefaultUserInfoProvider;
 import com.netease.yqbj.uikit.support.glide.ImageLoaderKit;
-import com.netease.nimlib.sdk.AbortableFuture;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.auth.LoginInfo;
-import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomResultData;
-import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
-import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.Set;
 
@@ -184,15 +183,6 @@ public class NimUIKit {
     }
 
     /**
-     * 设置聊天室界面定制 ChatRoomSessionCustomization
-     *
-     * @param commonChatRoomSessionCustomization 聊天室界面定制化
-     */
-    public static void setCommonChatRoomSessionCustomization(ChatRoomSessionCustomization commonChatRoomSessionCustomization) {
-        NimUIKitImpl.setCommonChatRoomSessionCustomization(commonChatRoomSessionCustomization);
-    }
-
-    /**
      * 根据IM消息附件类型注册对应的消息项展示ViewHolder
      *
      * @param attach     附件类型
@@ -200,16 +190,6 @@ public class NimUIKit {
      */
     public static void registerMsgItemViewHolder(Class<? extends MsgAttachment> attach, Class<? extends MsgViewHolderBase> viewHolder) {
         NimUIKitImpl.registerMsgItemViewHolder(attach, viewHolder);
-    }
-
-    /**
-     * 根据聊天室消息附件类型注册对应的消息项展示ViewHolder
-     *
-     * @param attach     附件类型
-     * @param viewHolder 消息ViewHolder
-     */
-    public static void registerChatRoomMsgItemViewHolder(Class<? extends MsgAttachment> attach, Class<? extends ChatRoomMsgViewHolderBase> viewHolder) {
-        NimUIKitImpl.registerChatRoomMsgItemViewHolder(attach, viewHolder);
     }
 
     /**

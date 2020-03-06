@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.netease.yqbj.uikit.business.chatroom.adapter.ChatRoomMsgAdapter;
 import com.netease.yqbj.uikit.business.session.module.ModuleProxy;
 import com.netease.yqbj.uikit.business.session.module.list.MsgAdapter;
 import com.netease.yqbj.uikit.business.session.viewholder.MsgViewHolderBase;
@@ -13,7 +12,6 @@ import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.yqbj.uikit.common.ui.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
 import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.bean.RedPackOtherDataBean;
 import com.yqbj.ghxm.bean.RedPacketStateBean;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.redpacket.NIMOpenRpCallback;
@@ -24,13 +22,6 @@ import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.session.extension.RedPacketAttachment;
 import com.yqbj.ghxm.utils.SPUtils;
 
-import java.util.Map;
-
-import static com.yqbj.ghxm.config.Constants.BUILDREDSTRUCTURE.REDPACKET_GREETING;
-import static com.yqbj.ghxm.config.Constants.BUILDREDSTRUCTURE.REDPACKET_ID;
-import static com.yqbj.ghxm.config.Constants.BUILDREDSTRUCTURE.REDPACKET_MONEY;
-import static com.yqbj.ghxm.config.Constants.BUILDREDSTRUCTURE.REDPACKET_TYPE;
-import static com.yqbj.ghxm.config.Constants.BUILDREDSTRUCTURE.REDPACKET_TYPESTR;
 import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.WALLET_EXIST;
 
 public class MsgViewHolderRedPacket extends MsgViewHolderBase {
@@ -136,47 +127,7 @@ public class MsgViewHolderRedPacket extends MsgViewHolderBase {
             return;
         }
         //检查红包状态
-//        redPackStatistic();
-        //检查红包状态
         redPackStatisticNew();
-    }
-
-    private void redPackStatistic() {
-        showProgress(context,false);
-        final RedPacketAttachment attachment = (RedPacketAttachment) message.getAttachment();
-        final Map<String, Object> remoteExtension = message.getRemoteExtension();
-        UserApi.getRedPackStatistic(attachment.getRpId(), context, new requestCallback() {
-            @Override
-            public void onSuccess(int code, Object object) {
-                dismissProgress();
-                if (code == Constants.SUCCESS_CODE){
-                    RedPackOtherDataBean bean = (RedPackOtherDataBean) object;
-//                    bean.setNumber((int) remoteExtension.get(REDPACKET_COUNT));
-                    bean.setRedContent((String) remoteExtension.get(REDPACKET_GREETING));
-                    bean.setRedId((String) remoteExtension.get(REDPACKET_ID));
-                    bean.setRedpacketType((Integer) remoteExtension.get(REDPACKET_TYPE));
-                    bean.setRedTitle((String) remoteExtension.get(REDPACKET_TYPESTR));
-                    bean.setTotalSum((String) remoteExtension.get(REDPACKET_MONEY));
-                    BaseMultiItemFetchLoadAdapter adapter = getAdapter();
-                    ModuleProxy proxy = null;
-                    if (adapter instanceof MsgAdapter) {
-                        proxy = ((MsgAdapter) adapter).getContainer().proxy;
-                    } else if (adapter instanceof ChatRoomMsgAdapter) {
-                        proxy = ((ChatRoomMsgAdapter) adapter).getContainer().proxy;
-                    }
-                    NIMOpenRpCallback cb = new NIMOpenRpCallback(message.getFromAccount(), message.getSessionId(), message.getSessionType(), proxy);
-                    NIMRedPacketClient.startOpenRpDialog((Activity) context, message.getSessionType(), attachment.getRpId(),message, cb, bean);
-                }else {
-                    ToastHelper.showToast(context, (String) object);
-                }
-            }
-
-            @Override
-            public void onFailed(String errMessage) {
-                dismissProgress();
-                ToastHelper.showToast(context,errMessage);
-            }
-        });
     }
 
     private void redPackStatisticNew() {
@@ -192,8 +143,6 @@ public class MsgViewHolderRedPacket extends MsgViewHolderBase {
                     ModuleProxy proxy = null;
                     if (adapter instanceof MsgAdapter) {
                         proxy = ((MsgAdapter) adapter).getContainer().proxy;
-                    } else if (adapter instanceof ChatRoomMsgAdapter) {
-                        proxy = ((ChatRoomMsgAdapter) adapter).getContainer().proxy;
                     }
                     NIMOpenRpCallback cb = new NIMOpenRpCallback(message.getFromAccount(), message.getSessionId(), message.getSessionType(), proxy);
                     NIMRedPacketClient.startOpenRpDialog((Activity) context, message.getSessionType(), attachment.getRpId(),message, cb, bean);

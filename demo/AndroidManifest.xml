@@ -358,19 +358,6 @@
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <!-- 聊天室 -->
-        <activity
-            android:name="com.yqbj.ghxm.chatroom.activity.ChatRoomActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name="com.yqbj.ghxm.jsbridge.JsBridgeActivity"
-            android:label="@string/js_bridge"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-
         <!-- 机器人 -->
         <activity
             android:name="com.yqbj.ghxm.main.activity.RobotListActivity"

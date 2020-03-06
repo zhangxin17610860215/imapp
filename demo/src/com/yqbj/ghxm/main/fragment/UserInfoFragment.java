@@ -1,4 +1,4 @@
-package com.yqbj.ghxm.chatroom.fragment.tab;
+package com.yqbj.ghxm.main.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.ClipboardManager;
@@ -15,26 +15,25 @@ import android.widget.TextView;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
+import com.netease.yqbj.uikit.api.NimUIKit;
+import com.netease.yqbj.uikit.api.model.user.UserInfoObserver;
+import com.netease.yqbj.uikit.api.wrapper.NimUserInfoProvider;
 import com.netease.yqbj.uikit.common.ToastHelper;
+import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
+import com.netease.yqbj.uikit.common.util.GlideUtil;
+import com.netease.yqbj.uikit.impl.cache.NimUserInfoCache;
+import com.netease.yqbj.uikit.utils.NoDoubleClickUtils;
+import com.yqbj.ghxm.DemoCache;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.common.util.AppDemoUtils;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.contact.activity.UserProfileSettingActivity;
 import com.yqbj.ghxm.main.activity.FeedbackActivity;
 import com.yqbj.ghxm.main.activity.SettingsActivity;
-import com.yqbj.ghxm.main.fragment.MainTabFragment;
+import com.yqbj.ghxm.redpacket.wallet.SettingPayPasswordActivity;
 import com.yqbj.ghxm.user.PasswordManageActivity;
 import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.zxing.ZXingUtils;
-import com.netease.yqbj.uikit.api.NimUIKit;
-import com.netease.yqbj.uikit.api.model.user.UserInfoObserver;
-import com.netease.yqbj.uikit.api.wrapper.NimUserInfoProvider;
-import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
-import com.netease.yqbj.uikit.common.util.GlideUtil;
-import com.netease.yqbj.uikit.impl.cache.NimUserInfoCache;
-import com.netease.yqbj.uikit.utils.NoDoubleClickUtils;
-import com.yqbj.ghxm.DemoCache;
-import com.yqbj.ghxm.redpacket.wallet.SettingPayPasswordActivity;
 
 import java.util.List;
 

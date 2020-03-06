@@ -38,7 +38,6 @@ import com.tinkerpatch.sdk.TinkerPatch;
 import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
-import com.yqbj.ghxm.chatroom.ChatRoomSessionHelper;
 import com.yqbj.ghxm.common.util.LogHelper;
 import com.yqbj.ghxm.common.util.crash.AppCrashHandler;
 import com.yqbj.ghxm.config.Constants;
@@ -357,9 +356,6 @@ public class NimApplication extends Application {
 
         // IM 会话窗口的定制初始化。
         SessionHelper.init();
-
-        // 聊天室聊天窗口的定制初始化。
-        ChatRoomSessionHelper.init();
 
         // 通讯录列表定制初始化
         ContactHelper.init();

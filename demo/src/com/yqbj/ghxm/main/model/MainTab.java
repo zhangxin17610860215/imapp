@@ -1,10 +1,10 @@
 package com.yqbj.ghxm.main.model;
 
 import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.chatroom.fragment.tab.UserInfoFragment;
 import com.yqbj.ghxm.main.fragment.ContactListFragment;
 import com.yqbj.ghxm.main.fragment.MainTabFragment;
 import com.yqbj.ghxm.main.fragment.SessionListFragment;
+import com.yqbj.ghxm.main.fragment.UserInfoFragment;
 import com.yqbj.ghxm.main.reminder.ReminderId;
 
 public enum MainTab {

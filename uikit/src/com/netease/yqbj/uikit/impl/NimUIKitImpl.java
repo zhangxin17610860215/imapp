@@ -5,12 +5,24 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.AuthService;
+import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo;
+import com.netease.nimlib.sdk.chatroom.model.ChatRoomMember;
+import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomResultData;
+import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
+import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
+import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.api.UIKitInitStateListener;
 import com.netease.yqbj.uikit.api.UIKitOptions;
 import com.netease.yqbj.uikit.api.model.chatroom.ChatRoomMemberChangedObservable;
 import com.netease.yqbj.uikit.api.model.chatroom.ChatRoomProvider;
-import com.netease.yqbj.uikit.api.model.chatroom.ChatRoomSessionCustomization;
 import com.netease.yqbj.uikit.api.model.contact.ContactChangedObservable;
 import com.netease.yqbj.uikit.api.model.contact.ContactEventListener;
 import com.netease.yqbj.uikit.api.model.contact.ContactProvider;
@@ -27,9 +39,6 @@ import com.netease.yqbj.uikit.api.model.team.TeamChangedObservable;
 import com.netease.yqbj.uikit.api.model.team.TeamProvider;
 import com.netease.yqbj.uikit.api.model.user.IUserInfoProvider;
 import com.netease.yqbj.uikit.api.model.user.UserInfoObservable;
-import com.netease.yqbj.uikit.business.chatroom.fragment.ChatRoomMessageFragment;
-import com.netease.yqbj.uikit.business.chatroom.viewholder.ChatRoomMsgViewHolderBase;
-import com.netease.yqbj.uikit.business.chatroom.viewholder.ChatRoomMsgViewHolderFactory;
 import com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity;
 import com.netease.yqbj.uikit.business.preference.UserPreferences;
 import com.netease.yqbj.uikit.business.session.activity.P2PMessageActivity;
@@ -58,19 +67,6 @@ import com.netease.yqbj.uikit.impl.provider.DefaultRobotProvider;
 import com.netease.yqbj.uikit.impl.provider.DefaultTeamProvider;
 import com.netease.yqbj.uikit.impl.provider.DefaultUserInfoProvider;
 import com.netease.yqbj.uikit.support.glide.ImageLoaderKit;
-import com.netease.nimlib.sdk.AbortableFuture;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.auth.AuthService;
-import com.netease.nimlib.sdk.auth.LoginInfo;
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo;
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomMember;
-import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomResultData;
-import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
-import com.netease.nimlib.sdk.msg.model.IMMessage;
-import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
-import com.netease.nimlib.sdk.team.model.Team;
 
 /**
  * UIKit能力实现类。
@@ -475,20 +471,12 @@ public final class NimUIKitImpl {
         NimUIKitImpl.recentCustomization = recentCustomization;
     }
 
-    public static void setCommonChatRoomSessionCustomization(ChatRoomSessionCustomization commonChatRoomSessionCustomization) {
-        ChatRoomMessageFragment.setChatRoomSessionCustomization(commonChatRoomSessionCustomization);
-    }
-
     public static RecentCustomization getRecentCustomization() {
         return recentCustomization;
     }
 
     public static void registerMsgItemViewHolder(Class<? extends MsgAttachment> attach, Class<? extends MsgViewHolderBase> viewHolder) {
         MsgViewHolderFactory.register(attach, viewHolder);
-    }
-
-    public static void registerChatRoomMsgItemViewHolder(Class<? extends MsgAttachment> attach, Class<? extends ChatRoomMsgViewHolderBase> viewHolder) {
-        ChatRoomMsgViewHolderFactory.register(attach, viewHolder);
     }
 
     public static void registerTipMsgViewHolder(Class<? extends MsgViewHolderBase> viewHolder) {
