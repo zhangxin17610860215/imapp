@@ -145,12 +145,7 @@ public class InactiveDetailInfoAct extends BaseAct {
 
             }
         });
-
-
     }
-
-
-
 
     private void initData() {
         showProgress(this,false);
@@ -171,6 +166,7 @@ public class InactiveDetailInfoAct extends BaseAct {
             @Override
             public void onFailed(String errMessage) {
                 dismissProgress();
+                toast(errMessage);
                 if (refreshLayout != null) {
                     refreshLayout.finishRefresh();
                     refreshLayout.finishLoadMore();

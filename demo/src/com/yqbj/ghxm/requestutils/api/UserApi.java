@@ -8,12 +8,12 @@ import com.alibaba.fastjson.TypeReference;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.netease.nimlib.sdk.team.model.Team;
-import com.yqbj.ghxm.bean.AliPayInfoBean;
-import com.yqbj.ghxm.bean.AmountBean;
+import com.netease.yqbj.rtskit.common.log.LogUtil;
+import com.netease.yqbj.uikit.api.NimUIKit;
+import com.netease.yqbj.uikit.bean.TeamConfigBean;
 import com.yqbj.ghxm.bean.AutomaticGetRedPackBean;
 import com.yqbj.ghxm.bean.BaseBean;
 import com.yqbj.ghxm.bean.DetailsChangeQueryBean;
-import com.yqbj.ghxm.bean.DetailsRedPacketBean;
 import com.yqbj.ghxm.bean.GetAllMemberWalletBean;
 import com.yqbj.ghxm.bean.LoginBean;
 import com.yqbj.ghxm.bean.MyTeamWalletBean;
@@ -21,14 +21,12 @@ import com.yqbj.ghxm.bean.OrderNumberBean;
 import com.yqbj.ghxm.bean.RedPackOtherDataBean;
 import com.yqbj.ghxm.bean.RedPacketStateBean;
 import com.yqbj.ghxm.bean.RootListBean;
-import com.yqbj.ghxm.bean.SignParamsBean;
 import com.yqbj.ghxm.bean.TeamAllocationPriceBean;
 import com.yqbj.ghxm.bean.TeamInactiveBean;
 import com.yqbj.ghxm.bean.TeamLeaveBean;
 import com.yqbj.ghxm.bean.TeamRobotDetatlsBean;
 import com.yqbj.ghxm.bean.UnclaimedRPDetailsBean;
 import com.yqbj.ghxm.bean.UserInfoBean;
-import com.yqbj.ghxm.bean.WChatParamsBean;
 import com.yqbj.ghxm.bean.WXMesBean;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.requestutils.RequestHelp;
@@ -36,9 +34,6 @@ import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.utils.GsonHelper;
 import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
-import com.netease.yqbj.rtskit.common.log.LogUtil;
-import com.netease.yqbj.uikit.api.NimUIKit;
-import com.netease.yqbj.uikit.bean.TeamConfigBean;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,8 +49,6 @@ import okhttp3.Request;
 import static com.yqbj.ghxm.config.Constants.CURRENTTIME;
 import static com.yqbj.ghxm.config.Constants.ERROR_REQUEST_EXCEPTION_MESSAGE;
 import static com.yqbj.ghxm.config.Constants.ERROR_REQUEST_FAILED_MESSAGE;
-import static com.yqbj.ghxm.config.Constants.RESPONSE_CODE.CODE_50021;
-import static com.yqbj.ghxm.config.Constants.RESPONSE_CODE.CODE_50022;
 import static com.yqbj.ghxm.config.Constants.WX_LOGIN_API;
 
 public class UserApi {
@@ -97,31 +90,6 @@ public class UserApi {
                 }
             }
         });
-//        Map<String, String> map = new HashMap<>();
-//        map.put("appid", appid);
-//        map.put("secret", secret);
-//        map.put("code", code);
-//        map.put("grant_type", "authorization_code");
-//        RequestHelp.getReq(WX_LOGIN_API, object, map, new StringCallback() {
-//            @Override
-//            public void onSuccess(Response<String> response) {
-//                LogUtil.e(TAG, "wx_Login--------->onSuccess" + response.body());
-//                try {
-//                    WXMesBean bean = GsonHelper.getSingleton().fromJson(response.body(), WXMesBean.class);
-//                    callback.onSuccess(bean.getExpires_in(), bean);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Response<String> response) {
-//                super.onError(response);
-//                LogUtil.e(TAG, "wx_Login--------->onError");
-//                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-//            }
-//        });
     }
 
     /**
@@ -314,34 +282,6 @@ public class UserApi {
         });
     }
 
-
-    /**
-     * 获取用户钱包零钱
-     */
-    public static void getAmount(Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        RequestHelp.postRequest(ApiUrl.USER_GETAMOUNT, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "getAmount--------->onSuccess" + response.body());
-                BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                if (bean.getStatusCode() == Constants.SUCCESS_CODE && StringUtil.isNotEmpty(bean.getData())) {
-                    AmountBean amountBean = GsonHelper.getSingleton().fromJson(bean.getData(), AmountBean.class);
-                    callback.onSuccess(bean.getStatusCode(), amountBean);
-                } else {
-                    callback.onSuccess(bean.getStatusCode(), bean.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "getAmount--------->onError");
-                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-            }
-        });
-    }
-
     /**
      * 设置支付密码
      */
@@ -368,44 +308,6 @@ public class UserApi {
             }
         });
     }
-
-    /**
-     * 查询零钱明细
-     */
-    public static void detailsChangeQuery(int page, int rows, String startDate, String endDate, Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        map.put("page", page + "");
-        map.put("rows", rows + "");
-        map.put("startDate", startDate);
-        map.put("endDate", endDate);
-        RequestHelp.postRequest(ApiUrl.USER_DETAILSCHANGEQUERY, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "detailsChangeQuery--------->onSuccess" + response.body());
-                try {
-                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
-                        DetailsChangeQueryBean detailsChangeQueryBean = GsonHelper.getSingleton().fromJson(bean.getData(), DetailsChangeQueryBean.class);
-                        callback.onSuccess(bean.getStatusCode(), detailsChangeQueryBean);
-                    }else {
-                        callback.onFailed(bean.getMessage());
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "detailsChangeQuery--------->onError");
-                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-            }
-        });
-    }
-
 
     /**
      * 查询零钱明细
@@ -449,44 +351,6 @@ public class UserApi {
 
     }
 
-
-    /**
-     * 红包明细——发出的红包
-     */
-    public static void sendRedPage(int page, int rows, Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        map.put("page", page + "");
-        map.put("rows", rows + "");
-        RequestHelp.postRequest(ApiUrl.USER_SENDREDPAGE, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "sendRedPage--------->onSuccess" + response.body());
-                try {
-                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
-                        DetailsRedPacketBean detailsRedPacketBean = GsonHelper.getSingleton().fromJson(bean.getData(), DetailsRedPacketBean.class);
-                        callback.onSuccess(bean.getStatusCode(), detailsRedPacketBean);
-                    }else {
-                        callback.onFailed(bean.getMessage());
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-                }
-            }
-
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "teamInactiveActive--------->onError");
-                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-
-            }
-        });
-    }
-
     /**
      * 查询退群成员
      */
@@ -517,42 +381,6 @@ public class UserApi {
                 super.onError(response);
                 callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
             }
-        });
-    }
-
-    /**
-     * 红包明细——收到的红包
-     */
-    public static void getRedPage(int page, int rows, Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        map.put("page", page + "");
-        map.put("rows", rows + "");
-        RequestHelp.postRequest(ApiUrl.USER_GETREDPAGE, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "getRedPage--------->onSuccess" + response.body());
-                try {
-                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
-                        DetailsRedPacketBean detailsRedPacketBean = GsonHelper.getSingleton().fromJson(bean.getData(), DetailsRedPacketBean.class);
-                        callback.onSuccess(bean.getStatusCode(), detailsRedPacketBean);
-                    }else {
-                        callback.onFailed(bean.getMessage());
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-                }
-            }
-
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "teamLeave--------->onError");
-            }
-
         });
     }
 
@@ -758,136 +586,6 @@ public class UserApi {
     }
 
     /**
-     * 请求支付宝签名
-     */
-    public static void singParams(String tradeType, String content, int opt, String rid, String money,
-                                  String targetIds, String targetType, String name, String paymentPwd,
-                                  String number, String targetId, Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        map.put("tradeType",tradeType);
-        if (opt == 2 && tradeType.equals("1")){
-            map.put("rid", rid);
-            map.put("money", money);
-            map.put("targetIds", targetIds);
-            map.put("targetType", targetType + "");
-            map.put("name", name);
-            map.put("paymentPwd", paymentPwd);
-            map.put("number", number + "");
-            map.put("targetId", targetId);
-        }
-        map.put("content", content);
-        map.put("opt", opt + "");
-
-        RequestHelp.postRequest(ApiUrl.PAY_SIGNALIPAYPARAMS, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                try {
-                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    LogUtil.e(TAG, "singParams--------->onSuccess" + response.body());
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
-                        SignParamsBean signParamsBean = GsonHelper.getSingleton().fromJson(bean.getData(), SignParamsBean.class);
-                        callback.onSuccess(bean.getStatusCode(), signParamsBean);
-                    } else {
-                        callback.onSuccess(bean.getStatusCode(), bean.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "singParams--------->onError");
-                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-            }
-
-        });
-    }
-    /**
-     * 请求微信签名
-     */
-    public static void singWChatParams(String tradeType, String price, String rid, String money, String targetIds,
-                                       String targetType, String name, String paymentPwd, String number,
-                                       String targetId, Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        map.put("tradeType", tradeType);
-        map.put("price", price);
-        if (tradeType.equals("1")){
-            map.put("rid", rid);
-            map.put("money", money);
-            map.put("targetIds", targetIds);
-            map.put("targetType", targetType);
-            map.put("name", name);
-            map.put("paymentPwd", paymentPwd);
-            map.put("number", number);
-            map.put("targetId", targetId);
-        }
-        RequestHelp.postRequest(ApiUrl.PAY_SIGNWCHATPAYPARAMS, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                try {
-                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    LogUtil.e(TAG, "singWChatParams--------->onSuccess" + response.body());
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
-                        WChatParamsBean wChatParamsBean = GsonHelper.getSingleton().fromJson(bean.getData(), WChatParamsBean.class);
-                        callback.onSuccess(bean.getStatusCode(), wChatParamsBean);
-                    } else {
-                        callback.onFailed(bean.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "singWChatParams--------->onError");
-                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-            }
-
-        });
-    }
-
-    /**
-     * 充值查询接口
-     */
-    public static void rechArgeQuery(String tradeNo, String payType, Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        map.put("tradeNo", tradeNo);
-        map.put("payType", payType);
-        RequestHelp.postRequest(ApiUrl.PAY_RECHARGEQUERY, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "rechArgeQuery--------->onSuccess" + response.body());
-                try {
-                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
-                        callback.onSuccess(bean.getStatusCode(), bean);
-                    } else {
-                        callback.onSuccess(bean.getStatusCode(), bean.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "rechArgeQuery--------->onError");
-                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-            }
-
-        });
-    }
-
-
-    /**
      * 主动退群接口
      */
     public static void leaveTeam(String tid, Object object, final requestCallback callback) {
@@ -1023,40 +721,6 @@ public class UserApi {
     }
 
     /**
-     * 获取支付宝用户信息
-     */
-    public static void getAliPayInfo(String authCode, Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        map.put("authCode", authCode);
-        RequestHelp.postRequest(ApiUrl.USER_GETALIPAYINFO, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "getAliPayInfo--------->onSuccess" + response.body());
-                try {
-                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
-                        AliPayInfoBean infoBean = GsonHelper.getSingleton().fromJson(bean.getData(), AliPayInfoBean.class);
-                        callback.onSuccess(bean.getStatusCode(), infoBean);
-                    } else {
-                        callback.onFailed(bean.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "getAliPayInfo--------->onError");
-                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-            }
-
-        });
-    }
-
-    /**
      * 获取用户信息
      */
 
@@ -1090,46 +754,6 @@ public class UserApi {
 
         });
 
-    }
-
-    /**
-     * 提现
-     */
-    public static void carry(String money, String payeePwd, String accountId, String payType, Object object, final requestCallback callback) {
-        Map<String, String> map = new HashMap<>();
-        map.put("money", money);
-        map.put("payeePwd", payeePwd);
-        map.put("accountId", accountId);
-        map.put("payType", payType);
-        RequestHelp.postRequest(ApiUrl.PAY_CARRY, object, map, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "carry--------->onSuccess" + response.body());
-                try {
-                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
-                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
-                        callback.onSuccess(bean.getStatusCode(), bean);
-                    } else if (bean.getStatusCode() == CODE_50021){
-                        callback.onSuccess(bean.getStatusCode(), bean);
-                    } else if (bean.getStatusCode() == CODE_50022){
-                        callback.onSuccess(bean.getStatusCode(), bean);
-                    }else {
-                        callback.onFailed(bean.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.e(TAG, "carry--------->onError");
-                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
-            }
-
-        });
     }
 
     /**
