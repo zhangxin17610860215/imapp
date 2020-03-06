@@ -17,17 +17,11 @@ import com.netease.nimlib.sdk.team.constant.TeamMemberType;
 import com.netease.nimlib.sdk.team.constant.VerifyTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
-import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.bean.TeamAllocationPriceBean;
-import com.yqbj.ghxm.bean.TeamRobotDetatlsBean;
-import com.yqbj.ghxm.main.activity.TeamActiveInfoAct;
 import com.netease.yqbj.uikit.api.NimUIKit;
-import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.netease.yqbj.uikit.api.model.SimpleCallback;
 import com.netease.yqbj.uikit.api.model.team.TeamDataChangedObserver;
 import com.netease.yqbj.uikit.api.model.team.TeamMemberDataChangedObserver;
 import com.netease.yqbj.uikit.api.wrapper.NimToolBarOptions;
-import com.netease.yqbj.uikit.bean.TeamConfigBean;
 import com.netease.yqbj.uikit.business.contact.core.item.ContactIdFilter;
 import com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity;
 import com.netease.yqbj.uikit.business.team.helper.TeamHelper;
@@ -35,19 +29,20 @@ import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.activity.ToolBarOptions;
 import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.yqbj.uikit.common.ui.widget.SwitchButton;
-import com.netease.yqbj.uikit.common.util.log.LogUtil;
 import com.umeng.analytics.MobclickAgent;
+import com.yqbj.ghxm.R;
+import com.yqbj.ghxm.bean.TeamAllocationPriceBean;
+import com.yqbj.ghxm.bean.TeamRobotDetatlsBean;
 import com.yqbj.ghxm.busevent.TeamMemberEvent;
 import com.yqbj.ghxm.common.ui.BaseAct;
 import com.yqbj.ghxm.config.Constants;
-import com.yqbj.ghxm.requestutils.api.ApiUrl;
+import com.yqbj.ghxm.main.activity.TeamActiveInfoAct;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.utils.NumberUtil;
 import com.yqbj.ghxm.utils.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -115,7 +110,6 @@ public class TeamManagerActivity extends BaseAct {
 
     private String teamRobotName = "未配置";
     private TeamRobotDetatlsBean bean;
-//    private TeamConfigBean teamConfigBean;
     private int responseCode;
     private TeamAllocationPriceBean priceBean;
 
@@ -144,7 +138,6 @@ public class TeamManagerActivity extends BaseAct {
         members = new ArrayList<>();
         managerList = new ArrayList<>();
         noCollarList = new ArrayList<>();
-//        teamConfigBean = null == StatisticsConstants.TEAMCONFIGBEAN ? new TeamConfigBean() : StatisticsConstants.TEAMCONFIGBEAN;
         loadTeamInfo();
         requestMembers();
         registerObservers(true);
@@ -196,10 +189,7 @@ public class TeamManagerActivity extends BaseAct {
                 toast(errMessage);
             }
         });
-
-
     }
-
 
     private void parseIntentData() {
         teamId = getIntent().getStringExtra(EXTRA_ID);
@@ -207,7 +197,6 @@ public class TeamManagerActivity extends BaseAct {
     }
 
     private void findViews(){
-
         viewLayout = findViewById(R.id.view_layout);
         team_manager_layout = findViewById(R.id.team_manager_layout);
         ((TextView) team_manager_layout.findViewById(R.id.item_title)).setText(R.string.set_team_manager);
@@ -217,7 +206,6 @@ public class TeamManagerActivity extends BaseAct {
                 MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_SETTEAMMANAGER);
                 ContactSelectActivity.Option option = TeamHelper.getContactTeamManagerSelectOption(creator,(ArrayList<String>) managerList);
                 option.teamId = teamId;
-
                 NimUIKit.startContactSelector(TeamManagerActivity.this, option, REQUEST_CODE_CONTACT_MANAGER_SELECT);
             }
         });
@@ -225,7 +213,7 @@ public class TeamManagerActivity extends BaseAct {
         team_forbit_speak_layout = findViewById(R.id.team_forbid_speak_layout);
         ((TextView) team_forbit_speak_layout.findViewById(R.id.item_title)).setText(R.string.team_forbit_speak);
 
-        swiBtn_forbit = (SwitchButton) team_forbit_speak_layout.findViewById(R.id.setting_item_toggle);
+        swiBtn_forbit = team_forbit_speak_layout.findViewById(R.id.setting_item_toggle);
         swiBtn_forbit.setTag(SW_KEY_FORBIT_SPEAK);
         swiBtn_forbit.setOnChangedListener(onChangedListener);
 
@@ -307,7 +295,7 @@ public class TeamManagerActivity extends BaseAct {
         team_settlement_layout = findViewById(R.id.team_settlement_layout);
         ((TextView) team_settlement_layout.findViewById(R.id.item_title)).setText("战绩自动结算");
 
-        swiBtn_settlement = (SwitchButton) team_settlement_layout.findViewById(R.id.setting_item_toggle);
+        swiBtn_settlement = team_settlement_layout.findViewById(R.id.setting_item_toggle);
         swiBtn_settlement.setTag(SW_KEY_SETTLEMENT);
         swiBtn_settlement.setOnChangedListener(onChangedListener);
 
@@ -321,7 +309,6 @@ public class TeamManagerActivity extends BaseAct {
                 OneKeyCopyTeamAct.start(TeamManagerActivity.this,teamId);
             }
         });
-
 
         team_transfer_layout = findViewById(R.id.team_transfer_layout);
         ((TextView) team_transfer_layout.findViewById(R.id.item_title)).setText("群主管理权转让");
@@ -345,43 +332,24 @@ public class TeamManagerActivity extends BaseAct {
             }
         });
 
-
-
-
         team_safe_mode_layout = findViewById(R.id.team_safe_mode_layout);
         ((TextView) team_safe_mode_layout.findViewById(R.id.item_title)).setText("群成员保护模式");
-
-        swiBtn_safeMode = (SwitchButton) team_safe_mode_layout.findViewById(R.id.setting_item_toggle);
+        swiBtn_safeMode = team_safe_mode_layout.findViewById(R.id.setting_item_toggle);
         swiBtn_safeMode.setTag(SW_KEY_SAFE_MODE);
         swiBtn_safeMode.setOnChangedListener(onChangedListener);
 
-
         team_credit_layout = findViewById(R.id.team_credit_layout);
-
-
         ((TextView) team_credit_layout.findViewById(R.id.item_title)).setText("是否开启群认证");
-
-        swiBtn_credit = (SwitchButton) team_credit_layout.findViewById(R.id.setting_item_toggle);
+        swiBtn_credit = team_credit_layout.findViewById(R.id.setting_item_toggle);
         swiBtn_credit.setTag(SW_KEY_CREDIT);
         swiBtn_credit.setOnChangedListener(onChangedListener);
 
-
-
-
-
-
     }
-
-
-
-
-
 
     private SwitchButton.OnChangedListener onChangedListener = new SwitchButton.OnChangedListener() {
         @Override
         public void OnChanged(View v, final boolean checkState) {
             final String key = (String) v.getTag();
-
             if(key.equals(SW_KEY_FORBIT_SPEAK)){
                 MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_TEAMBANNED);
                 NIMClient.getService(TeamService.class).muteAllTeamMember(teamId, checkState).setCallback(new RequestCallback<Void>() {
@@ -390,7 +358,7 @@ public class TeamManagerActivity extends BaseAct {
                         if(checkState){
                             ToastHelper.showToast(TeamManagerActivity.this,"禁言成功");
                         }else{
-                            ToastHelper.showToast(TeamManagerActivity.this,"解禁发言成功");
+                            ToastHelper.showToast(TeamManagerActivity.this,"解除禁言");
                         }
                     }
 
@@ -411,10 +379,9 @@ public class TeamManagerActivity extends BaseAct {
                 MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_PROTECTMEMBER);
                 try {
                     isSafeMode = checkState;
-                    protect = checkState ? 1 : 0;
 //                    设置群远程字段
                     String extensionJsonStr = team.getExtension();
-                    JSONObject jsonObject = null;
+                    JSONObject jsonObject;
                     if (StringUtil.isNotEmpty(extensionJsonStr)){
                         jsonObject = new JSONObject(extensionJsonStr);
                     }else {
@@ -422,7 +389,6 @@ public class TeamManagerActivity extends BaseAct {
                     }
                     jsonObject.put(ISSAFEMODE,isSafeMode);
                     NIMClient.getService(TeamService.class).updateTeam(teamId,TeamFieldEnum.Extension,jsonObject.toString());
-//                    setTeamConfig(isSafeMode,teamConfigBean.getExpsecond() + "",teamConfigBean.getRegularClear() + "",teamConfigBean.getScreenCapture() + "");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -459,11 +425,6 @@ public class TeamManagerActivity extends BaseAct {
         }
     };
 
-
-
-    private int protect;
-
-
     /**
      * 初始化群组基本信息
      */
@@ -492,7 +453,6 @@ public class TeamManagerActivity extends BaseAct {
      */
     private void updateTeamInfo(final Team t) {
         this.team = t;
-
         if (team == null) {
             ToastHelper.showToast(this, getString(R.string.team_not_exist));
             finish();
@@ -505,18 +465,8 @@ public class TeamManagerActivity extends BaseAct {
             swiBtn_forbit.setCheck(team.isAllMute());
             swiBtn_credit.setCheck(team.getVerifyType() == VerifyTypeEnum.Apply);
 //            updateExtensionInfo();
-
-
-
-
-
-
-
         }
-
-
     }
-
 
     private void updateExtensionInfo(){
         String extensionJsonStr = team.getExtension();
@@ -548,20 +498,16 @@ public class TeamManagerActivity extends BaseAct {
         if (TextUtils.isEmpty(account)) {
             return;
         }
-
         memberAccounts.remove(account);
-
         for (TeamMember m : members) {
             if (m.getAccount().equals(account)) {
                 members.remove(m);
                 break;
             }
         }
-
     }
 
     TeamMemberDataChangedObserver teamMemberObserver = new TeamMemberDataChangedObserver() {
-
         @Override
         public void onUpdateTeamMember(List<TeamMember> m) {
             for (TeamMember mm : m) {
@@ -603,8 +549,6 @@ public class TeamManagerActivity extends BaseAct {
         }
     };
 
-
-
     /**
      * ************************** 群信息变更监听 **************************
      */
@@ -618,7 +562,6 @@ public class TeamManagerActivity extends BaseAct {
         NimUIKit.getTeamChangedObservable().registerTeamDataChangedObserver(teamDataObserver, register);
 //        registerUserInfoChangedObserver(register);
     }
-
 
     /**
      * *************************** 加载&变更数据源 ********************************
@@ -634,7 +577,6 @@ public class TeamManagerActivity extends BaseAct {
         });
     }
 
-
     /**
      * 更新群成员信息
      *
@@ -646,7 +588,6 @@ public class TeamManagerActivity extends BaseAct {
         }
         addTeamMembers(m, true);
     }
-
 
     /**
      * 添加群成员到列表
@@ -711,8 +652,6 @@ public class TeamManagerActivity extends BaseAct {
             team_RedPacket_layout.setVisibility(View.GONE);
             team_UpgradeTeam_layout.setVisibility(View.GONE);
         }
-
-
     }
 
     /**
@@ -726,7 +665,7 @@ public class TeamManagerActivity extends BaseAct {
 //                  设置群远程字段
                     try {
                         String extensionJsonStr = team.getExtension();
-                        JSONObject jsonObject = null;
+                        JSONObject jsonObject;
                         if (StringUtil.isNotEmpty(extensionJsonStr)){
                             jsonObject = new JSONObject(extensionJsonStr);
                         }else {
@@ -808,9 +747,6 @@ public class TeamManagerActivity extends BaseAct {
 
     }
 
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -818,9 +754,7 @@ public class TeamManagerActivity extends BaseAct {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-
         switch (requestCode) {
-
             case REQUEST_CODE_CONTACT_MANAGER_SELECT:
                 final ArrayList<String> selectedManager = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
                 final ArrayList<String> removeManager = new ArrayList<>();
@@ -828,13 +762,10 @@ public class TeamManagerActivity extends BaseAct {
                     for (String managerAccount:managerList) {
                         if(!selectedManager.contains(managerAccount)){
                             removeManager.add(managerAccount);
-
                         }else{
                             selectedManager.remove(managerAccount);
-
                         }
                     }
-
                     addManager(selectedManager);
                     removeManager(removeManager);
                 }else{
@@ -843,11 +774,8 @@ public class TeamManagerActivity extends BaseAct {
                 break;
             case REQUEST_CODE_CONTACT_OWNER_SELECT:
                 final ArrayList<String> selectedOwner = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
-                LogUtil.e("selectOwner",selectedOwner.get(0));
                 if (selectedOwner != null && !selectedOwner.isEmpty()) {
-
                     final String account = selectedOwner.get(0);
-                
                     String tips = String.format("确定要转让群主管理权给 %s 吗？", TeamHelper.getTeamMemberDisplayName(teamId, account));
                     EasyAlertDialogHelper.showCommonDialog(TeamManagerActivity.this, null, tips,"确定","取消", true, new EasyAlertDialogHelper.OnDialogActionListener() {
                         @Override
@@ -897,15 +825,6 @@ public class TeamManagerActivity extends BaseAct {
         if (isSelfAdmin){
             queryRobot();
         }
-//        if (null == teamConfigBean){
-//            teamConfigBean = StatisticsConstants.TEAMCONFIGBEAN;
-//        }else {
-//            if (null != EXPSECOND){
-//                StatisticsConstants.TEAMCONFIGBEAN.setRollbackOwner(0);
-//                teamConfigBean.setExpsecond(EXPSECOND);
-//                teamConfigBean.setRollbackOwner(ISOPENEXPSECOND);
-//            }
-//        }
 
         updateExtensionInfo();
     }
