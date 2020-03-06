@@ -237,7 +237,7 @@ public class NimApplication extends Application {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //log相关
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("okgo");
-        if (!Constants.DEBUG) {
+        if (Constants.DEBUG) {
             loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BASIC);        //log打印级别，决定了log显示的详细程度
         } else {
             loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.NONE);
