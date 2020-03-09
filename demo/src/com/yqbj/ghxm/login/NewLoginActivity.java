@@ -360,7 +360,17 @@ public class NewLoginActivity extends UI implements View.OnKeyListener {
             @Override
             public void onSuccess(int code, RootListBean rootListBean) {
                 if (code == Constants.SUCCESS_CODE){
-                    OverallApi.configInfo(NewLoginActivity.this);
+                    OverallApi.configInfo(NewLoginActivity.this, new requestCallback() {
+                        @Override
+                        public void onSuccess(int code, Object object) {
+
+                        }
+
+                        @Override
+                        public void onFailed(String errMessage) {
+
+                        }
+                    });
                     yunXinLogin();
                 }
             }

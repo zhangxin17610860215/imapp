@@ -162,7 +162,17 @@ public class BaseAct extends UI {
                             SPUtils.getInstance().put(Constants.USER_TYPE.USERTOKEN, loginBean.getUserToken());
                             SPUtils.getInstance().put(Constants.USER_TYPE.YUNXINTOKEN, loginBean.getYunxinToken());
                             SPUtils.getInstance().put(Constants.USER_TYPE.ACCID, loginBean.getAccid());
-                            OverallApi.configInfo(BaseAct.this);
+                            OverallApi.configInfo(BaseAct.this, new requestCallback() {
+                                @Override
+                                public void onSuccess(int code, Object object) {
+
+                                }
+
+                                @Override
+                                public void onFailed(String errMessage) {
+
+                                }
+                            });
                         }
                     }
 

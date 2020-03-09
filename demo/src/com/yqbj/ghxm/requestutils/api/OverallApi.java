@@ -97,7 +97,7 @@ public class OverallApi {
     /**
      * 检查全局配置
      * */
-    public static void configInfo(Object object) {
+    public static void configInfo(Object object, final requestCallback callback) {
         final SPUtils instance = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME);
         Map<String, String> map = new HashMap<>();
         RequestHelp.getRequest(ApiUrl.CONFIGINFO, object, map, new StringCallback() {
@@ -108,40 +108,16 @@ public class OverallApi {
                     LogUtil.e(TAG,"configInfo--------->onSuccess" + bean.getData());
                     if (Constants.SUCCESS_CODE == bean.getStatusCode()) {
                         ConfigInfoBean configInfoBean = GsonHelper.getSingleton().fromJson(bean.getData(), ConfigInfoBean.class);
-//                        ConfigInfoBean.PayButtonConfigBean payButtonConfig = configInfoBean.getPayButtonConfig();
-//                        ConfigInfoBean.WithdrawButtonConfigBean withdrawButtonConfig = configInfoBean.getWithdrawButtonConfig();
                         instance.put(WALLET_EXIST,configInfoBean.isUserWalletExist());
-//                        instance.put(ALIPAY_ISSHOW,payButtonConfig.getAli() + "");
-//                        instance.put(WCHATPAY_ISSHOW,payButtonConfig.getWechat() + "");
-//                        instance.put(ALICARRY_ISSHOW,withdrawButtonConfig.getAli() + "");
-//                        instance.put(WCHATCARRY_ISSHOW,withdrawButtonConfig.getWechat() + "");
-                        if (StringUtil.isEmpty(configInfoBean.getWxUpperLimit())){
-                            configInfoBean.setWxUpperLimit("500");
-                        }
-                        if (StringUtil.isEmpty(configInfoBean.getAliUpperLimit())){
-                            configInfoBean.setAliUpperLimit("500");
-                        }
-                        instance.put(WX_UPPERLIMIT,configInfoBean.getWxUpperLimit());
-                        instance.put(ALI_UPPERLIMIT,configInfoBean.getAliUpperLimit());
-
+                        callback.onSuccess(bean.getStatusCode(),configInfoBean);
                     }else {
                         instance.put(WALLET_EXIST,false);
-//                        instance.put(ALIPAY_ISSHOW,"1");
-//                        instance.put(WCHATPAY_ISSHOW,"0");
-//                        instance.put(ALICARRY_ISSHOW,"1");
-//                        instance.put(WCHATCARRY_ISSHOW,"0");
-                        instance.put(WX_UPPERLIMIT,"500");
-                        instance.put(ALI_UPPERLIMIT,"500");
+                        callback.onFailed(bean.getMessage());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     instance.put(WALLET_EXIST,false);
-//                    instance.put(ALIPAY_ISSHOW,"1");
-//                    instance.put(WCHATPAY_ISSHOW,"0");
-//                    instance.put(ALICARRY_ISSHOW,"1");
-//                    instance.put(WCHATCARRY_ISSHOW,"0");
-                    instance.put(WX_UPPERLIMIT,"500");
-                    instance.put(ALI_UPPERLIMIT,"500");
+                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
                 }
             }
 
@@ -151,12 +127,7 @@ public class OverallApi {
                 LogUtil.e(TAG,"configInfo--------->onError");
 
                 instance.put(WALLET_EXIST,false);
-//                instance.put(ALIPAY_ISSHOW,"1");
-//                instance.put(WCHATPAY_ISSHOW,"0");
-//                instance.put(ALICARRY_ISSHOW,"1");
-//                instance.put(WCHATCARRY_ISSHOW,"0");
-                instance.put(WX_UPPERLIMIT,"500");
-                instance.put(ALI_UPPERLIMIT,"500");
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
             }
         });
     }

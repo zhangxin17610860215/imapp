@@ -18,11 +18,14 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.yqbj.avchatkit.activity.AVChatActivity;
 import com.netease.yqbj.avchatkit.constant.AVChatExtras;
 import com.netease.yqbj.uikit.api.NimUIKit;
+import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.activity.UI;
 import com.netease.yqbj.uikit.common.util.log.LogUtil;
 import com.yqbj.ghxm.DemoCache;
+import com.yqbj.ghxm.NimApplication;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.CheckVersionBean;
+import com.yqbj.ghxm.bean.LoginBean;
 import com.yqbj.ghxm.bean.RootListBean;
 import com.yqbj.ghxm.cache.MyRootInfoCache;
 import com.yqbj.ghxm.common.util.sys.SysInfoUtil;
@@ -32,9 +35,11 @@ import com.yqbj.ghxm.login.NewLoginActivity;
 import com.yqbj.ghxm.main.SplashActivity;
 import com.yqbj.ghxm.mixpush.DemoMixPushMessageHandler;
 import com.yqbj.ghxm.requestutils.api.OverallApi;
+import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.share.ShareSchemeActivity;
 import com.yqbj.ghxm.utils.Base64;
+import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
 import com.yqbj.ghxm.utils.view.DialogUtils;
 
@@ -90,7 +95,7 @@ public class WelcomeActivity extends UI {
 
     //检查是否更新
     private void checkVerSion() {
-        OverallApi.checkVersion(2, this, new requestCallback() {
+        OverallApi.checkVersion(2, WelcomeActivity.this, new requestCallback() {
             @Override
             public void onSuccess(int code, Object object) {
                 if (code == Constants.SUCCESS_CODE){
@@ -158,7 +163,7 @@ public class WelcomeActivity extends UI {
     }
 
     private void getRobotList() {
-        MyRootInfoCache.getInstance().buildCache(this,new MyRootInfoCache.VisitCallback() {
+        MyRootInfoCache.getInstance().buildCache(WelcomeActivity.this,new MyRootInfoCache.VisitCallback() {
             @Override
             public void onSuccess(int code, RootListBean rootListBean) {
                 if (code == Constants.SUCCESS_CODE){
@@ -179,13 +184,12 @@ public class WelcomeActivity extends UI {
                 @Override
                 public void run() {
                     if (!NimUIKit.isInitComplete()) {
-                        LogUtil.i(TAG, "wait for uikit cache!");
                         new Handler().postDelayed(this, 100);
                         return;
                     }
                     customSplash = false;
                     if (canAutoLogin()) {
-                        onIntent();
+                        login();
                     } else {
                         Intent intent = getIntent();
                         if (null != intent.getData()){
@@ -210,6 +214,40 @@ public class WelcomeActivity extends UI {
         }
     }
 
+    /**
+     * 再登录一次
+     * */
+    private void login() {
+        OverallApi.getKey(WelcomeActivity.this, new requestCallback() {
+            @Override
+            public void onSuccess(int code, Object object) {
+                String openid = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME).getString(Constants.ALIPAY_USERINFO.OPENID);
+                String uuid = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME).getString(Constants.ALIPAY_USERINFO.UUID);
+                UserApi.login(null,openid,uuid,WelcomeActivity.this, new requestCallback() {
+                    @Override
+                    public void onSuccess(int code, Object object) {
+                        if (code == Constants.SUCCESS_CODE){
+                            LoginBean loginBean = (LoginBean) object;
+                            SPUtils.getInstance().put(Constants.USER_TYPE.USERTOKEN, loginBean.getUserToken());
+                            SPUtils.getInstance().put(Constants.USER_TYPE.YUNXINTOKEN, loginBean.getYunxinToken());
+                            SPUtils.getInstance().put(Constants.USER_TYPE.ACCID, loginBean.getAccid());
+                            onIntent();
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(String errMessage) {
+
+                    }
+                });
+            }
+            @Override
+            public void onFailed(String errMessage) {
+
+            }
+        });
+    }
+
     @Override
     public void finish() {
         super.finish();
@@ -230,54 +268,22 @@ public class WelcomeActivity extends UI {
 
     // 处理收到的Intent
     private void onIntent() {
-
         if (TextUtils.isEmpty(DemoCache.getAccount())) {
             // 判断当前app是否正在运行
-            if (!SysInfoUtil.stackResumed(this)) {
-                NewLoginActivity.start(this);
+            if (!SysInfoUtil.stackResumed(WelcomeActivity.this)) {
+                NewLoginActivity.start(WelcomeActivity.this);
             }
             finish();
         } else {
-            MyRootInfoCache.getInstance().buildCache(this,new MyRootInfoCache.VisitCallback() {
+            MyRootInfoCache.getInstance().buildCache(WelcomeActivity.this,new MyRootInfoCache.VisitCallback() {
                 @Override
                 public void onSuccess(int code, RootListBean rootListBean) {
-                    if (code == Constants.SUCCESS_CODE){
-                        configInfo();
-                        // 已经登录过了，处理过来的请求
-                        Intent intent = getIntent();
-                        if (intent != null) {
-                            if (intent.hasExtra(NimIntent.EXTRA_NOTIFY_CONTENT)) {
-                                parseNotifyIntent(intent);
-                                return;
-                            } else if (NIMClient.getService(MixPushService.class).isFCMIntent(intent)) {
-                                parseFCMNotifyIntent(NIMClient.getService(MixPushService.class).parseFCMPayload(intent));
-                            } else if (intent.hasExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION) || intent.hasExtra(AVChatActivity.INTENT_ACTION_AVCHAT)) {
-                                parseNormalIntent(intent);
-                            }else {
-                                Uri uri = intent.getData();
-                                if (uri != null) {
-                                    String scheme = uri.getScheme();
-                                    if (!TextUtils.isEmpty(scheme)&&scheme.endsWith("YQIChat")){
-                                        String data = uri.toString().substring(10,uri.toString().length());
-                                        byte[] decode = Base64.decode(data);
-                                        showMainActivity(new Intent().putExtra(ShareSchemeActivity.ACTION_BROWSABLE_LAUNCHER, new String(decode)));
-                                    }
-
-                                }
-                            }
-                        }
-
-                        if (!firstEnter && intent == null) {
-                            finish();
-                        } else {
-                            showMainActivity();
-                        }
-                    }
+                    configInfo();
                 }
 
                 @Override
                 public void onFailed(String errorMessage) {
-//                    toast(errorMessage + "请检查网络环境后重试");
+                    configInfo();
                 }
             });
 
@@ -288,7 +294,49 @@ public class WelcomeActivity extends UI {
      * 已经登录    获取全局配置
      * */
     private void configInfo() {
-        OverallApi.configInfo(this);
+        OverallApi.configInfo(WelcomeActivity.this, new requestCallback() {
+            @Override
+            public void onSuccess(int code, Object object) {
+                if (code == Constants.SUCCESS_CODE){
+                    // 已经登录过了，处理过来的请求
+                    Intent intent = getIntent();
+                    if (intent != null) {
+                        if (intent.hasExtra(NimIntent.EXTRA_NOTIFY_CONTENT)) {
+                            parseNotifyIntent(intent);
+                            return;
+                        } else if (NIMClient.getService(MixPushService.class).isFCMIntent(intent)) {
+                            parseFCMNotifyIntent(NIMClient.getService(MixPushService.class).parseFCMPayload(intent));
+                        } else if (intent.hasExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION) || intent.hasExtra(AVChatActivity.INTENT_ACTION_AVCHAT)) {
+                            parseNormalIntent(intent);
+                        }else {
+                            Uri uri = intent.getData();
+                            if (uri != null) {
+                                String scheme = uri.getScheme();
+                                if (!TextUtils.isEmpty(scheme)&&scheme.endsWith("YQIChat")){
+                                    String data = uri.toString().substring(10,uri.toString().length());
+                                    byte[] decode = Base64.decode(data);
+                                    showMainActivity(new Intent().putExtra(ShareSchemeActivity.ACTION_BROWSABLE_LAUNCHER, new String(decode)));
+                                }
+
+                            }
+                        }
+                    }
+
+                    if (!firstEnter && intent == null) {
+                        finish();
+                    } else {
+                        showMainActivity();
+                    }
+                }else {
+                    toast((String) object);
+                }
+            }
+
+            @Override
+            public void onFailed(String errMessage) {
+                toast(errMessage);
+            }
+        });
     }
 
     /**

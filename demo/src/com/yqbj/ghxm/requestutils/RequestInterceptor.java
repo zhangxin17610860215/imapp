@@ -1,7 +1,6 @@
 package com.yqbj.ghxm.requestutils;
 
-import com.netease.yqbj.uikit.common.ToastHelper;
-import com.yqbj.ghxm.NimApplication;
+import com.yqbj.ghxm.DemoCache;
 import com.yqbj.ghxm.bean.BaseBean;
 import com.yqbj.ghxm.bean.LoginBean;
 import com.yqbj.ghxm.config.Constants;
@@ -10,6 +9,7 @@ import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.utils.GsonHelper;
 import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
+import com.yqbj.ghxm.utils.ToastUtils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -59,16 +59,16 @@ public class RequestInterceptor implements Interceptor {
                 BaseBean bean = GsonHelper.getSingleton().fromJson(bodyString, BaseBean.class);
                 if(null != bean){
                     if (bean.getStatusCode() == Constants.RESPONSE_CODE.CODE_10028){
-                        ToastHelper.showToast(NimApplication.getInstance(),bean.getMessage());
+                        ToastUtils.show(DemoCache.getContext(),bean.getMessage());
                     } else if (bean.getStatusCode() == Constants.RESPONSE_CODE.CODE_10003){
-                        ToastHelper.showToast(NimApplication.getInstance(),"认证过期，请重试");
-                        OverallApi.getKey(NimApplication.getInstance(), new requestCallback() {
+//                        ToastUtils.show(DemoCache.getContext(),"认证过期，请重试");
+                        OverallApi.getKey(DemoCache.getContext(), new requestCallback() {
                             @Override
                             public void onSuccess(int code, Object object) {
 //                                NewLoginActivity.start(NimApplication.getInstance());
                                 String openid = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME).getString(Constants.ALIPAY_USERINFO.OPENID);
                                 String uuid = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME).getString(Constants.ALIPAY_USERINFO.UUID);
-                                UserApi.login(null,openid,uuid,NimApplication.getInstance(), new requestCallback() {
+                                UserApi.login(null,openid,uuid,DemoCache.getContext(), new requestCallback() {
                                     @Override
                                     public void onSuccess(int code, Object object) {
                                         if (code == Constants.SUCCESS_CODE){
@@ -94,7 +94,7 @@ public class RequestInterceptor implements Interceptor {
                 }
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
     }

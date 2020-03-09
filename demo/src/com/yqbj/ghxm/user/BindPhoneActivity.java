@@ -365,7 +365,17 @@ public class BindPhoneActivity extends BaseAct implements View.OnClickListener {
             public void onSuccess(LoginInfo param) {
                 dismissProgress();
                 LogUtil.e(TAG, "yunXin_Login success");
-                OverallApi.configInfo(BindPhoneActivity.this);
+                OverallApi.configInfo(BindPhoneActivity.this, new requestCallback() {
+                    @Override
+                    public void onSuccess(int code, Object object) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String errMessage) {
+
+                    }
+                });
                 onLoginDone();
                 DemoCache.setAccount(account);
                 saveLoginInfo(account, token);
