@@ -1,27 +1,8 @@
 package com.yqbj.ghxm.config;
 
-import com.yqbj.ghxm.NimApplication;
-import com.yqbj.ghxm.utils.AppUtils;
-
 import java.util.HashMap;
 
 public class Constants {
-    //开屏    广告位ID
-    public static final String POS_ID_SPLASH = "2019092314233007882328";
-    //插屏    广告位ID
-    public static final String POS_ID_INTERSTITIAL = "2019092615520454956556";
-    //插屏广告限制的频率
-    public static final int INTERSTITIAL_FREQUENCY = 3600000;//默认60分钟     60 * 60 * 1000
-    //记录上次插屏广告时间戳
-    public static String INTERSTITIAL_LASTTIME = "InterstitialAdLastTime";
-
-    //记录插屏广告当天第一个开始时间戳
-    public static String INTERSTITIAL_DAYCURRENTTIME = "dayCurrentTime";
-
-    //记录插屏广告每天需要显示几次
-    public static String INTERSTITIAL_DAYFREQUENCY = "dayFrequency";
-    public static int FREQUENCY = 600;
-
     // DEBUG模式。影响log级别输出
     public static boolean DEBUG = true;//BuildConfig.DEBUG;
 
@@ -29,7 +10,6 @@ public class Constants {
     public static final String ERROR_REQUEST_FAILED_MESSAGE = "网络请求失败";//REQUEST_FAILED"; // 网络请求失败，出现onerror
     public static final String ERROR_REQUEST_EXCEPTION_MESSAGE = "服务返回数据异常";//REQUEST_EXCEPTION"; // 网络请求数据异常
     public static String decodeData = null;//缓存用户退出状态时其他App分享给此用户的数据
-    public static final int VERSIONCODE = AppUtils.getCurrentVersion(NimApplication.getInstance()).versionCode;//当前版本号
 
     public static final String CURRENTTIME = "currentTime";                                                 //当前时间戳
     public static final int APP_BACK_GROUND_LIMIT_SECONDS = 60 * 60 * 4;                                    //四小时后重新登录一次
@@ -39,15 +19,6 @@ public class Constants {
     public static final String ALI_USERNAME = "aliNickName";
     //用户支付宝UserId
     public static final String ALI_USERID = "aliUserId";
-
-    //微信支付订单号
-    public static String WXPAY_ORDERID = "";
-
-//    //设置红包延时开关是否开启
-//    public static int ISOPENEXPSECOND;
-//
-//    //设置红包延时时间
-//    public static Integer EXPSECOND;
 
     //订单状态 10.待支付  11.取消  12.支付确认中  20.完成
     public static final HashMap<String, String> ORDER_STATUS_TYPE = new HashMap<>();
@@ -110,10 +81,6 @@ public class Constants {
      */
     public class ALIPAY_USERINFO {
         public static final String FILENAME = USER_TYPE.ACCID;          //   文件名称（考虑到当前手机中一个用户对应一个文件）
-        public static final String ISBINDALIPAY = "isBindAliPay";       //   是否绑定支付宝
-        public static final String NICKNAME = "nickName";               //   支付宝用户昵称
-        public static final String USERID = "userId";                   //   userId
-        public static final String AVATAR = "avatar";                   //   用户头像
         public static final String ACCESSTOKEN = "Access_token";        //   用户微信Access_token
         public static final String OPENID = "Openid";                   //   用户微信Openid
         public static final String UUID = "uuid";                       //   用户微信uuid
@@ -211,18 +178,6 @@ public class Constants {
         public static final String REDPACKET_RECEIVER = "receivers";                //红包接收者(对象userID，userName，avatar)
         public static final String REDPACKET_SENDER = "sender";                     //红包发送者(对象userID，userName，avatar)
         public static final String REDPACKET_SENDERID = "senderId";                 //红包发送者Id
-
-        /**
-         * ========================================红包领取=================================================
-         */
-        public static final String REDPACKET_STATUSTYPE = "statusType";             //红包状态
-        public static final String REDPACKET_RECEIVEMONEY = "receiveMoney";         //当前用户收到的红包金额
-        public static final String REDPACKET_ISSENDER = "isSender";                 //当前用户是否是红包发送者
-        public static final String REDPACKET_TAKENUSERS = "takenUsers";             //群红包领取人们
-        public static final String REDPACKET_ADVERINFO = "adverInfo";               //广告红包信息
-        public static final String REDPACKET_TOTALTAKENCOUNT = "totalTakenCount";   //被领取数量
-        public static final String REDPACKET_TOTALTAKENMONEY = "totalTakenMoney";   //领取金额
-        public static final String REDPACKET_TAKENCOSTTIME = "takenCostTime";       //领取所用时间
     }
 
 }

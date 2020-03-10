@@ -1,12 +1,12 @@
 package com.yqbj.ghxm.session.extension;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachmentParser;
-import com.yqbj.ghxm.utils.Base64;
+import com.yqbj.ghxm.bean.TeamRobotDataBean;
+import com.yqbj.ghxm.utils.Base64Util;
+import com.yqbj.ghxm.utils.GsonHelper;
 
 /**
  * Created by zhoujianghua on 2015/4/9.
@@ -29,10 +29,14 @@ public class CustomAttachParser implements MsgAttachmentParser {
                 type = msg.getInteger(KEY_TYPE);
                 if (type == CustomAttachmentType.teamRobot){
                     String string = msg.getString(KEY_DATA).replaceAll(" " , "+");
-                    byte[] decode = Base64.decode(string);
+                    TeamRobotDataBean bean = GsonHelper.getSingleton().fromJson(string, TeamRobotDataBean.class);
+                    byte[] decode = Base64Util.decodeMessage(bean.getContent());
                     String dataStr = new String(decode);
-//                    msg.put(KEY_DATA,dataStr);
-                    data = msg.parseObject(dataStr);
+                    bean.setContent(dataStr);
+                    data = new JSONObject();
+                    data.put("content",dataStr);
+                    data.put("settlementFlag",bean.getSettlementFlag());
+//                    data = msg.parseObject(dataStr);
                 }else {
                     data = msg.getJSONObject(KEY_DATA);
                 }
