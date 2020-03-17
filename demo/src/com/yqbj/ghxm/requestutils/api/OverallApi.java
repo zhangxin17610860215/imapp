@@ -40,7 +40,7 @@ public class OverallApi {
                     LogUtil.e(TAG,"getKey--------->onSuccess" + bean.getData());
                     if (Constants.SUCCESS_CODE == bean.getStatusCode()) {
                         GetKeyBean getKeyBean = GsonHelper.getSingleton().fromJson(bean.getData(), GetKeyBean.class);
-                        ApiUrl.BASE_URL = getKeyBean.getDomain();
+                        Constants.BASE_URL = getKeyBean.getDomain();
                         SPUtils.getInstance().put(Constants.USER_TYPE.APITOKEN,getKeyBean.getApiToken());
                         SPUtils.getInstance().put(Constants.USER_TYPE.KEY,getKeyBean.getKey());
                         callback.onSuccess(bean.getStatusCode(),getKeyBean);
@@ -100,7 +100,7 @@ public class OverallApi {
     public static void configInfo(Object object, final requestCallback callback) {
         final SPUtils instance = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME);
         Map<String, String> map = new HashMap<>();
-        RequestHelp.getRequest(ApiUrl.CONFIGINFO, object, map, new StringCallback() {
+        RequestHelp.getRequest(StringUtil.stringformat(ApiUrl.CONFIGINFO), object, map, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {

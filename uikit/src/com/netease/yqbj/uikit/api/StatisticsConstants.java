@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * */
 public class StatisticsConstants {
 
-    public static final String DOWNLOADADDRESS = "https://fir.im/HCIM";
+    public static final String DOWNLOADADDRESS = "http://download.gz871.cn/app/download/index";
 
     public static final String ISREGULARCLEANMODE = "IsOpenRegularClear";                       //36小时定时清理
     public static final String REGULARCLEARTIME = "RegularClearTimestamp";                      //36小时定时清理开启的时间戳

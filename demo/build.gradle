@@ -69,8 +69,8 @@ android {
 
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log
-            shrinkResources true
-            minifyEnabled true
+            shrinkResources false
+//            minifyEnabled true
             zipAlignEnabled true
             proguardFile('proguard.cfg')
             signingConfig signingConfigs.release
@@ -128,8 +128,8 @@ android {
 
     /*配置渠道*/
     productFlavors {
-        fir {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "fir"]
+        official {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "official"]
         }
     }
 

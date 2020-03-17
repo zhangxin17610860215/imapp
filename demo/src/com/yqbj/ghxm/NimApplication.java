@@ -2,7 +2,6 @@ package com.yqbj.ghxm;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
@@ -59,15 +58,12 @@ import com.yqbj.ghxm.utils.cookieUtil.PersistentCookieStore;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
-import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
@@ -79,9 +75,6 @@ public class NimApplication extends Application {
     public static String APP_ID;                   //微信APPid
     public static String SECRET;     //微信Secret
     public static IWXAPI api;
-
-    public static String ALIPAY_APPID;             //支付宝APPID  测试环境 2019032063603734  正式环境 2019060365466232
-    public static String ALIPAY_PID;               //支付宝APPID  测试环境 2088331211860731  正式环境 2088531221113007
 
     private static NimApplication instance;
     public static OkHttpClient okHttpClient;
@@ -145,15 +138,11 @@ public class NimApplication extends Application {
         disableAPIDialog();
         initTinker();
         if (Constants.DEBUG){
-            ALIPAY_APPID = "2019032063603734";
-            ALIPAY_PID = "2088331211860731";
             APP_ID = "wx9767fd8beab57eb6";
             SECRET = "35a32ee1a893b236fa87f10292823246";
         }else {
-            ALIPAY_APPID = "2019060365466232";
-            ALIPAY_PID = "2088531221113007";
-            APP_ID = "wxf8fd85aa6f55069a";
-            SECRET = "b4d630ad645b132f262b609d6421a4a5";
+            APP_ID = "wx900f00bf215651be";
+            SECRET = "a5d6ecb028685e5cbc23dfe9adfab523";
         }
 
         initUMeng();
@@ -257,8 +246,6 @@ public class NimApplication extends Application {
         builder.cookieJar(new CookieJarImpl(new MemoryCookieStore()));            //使用内存保持cookie，app退出后，cookie消失
 
         //https相关设置，以下几种方案根据需要自己设置
-        //方法一：信任所有证书,不安全有风险
-        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
         //方法二：自定义信任规则，校验服务端证书
 //        HttpsUtils.SSLParams sslParams2 = HttpsUtils.getSslSocketFactory(new SafeTrustManager());
         //方法三：使用预埋证书，校验服务端证书（自签名证书）
@@ -268,24 +255,20 @@ public class NimApplication extends Application {
 
         if (Constants.DEBUG){
             //Debug版本不需要证书认证
+            //方法一：信任所有证书,不安全有风险
+            HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
             builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
+        }else {
 //            try {
-//                HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("hwhq.cer"));
+//                HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("ghxm.cer"));
 //                builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
 //                //配置https的域名匹配规则，详细看demo的初始化介绍，不需要就不要加入，使用不当会导致https握手失败
 //                builder.hostnameVerifier(new SafeHostnameVerifier());
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-        }else {
-            try {
-                HttpsUtils.SSLParams sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("hwhq.cer"));
-                builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
-                //配置https的域名匹配规则，详细看demo的初始化介绍，不需要就不要加入，使用不当会导致https握手失败
-                builder.hostnameVerifier(new SafeHostnameVerifier());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
+            builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
         }
 
         // 其他统一的配置
@@ -295,26 +278,7 @@ public class NimApplication extends Application {
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传
                 .setRetryCount(3);                               //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
     }
-    private class SafeTrustManager implements X509TrustManager {
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
 
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            try {
-                for (X509Certificate certificate : chain) {
-                    certificate.checkValidity(); //检查证书是否过期，签名是否通过等
-                }
-            } catch (Exception e) {
-                throw new CertificateException(e);
-            }
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-    }
     /**
      * 认证规则
      */
@@ -322,7 +286,7 @@ public class NimApplication extends Application {
         @Override
         public boolean verify(String hostname, SSLSession session) {
             //验证主机名是否匹配
-            return hostname.equals("api.weixin.qq.com") || hostname.equals("gate.hwhq.cn") || hostname.equals("im.hwhq.cn");
+            return hostname.equals("api.weixin.qq.com") || hostname.equals("gate.gz871.cn") || hostname.equals("key.gz871.cn");
             // "https://im.hwhq.cn/"
 //            String host = BASE_URL.substring("https://".length(), BASE_URL.length()-1);
 //            return hostname.equals(host);
@@ -423,16 +387,6 @@ public class NimApplication extends Application {
         };
         RTSKit.init(rtsOptions);
         RTSHelper.init();
-    }
-
-    //判断当前应用是否是debug状态
-    public static boolean isApkInDebug() {
-        try {
-            ApplicationInfo info = instance.getApplicationInfo();
-            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     /**

@@ -48,6 +48,7 @@ import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
 
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import static com.netease.yqbj.uikit.api.StatisticsConstants.LOGIN_PHONELOGIN;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.LOGIN_WCHATLOGIN;
@@ -226,7 +227,7 @@ public class NewLoginActivity extends UI implements View.OnKeyListener {
         super.onNewIntent(intent);
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void getWXLoginData(EventBusUtils.CommonEvent commonEvent) {
         if (null == commonEvent) {
             return;

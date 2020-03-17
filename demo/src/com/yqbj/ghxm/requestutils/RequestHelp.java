@@ -65,7 +65,7 @@ public class RequestHelp {
 //                .cacheKey(url)//作为缓存的key
                 .tag(tag)
                 .headers(httpHeaders);
-        if (!url.equals(ApiUrl.CONFIGINFO)){
+        if (!url.equals(StringUtil.stringformat(ApiUrl.CONFIGINFO))){
             getRequest.params(map);
         }
         getRequest.execute(callback);
@@ -165,7 +165,7 @@ public class RequestHelp {
         if (!url.equals(ApiUrl.OVERALL_GET_KEY)){
             map.put("VersionNo", StringUtil.getAppVersionName(NimApplication.getInstance()));
         }
-        if (url.equals(ApiUrl.CONFIGINFO)){
+        if (url.equals(StringUtil.stringformat(ApiUrl.CONFIGINFO))){
             //检查全局配置接口的头信息字段不同
             map.put("Token",SPUtils.getInstance().getString(Constants.USER_TYPE.USERTOKEN));
         }else {
@@ -227,7 +227,10 @@ public class RequestHelp {
         map.put("Sign", md5Str.toUpperCase());
         map.put("AppId", "ghxm_v1");
         map.put("VersionNo", StringUtil.getAppVersionName(NimApplication.getInstance()));
-        if (url.equals(ApiUrl.USER_LOGIN) || url.equals(ApiUrl.USER_SIGNUP) || url.equals(ApiUrl.USER_PHONE_LOGIN_CODE) || url.equals(ApiUrl.USER_PHONE_LOGIN)) {
+        if (url.equals(StringUtil.stringformat(ApiUrl.USER_LOGIN)) ||
+                url.equals(StringUtil.stringformat(ApiUrl.USER_SIGNUP)) ||
+                url.equals(StringUtil.stringformat(ApiUrl.USER_PHONE_LOGIN_CODE)) ||
+                url.equals(StringUtil.stringformat(ApiUrl.USER_PHONE_LOGIN))) {
             //登录注册接口用APITOKEN
             map.put("Token", SPUtils.getInstance().getString(Constants.USER_TYPE.APITOKEN));
         } else {
