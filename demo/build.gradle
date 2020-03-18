@@ -69,8 +69,8 @@ android {
 
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log
-            shrinkResources false
-//            minifyEnabled true
+            shrinkResources false   //是否需要压缩资源
+            minifyEnabled false     //是否混淆 false时shrinkResources也必须改为false
             zipAlignEnabled true
             proguardFile('proguard.cfg')
             signingConfig signingConfigs.release

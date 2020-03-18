@@ -141,8 +141,8 @@ public class NimApplication extends Application {
             APP_ID = "wx9767fd8beab57eb6";
             SECRET = "35a32ee1a893b236fa87f10292823246";
         }else {
-            APP_ID = "wx900f00bf215651be";
-            SECRET = "a5d6ecb028685e5cbc23dfe9adfab523";
+            APP_ID = "wxd8987f7a0974f794";
+            SECRET = "1d638ea7fc3bed6918bcce82cbf35d48";
         }
 
         initUMeng();
