@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.TeamRobotNotifyBean;
@@ -21,8 +23,12 @@ import com.yqbj.ghxm.utils.StringUtil;
 import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
 import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSETTLEMENT;
 
 public class SeeRecordActivity extends BaseAct {
 
@@ -74,10 +80,14 @@ public class SeeRecordActivity extends BaseAct {
             }
         }
 
-        if (otherDataBean.getSettlementFlag() == 0){
-            tv_isSettlement.setText("战绩未结算");
-        }else if (otherDataBean.getSettlementFlag() == 1){
+        if (otherDataBean.getSettlementFlag() == 1){
+            tv_isSettlement.setVisibility(View.VISIBLE);
             tv_isSettlement.setText("战绩已结算");
+        }else if (otherDataBean.getSettlementFlag() == 0){
+            tv_isSettlement.setVisibility(View.VISIBLE);
+            tv_isSettlement.setText("战绩未结算");
+        }else {
+            tv_isSettlement.setVisibility(View.GONE);
         }
 
         list = new ArrayList<>();

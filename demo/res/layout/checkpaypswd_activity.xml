@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="请输入原零钱支付密码"
+        android:text="请输入原支付密码"
         android:textSize="@dimen/text_size_15"
         android:textColor="@color/black"
         android:layout_marginTop="55dp"

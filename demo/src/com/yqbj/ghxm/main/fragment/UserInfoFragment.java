@@ -31,6 +31,8 @@ import com.yqbj.ghxm.contact.activity.UserProfileSettingActivity;
 import com.yqbj.ghxm.main.activity.FeedbackActivity;
 import com.yqbj.ghxm.main.activity.SettingsActivity;
 import com.yqbj.ghxm.redpacket.wallet.SettingPayPasswordActivity;
+import com.yqbj.ghxm.user.AgreementActivity;
+import com.yqbj.ghxm.user.BindPhoneActivity;
 import com.yqbj.ghxm.user.PasswordManageActivity;
 import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.zxing.ZXingUtils;
@@ -52,6 +54,7 @@ public class UserInfoFragment extends MainTabFragment implements View.OnClickLis
     private LinearLayout llCloundMoney; //云零钱
     private LinearLayout llSet; //设置
     private TextView tv_feedback; //意见反馈
+    private TextView tv_AboutUs; //关于我们
     private UserInfo userInfo;
 
     @Override
@@ -85,6 +88,7 @@ public class UserInfoFragment extends MainTabFragment implements View.OnClickLis
         llCloundMoney = findView(R.id.ll_clound_money);
         llSet = findView(R.id.ll_set);
         tv_feedback = findView(R.id.tv_feedback);
+        tv_AboutUs = findView(R.id.tv_AboutUs);
     }
 
     @SuppressLint("SetTextI18n")
@@ -126,6 +130,7 @@ public class UserInfoFragment extends MainTabFragment implements View.OnClickLis
         llCloundMoney.setOnClickListener(this);
         llSet.setOnClickListener(this);
         tv_feedback.setOnClickListener(this);
+        tv_AboutUs.setOnClickListener(this);
 
         rl_user_msg.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -174,6 +179,9 @@ public class UserInfoFragment extends MainTabFragment implements View.OnClickLis
                     break;
                 case R.id.tv_feedback:
                     FeedbackActivity.start(getContext());
+                    break;
+                case R.id.tv_AboutUs:
+                    AgreementActivity.start(getContext(),"2");
                     break;
             }
         }

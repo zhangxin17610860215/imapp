@@ -55,7 +55,7 @@ public class CheckPayPswdActivity extends BaseAct implements View.OnClickListene
                     //确定更改支付密码
                     payPwd = payEt.getPasswordString();
                     if (StringUtil.isEmpty(payPwd)){
-                        ToastHelper.showToast(this,"请输入原零钱支付密码");
+                        ToastHelper.showToast(this,"请输入原支付密码");
                         return;
                     }
                     if (payPwd.length() < 6){

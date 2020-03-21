@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gjiazhe.wavesidebar.WaveSideBar;
+import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.common.activity.UI;
@@ -150,8 +151,14 @@ public class ChooseRecipientsListACT extends UI implements View.OnClickListener 
                 if (null == list || list.size() <= 0){
                     return;
                 }
+                Team team = NimUIKit.getTeamProvider().getTeamById(mTeamId);
                 GetAllMemberWalletBean.ResultsBean bean = list.get(position);
-                SetMiBiActivity.start(context,bean);
+                if (null != team && !team.getCreator().equals(NimUIKit.getAccount())
+                        && bean.getUid().equals(NimUIKit.getAccount())){
+                    toast("管理员不能给自己充值");
+                }else {
+                    SetMiBiActivity.start(context,bean);
+                }
             }
         });
     }

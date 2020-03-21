@@ -246,7 +246,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="15dp"
-                    android:text="未领取的红包将于24小时候发起退款"
+                    android:text="未领取的红包将于24小时后发起退款"
                     android:textColor="@color/redpacket_hint_color"
                     android:textSize="@dimen/text_size_12" />
             </RelativeLayout>

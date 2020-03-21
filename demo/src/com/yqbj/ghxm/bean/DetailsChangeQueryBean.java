@@ -47,7 +47,16 @@ public class DetailsChangeQueryBean {
         private String title;
         private int type;
         private String uid;
+        private String operator;
         private String uname;
+
+        public String getOperator() {
+            return operator;
+        }
+
+        public void setOperator(String operator) {
+            this.operator = operator;
+        }
 
         public String getCreateDate() {
             return createDate;

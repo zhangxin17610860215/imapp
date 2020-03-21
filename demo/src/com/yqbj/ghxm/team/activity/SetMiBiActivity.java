@@ -9,12 +9,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.netease.nimlib.sdk.team.constant.TeamMemberType;
+import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
 import com.netease.yqbj.uikit.utils.NoDoubleClickUtils;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.GetAllMemberWalletBean;
+import com.yqbj.ghxm.bean.MyTeamWalletBean;
 import com.yqbj.ghxm.common.ui.BaseAct;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.requestutils.api.UserApi;
@@ -109,11 +112,41 @@ public class SetMiBiActivity extends BaseAct implements View.OnClickListener {
                     toast("该成员余额不足");
                     return;
                 }
-                if (!NoDoubleClickUtils.isDoubleClick(500)){
-                    setMemberWallet(symbol+etMibiNum.getText().toString());
-                }
+                getWallet();
                 break;
         }
+    }
+
+    private void getWallet(){
+        showProgress(mActivity, false);
+        UserApi.getTeamWalletInfo(bean.getTid(), NimUIKit.getAccount(), mActivity, new requestCallback() {
+            @Override
+            public void onSuccess(int code, Object object) {
+                dismissProgress();
+                if (code == Constants.SUCCESS_CODE){
+                    MyTeamWalletBean walletBean = (MyTeamWalletBean) object;
+                    TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(bean.getTid(), NimUIKit.getAccount());
+                    if (teamMember.getType() == TeamMemberType.Manager){
+                        if (NumberUtil.compareLess(walletBean.getScore(), etMibiNum.getText().toString())) {
+                            toast("账户余额不足");
+                            return;
+                        }
+                    }
+
+                    if (!NoDoubleClickUtils.isDoubleClick(500)){
+                        setMemberWallet(symbol+etMibiNum.getText().toString());
+                    }
+                }else {
+                    toast((String) object);
+                }
+            }
+
+            @Override
+            public void onFailed(String errMessage) {
+                dismissProgress();
+                toast(errMessage);
+            }
+        });
     }
 
     private void setMemberWallet(String score) {

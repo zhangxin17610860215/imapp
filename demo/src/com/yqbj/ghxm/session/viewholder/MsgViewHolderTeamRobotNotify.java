@@ -3,9 +3,12 @@ package com.yqbj.ghxm.session.viewholder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.netease.nimlib.sdk.team.model.Team;
+import com.netease.yqbj.uikit.api.NimUIKit;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.TeamRobotNotifyBean;
 import com.yqbj.ghxm.session.extension.TeamRobotNotifyAttachment;
@@ -18,8 +21,13 @@ import com.netease.yqbj.uikit.common.util.GlideUtil;
 import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
 import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSAFEMODE;
+import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSETTLEMENT;
 
 public class MsgViewHolderTeamRobotNotify extends MsgViewHolderBase {
 
@@ -71,10 +79,14 @@ public class MsgViewHolderTeamRobotNotify extends MsgViewHolderBase {
             }
         }
 
-        if (otherDataBean.getSettlementFlag() == 0){
-            tv_isSettlement.setText("战绩未结算");
-        }else if (otherDataBean.getSettlementFlag() == 1){
+        if (otherDataBean.getSettlementFlag() == 1){
+            tv_isSettlement.setVisibility(View.VISIBLE);
             tv_isSettlement.setText("战绩已结算");
+        }else if (otherDataBean.getSettlementFlag() == 0){
+            tv_isSettlement.setVisibility(View.VISIBLE);
+            tv_isSettlement.setText("战绩未结算");
+        }else {
+            tv_isSettlement.setVisibility(View.GONE);
         }
 
         if (null == otherDataBean.getContent()){

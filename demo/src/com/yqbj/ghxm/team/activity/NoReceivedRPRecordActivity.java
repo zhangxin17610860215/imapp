@@ -61,7 +61,7 @@ public class NoReceivedRPRecordActivity extends BaseAct {
     private EasyRVAdapter mAdapter;
     private List<UnclaimedRPDetailsBean.ResultsBean> list = new ArrayList();
     private List<UnclaimedRPDetailsBean.ResultsBean> data;
-    private int count;              //总数量
+    private boolean noData = false;
     private int page = 1;           //页码
     private int rows = 20;          //每页需要展示的数量
 
@@ -79,7 +79,7 @@ public class NoReceivedRPRecordActivity extends BaseAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.team_noreceivedrprecord_layout);
         context = this;
-        setToolbar(R.drawable.jrmf_b_top_back,"未领取零钱红包记录");
+        setToolbar(R.drawable.jrmf_b_top_back,"未领取红包记录");
         teamId = getIntent().getStringExtra("teamId");
         initView();
         initData();
@@ -90,7 +90,7 @@ public class NoReceivedRPRecordActivity extends BaseAct {
         llNodata = findView(R.id.ll_nodata);
         mRecyclerView = findView(R.id.mRecyclerView);
         refreshLayout = findView(R.id.refresh_layout);
-        tvNodata.setText("暂无未领取零钱红包");
+        tvNodata.setText("暂无未领取红包");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         refreshLayout.setRefreshHeader(new ClassicsHeader(this));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -107,14 +107,11 @@ public class NoReceivedRPRecordActivity extends BaseAct {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 //上拉加载更多
-                if (count / page > rows && count / page > 0){
+                if (noData){
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                }else {
                     page++;
                     initData();
-                }else {
-                    if (refreshLayout != null) {
-                        refreshLayout.finishRefresh();
-                        refreshLayout.finishLoadMore();
-                    }
                 }
             }
         });
@@ -132,9 +129,9 @@ public class NoReceivedRPRecordActivity extends BaseAct {
                         refreshLayout.finishLoadMore();
                     }
                     UnclaimedRPDetailsBean bean = (UnclaimedRPDetailsBean) object;
-                    count = bean.getCount();
                     data = new ArrayList<>();
                     data.addAll(bean.getResults());
+                    noData = data.size() < rows;
                     loadData();
                 }else {
                     if (refreshLayout != null) {
@@ -191,7 +188,7 @@ public class NoReceivedRPRecordActivity extends BaseAct {
                     tvRedPacketContent.setText(bean.getName());
                     if (bean.getType() == 1){
                         //单人红包
-                        tvRedPacketType.setText("零钱红包");
+                        tvRedPacketType.setText("蜜币红包");
                     }else if (bean.getType() == 2){
                         //普通红包
                         tvRedPacketType.setText("普通红包");

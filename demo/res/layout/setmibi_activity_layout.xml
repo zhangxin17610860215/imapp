@@ -107,4 +107,21 @@
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/jrmf_dimen_30"
+        android:paddingLeft="@dimen/dimen_20"
+        android:textColor="@color/color_999"
+        android:textSize="@dimen/sp_12"
+        android:text="·管理员增加(扣除)群成员蜜币会减少(增加)自己等额的蜜币"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/jrmf_dimen_5"
+        android:paddingLeft="@dimen/dimen_20"
+        android:text="·群主对群成员(包括自己)设置蜜币不影响自己的账户余额"
+        android:textColor="@color/color_999"
+        android:textSize="@dimen/sp_12"/>
 </LinearLayout>

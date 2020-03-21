@@ -12,7 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.netease.nimlib.sdk.team.constant.TeamMemberType;
+import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
+import com.yqbj.ghxm.DemoCache;
 import com.yqbj.ghxm.R;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity;
@@ -23,13 +26,15 @@ import com.yqbj.ghxm.common.ui.BaseAct;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
+import com.yqbj.ghxm.utils.StringUtil;
 import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
 import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 禁止领取零钱红包
+ * 禁止领取红包
  * */
 public class NoCollarActivity extends BaseAct implements View.OnClickListener {
 
@@ -181,8 +186,11 @@ public class NoCollarActivity extends BaseAct implements View.OnClickListener {
             case R.id.tv_settingTeamMembers:
                 ContactSelectActivity.Option option = TeamHelper.getContactNoCollarSelectOption(teamId, noCollarList);
                 option.teamId = teamId;
-
-                NimUIKit.startContactSelector(context, option, 100);
+                Intent intent = new Intent();
+                intent.putExtra(ContactSelectActivity.EXTRA_DATA, option);
+                intent.putExtra("requestCode", 111);
+                intent.setClass(context, ContactSelectActivity.class);
+                ((Activity) context).startActivityForResult(intent, 111);
                 break;
         }
     }
@@ -190,13 +198,51 @@ public class NoCollarActivity extends BaseAct implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK || requestCode != 100) {
+        if (resultCode != Activity.RESULT_OK || requestCode != 111) {
             return;
         }
-        final ArrayList<String> selectedList = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
+        boolean isAll = data.getBooleanExtra("all",false);
+        ArrayList<String> selectedList;
+        if (isAll){
+            selectedList = new ArrayList<>();
+            List<TeamMember> teamMemberList = NimUIKit.getTeamProvider().getTeamMemberList(teamId);
+            TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(teamId, DemoCache.getAccount());
+            if (teamMember.getType() == TeamMemberType.Owner){
+                //是群主
+                if (null != teamMemberList && teamMemberList.size() > 0){
+                    for (TeamMember member : teamMemberList){
+                        if (member.getType() != TeamMemberType.Owner){
+                            //排除群主
+                            selectedList.add(member.getAccount());
+                        }
+                    }
+                }
+            }else if (teamMember.getType() == TeamMemberType.Manager){
+                //是管理员
+                if (null != teamMemberList && teamMemberList.size() > 0){
+                    for (TeamMember member : teamMemberList){
+                        if (member.getType() != TeamMemberType.Owner ||
+                                member.getType() != TeamMemberType.Manager){
+                            //排除群主和管理员
+                            selectedList.add(member.getAccount());
+                        }
+                    }
+                }
+            }
+        }else {
+            selectedList = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
+        }
         if (null != selectedList && selectedList.size() > 0){
-            String uids = JSON.toJSONString(selectedList);
-            settingNoCollarId(uids,"1");
+            if (null == noCollarList && noCollarList.size() <= 0){
+                String uids = JSON.toJSONString(selectedList);
+                settingNoCollarId(uids,"1");
+            }else {
+                List<String> list = StringUtil.removeAll(selectedList, noCollarList);
+                if (null != list && list.size() > 0){
+                    String uids = JSON.toJSONString(list);
+                    settingNoCollarId(uids,"1");
+                }
+            }
         }
     }
 

@@ -80,5 +80,7 @@ public class ApiUrl {
     public static String SETMEMBERWALLET = BASE_URL_HEAD + "%s" + BASE_URL_DOMAIN + "/team/member/wallet/set";
     public static String GETALLMEMBERWALLET = BASE_URL_HEAD + "%s" + BASE_URL_DOMAIN + "/team/member/wallet/all/info";
     public static String GETTEAMORDERLIST = BASE_URL_HEAD + "%s" + BASE_URL_DOMAIN + "/team/order/list";
+    public static String SETTLEMENTFAILEDLIST = BASE_URL_HEAD + "%s" + BASE_URL_DOMAIN + "/settlement/failed/list";
+    public static String IGNORESETTLEMNT = BASE_URL_HEAD + "%s" + BASE_URL_DOMAIN + "/settlement/set/ignore";
 
 }

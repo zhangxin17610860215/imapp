@@ -18,9 +18,11 @@ public class AgreementActivity extends BaseAct {
     private Context context;
     private WebView webView;
     private ProgressBar mProgressBar;
+    private String type; //1:用户服务协议2:关于我们
 
-    public static void start(Context context) {
+    public static void start(Context context,String type) {
         Intent intent = new Intent(context, AgreementActivity.class);
+        intent.putExtra("type",type);
         context.startActivity(intent);
     }
 
@@ -29,11 +31,12 @@ public class AgreementActivity extends BaseAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agreement);
         context = this;
+        type = getIntent().getStringExtra("type");
         initView();
     }
 
     private void initView() {
-        setToolbar("用户服务协议");
+        setToolbar(type.equals("1")?"用户服务协议":"关于我们");
         webView = (WebView) findViewById(R.id.webView_agreement);
         mProgressBar = (ProgressBar) findViewById(R.id.mProgressBar);
         mProgressBar.setMax(100);
@@ -58,8 +61,11 @@ public class AgreementActivity extends BaseAct {
             }
         });
 
-        webView.loadUrl("file:////android_asset/agreement.html");//65753843
-//        webView.loadUrl("http://www.baidu.com");
+        if (type.equals("1")){
+            webView.loadUrl("file:////android_asset/agreement.html");//65753843
+        }else {
+            webView.loadUrl("http://www.hr879.cn/xm/index");
+        }
     }
 
     @Override

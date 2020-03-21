@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.api.wrapper.NimUserInfoProvider;
@@ -52,7 +53,7 @@ public class DetailsChangeActivity extends BaseAct {
     private EasyRVAdapter mAssetsAdapter;
     private List<DetailsChangeQueryBean.ResultsBean> results;
     private List<DetailsChangeQueryBean.ResultsBean> list = new ArrayList<>();
-    private int count;              //总数量
+    private boolean noData = false;
     private int page = 1;           //页码
     private int rows = 20;          //每页需要展示的数量
     private String startDate ="";   //开始时间
@@ -100,8 +101,8 @@ public class DetailsChangeActivity extends BaseAct {
                 }
                 if (code == Constants.SUCCESS_CODE){
                     DetailsChangeQueryBean bean = (DetailsChangeQueryBean) object;
-                    count = bean.getCount();
                     results = bean.getResults();
+                    noData = results.size() < rows;
                     loadData();
                 }else {
                     toast((String) object);
@@ -135,7 +136,7 @@ public class DetailsChangeActivity extends BaseAct {
 
         mRecyclerView = findView(R.id.mRecyclerView);
         refreshLayout = findView(R.id.refresh_layout);
-        tvNodata.setText("暂无零钱明细");
+        tvNodata.setText("暂无收支明细");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         refreshLayout.setRefreshHeader(new ClassicsHeader(this));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -152,14 +153,11 @@ public class DetailsChangeActivity extends BaseAct {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 //上拉加载更多
-                if (count / page > rows && count / page > 0){
+                if (noData){
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                }else {
                     page++;
                     initData();
-                }else {
-                    if (refreshLayout != null) {
-                        refreshLayout.finishRefresh();
-                        refreshLayout.finishLoadMore();
-                    }
                 }
             }
         });
@@ -208,10 +206,39 @@ public class DetailsChangeActivity extends BaseAct {
                             tvTitle.setText("你的红包已被群主代领");
                             break;
                         case 8:
-                            if (resultsBean.getScore().contains("-")){
-                                tvTitle.setText("群主给你扣除了蜜币");
+                            if (StringUtil.isNotEmpty(resultsBean.getOperator())){
+                                NimUserInfoProvider userInfoProvider = new NimUserInfoProvider(mActivity);
+                                UserInfo userInfo = userInfoProvider.getUserInfo(resultsBean.getOperator());
+                                if (resultsBean.getOperator().equals(resultsBean.getUid())){
+                                    Team team = NimUIKit.getTeamProvider().getTeamById(teamId);
+                                    if (null != team){
+                                        if (team.getCreator().equals(NimUIKit.getAccount())){
+                                            if (resultsBean.getScore().contains("-")){
+                                                tvTitle.setText("你给群员扣除了蜜币");
+                                            }else {
+                                                tvTitle.setText("你给群员充值了蜜币");
+                                            }
+                                            return;
+                                        }
+                                    }
+                                    if (resultsBean.getScore().contains("-")){
+                                        tvTitle.setText("你给群员充值了蜜币");
+                                    }else {
+                                        tvTitle.setText("你给群员扣除了蜜币");
+                                    }
+                                }else {
+                                    if (resultsBean.getScore().contains("-")){
+                                        tvTitle.setText(userInfo.getName()+"给你扣除了蜜币");
+                                    }else {
+                                        tvTitle.setText(userInfo.getName()+"给你充值了蜜币");
+                                    }
+                                }
                             }else {
-                                tvTitle.setText("群主给你充值了蜜币");
+                                if (resultsBean.getScore().contains("-")){
+                                    tvTitle.setText("群主给你扣除了蜜币");
+                                }else {
+                                    tvTitle.setText("群主给你充值了蜜币");
+                                }
                             }
                             break;
                         default:

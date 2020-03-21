@@ -21,16 +21,20 @@ import com.yqbj.ghxm.bean.OrderNumberBean;
 import com.yqbj.ghxm.bean.RedPackOtherDataBean;
 import com.yqbj.ghxm.bean.RedPacketStateBean;
 import com.yqbj.ghxm.bean.RootListBean;
+import com.yqbj.ghxm.bean.SettlementBean;
 import com.yqbj.ghxm.bean.TeamAllocationPriceBean;
 import com.yqbj.ghxm.bean.TeamInactiveBean;
 import com.yqbj.ghxm.bean.TeamLeaveBean;
+import com.yqbj.ghxm.bean.TeamRobotDataBean;
 import com.yqbj.ghxm.bean.TeamRobotDetatlsBean;
+import com.yqbj.ghxm.bean.TeamRobotNotifyBean;
 import com.yqbj.ghxm.bean.UnclaimedRPDetailsBean;
 import com.yqbj.ghxm.bean.UserInfoBean;
 import com.yqbj.ghxm.bean.WXMesBean;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.requestutils.RequestHelp;
 import com.yqbj.ghxm.requestutils.requestCallback;
+import com.yqbj.ghxm.utils.Base64Util;
 import com.yqbj.ghxm.utils.GsonHelper;
 import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.StringUtil;
@@ -939,6 +943,53 @@ public class UserApi {
         });
     }
 
+    /**
+     * 战绩未结算列表
+     */
+    public static void settlementFailedList(int page, int rows, String tid, String searchDate, Object object, final requestCallback callback) {
+        Map<String, String> map = new HashMap<>();
+        map.put("page", page + "");
+        map.put("rows", rows + "");
+        map.put("tid", tid);
+        map.put("searchDate", searchDate);
+        RequestHelp.postRequest(StringUtil.stringformat(ApiUrl.SETTLEMENTFAILEDLIST), object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "settlementFailedList--------->onSuccess" + response.body());
+                try {
+                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE) {
+                        SettlementBean settlementBean = GsonHelper.getSingleton().fromJson(bean.getData(), SettlementBean.class);
+                        List<SettlementBean.ResultsBean> results = settlementBean.getResults();
+                        List<SettlementBean.TeamRobotNotifyBean> list = new ArrayList<>();
+                        for (SettlementBean.ResultsBean resultsBean : results){
+                            byte[] decode = Base64Util.decodeMessage(resultsBean.getContent().replaceAll(" " , "+"));
+                            String dataStr = new String(decode);
+                            SettlementBean.TeamRobotNotifyBean robotNotifyBean = GsonHelper.getSingleton().fromJson(dataStr, SettlementBean.TeamRobotNotifyBean.class);
+                            robotNotifyBean.setAchievementid(resultsBean.getAchievementid());
+                            list.add(robotNotifyBean);
+                        }
+                        settlementBean.setDateBeans(list);
+                        callback.onSuccess(bean.getStatusCode(), settlementBean);
+                    } else {
+                        callback.onFailed(bean.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onFailed(ERROR_REQUEST_EXCEPTION_MESSAGE);
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "settlementFailedList--------->onError");
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
+            }
+
+        });
+    }
+
 
 
     /**
@@ -1825,6 +1876,41 @@ public class UserApi {
             public void onError(Response<String> response) {
                 super.onError(response);
                 LogUtil.e(TAG, "getTeamOrderList--------->onError" + response.body());
+                callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
+
+            }
+
+        });
+    }
+
+    /**
+     * 忽略未结算战绩
+     * */
+    public static void ignoreSettlement(String achievementId, Object object, final requestCallback callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("achievementId",achievementId);
+        RequestHelp.postRequest(StringUtil.stringformat(ApiUrl.IGNORESETTLEMNT), object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "ignoreSettlement--------->onSuccess" + response.body());
+                try {
+                    BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
+                    if (bean.getStatusCode() == Constants.SUCCESS_CODE){
+                        callback.onSuccess(bean.getStatusCode(),bean);
+                    } else {
+                        callback.onFailed(bean.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onFailed(e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "ignoreSettlement--------->onError" + response.body());
                 callback.onFailed(ERROR_REQUEST_FAILED_MESSAGE);
 
             }

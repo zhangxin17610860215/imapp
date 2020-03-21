@@ -43,7 +43,7 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/jrmf_dimen_50"
                 android:paddingRight="@dimen/jrmf_dimen_50"
-                android:text="温馨提示:升级费用将从您的公会小蜜零钱账户中扣除,请确认您的账户余额是否充足。"
+                android:text="温馨提示:升级费用将从您的公会小蜜账户中扣除,请确认您的账户余额是否充足。"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/gray"/>
         </LinearLayout>

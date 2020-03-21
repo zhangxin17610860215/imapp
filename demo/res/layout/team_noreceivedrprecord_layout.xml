@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="超过10分钟未领取的零钱红包在此记录"
+        android:text="超过10分钟未领取的红包在此记录"
         android:gravity="center"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10"/>

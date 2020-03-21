@@ -99,7 +99,7 @@ public class TeamRedPacketAssistantActivity extends BaseAct implements View.OnCl
         if (StringUtil.isNotEmpty(teamId)){
             switch (v.getId()){
                 case R.id.rl_redpacketassistant:
-                    DelayedCollectionRPAct.start(context,teamId);
+                    DelayedCollectionRPAct.start(context,teamId,"1");
                     break;
                 case R.id.rl_SettingTime:
                     Intent intent = new Intent(context,TeamTimeSettingActivity.class);

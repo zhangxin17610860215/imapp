@@ -232,7 +232,7 @@ public class TeamManagerActivity extends BaseAct {
         });
 
         team_NoCollar_layout = findViewById(R.id.team_NoCollar_layout);
-        ((TextView) team_NoCollar_layout.findViewById(R.id.item_title)).setText("禁止领取零钱红包");
+        ((TextView) team_NoCollar_layout.findViewById(R.id.item_title)).setText("禁止领取红包");
         ((TextView) team_NoCollar_layout.findViewById(R.id.item_detail)).setHint("");
         team_NoCollar_layout.setOnClickListener(new View.OnClickListener() {
             @Override

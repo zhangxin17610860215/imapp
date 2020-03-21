@@ -17,7 +17,6 @@ public class TeamRobotNotifyAttachment extends CustomAttachment {
 
     @Override
     protected void parseData(JSONObject data) {
-        Log.e("TAG>>>>>>>>>>>>>>>",data.toString());
         settlementFlag = data.getInteger("settlementFlag");
         otherDataBean = GsonHelper.getSingleton().fromJson(data.getString("content"), TeamRobotNotifyBean.class);
         otherDataBean.setSettlementFlag(settlementFlag);

@@ -15,6 +15,10 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -399,5 +403,23 @@ public class StringUtil {
     public static String stringformat(String URL){
         String newUrl = String.format(URL,Constants.BASE_URL);
         return newUrl;
+    }
+
+    /**
+     *     集合的去重
+     * @param list1    要保留的集合
+     * @param list2
+     * @return
+     */
+    public  static List<String> removeAll(List<String> list1, List<String> list2){
+        LinkedList<String> result = new LinkedList<>(list1);
+        HashSet<String> set = new HashSet<>(list2);
+        Iterator<String> itor = result.iterator();
+        while(itor.hasNext()){
+            if(set.contains(itor.next())){
+                itor.remove();
+            }
+        }
+        return result;
     }
 }

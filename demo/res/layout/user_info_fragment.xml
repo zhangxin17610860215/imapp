@@ -306,6 +306,26 @@
 
         <View
             android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ECECEC" />
+
+        <TextView
+            android:id="@+id/tv_AboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableLeft="@mipmap/aboutus_icon"
+            android:drawableRight="@drawable/u_arrow_icon"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_20"
+            android:paddingRight="24dp"
+            android:text="关于我们"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_15" />
+
+        <View
+            android:layout_width="match_parent"
             android:layout_height="10dp"
             android:background="#F6F6F6" />
 

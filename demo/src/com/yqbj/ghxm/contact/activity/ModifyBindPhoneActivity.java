@@ -28,7 +28,7 @@ public class ModifyBindPhoneActivity extends BaseAct implements View.OnClickList
 
     private Handler mHandler = new Handler();
     private Runnable mRunnable;
-    private int mSeconds = 30;
+    private int mSeconds = 60;
 
     public static void start(Context context, String mobile) {
         Intent intent = new Intent();
@@ -67,7 +67,7 @@ public class ModifyBindPhoneActivity extends BaseAct implements View.OnClickList
                 if (mSeconds <= 0) {
                     tvGetCode.setText("重新获取验证码");
                     mRunnable = null;
-                    mSeconds = 30;
+                    mSeconds = 60;
                 } else {
                     tvGetCode.setText(mSeconds + "s后重新获取");
 

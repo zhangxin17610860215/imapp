@@ -124,6 +124,10 @@
                 android:id="@+id/team_setMiBi_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
 
+            <include
+                android:id="@+id/settlementFailed_layout"
+                layout="@layout/nim_advanced_team_info_divider_item" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"

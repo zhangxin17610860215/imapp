@@ -71,7 +71,7 @@ public class BindPhoneActivity extends BaseAct implements View.OnClickListener {
     private Handler mHandler = new Handler();
 
     private Runnable mRunnable;
-    private int mSeconds = 30;
+    private int mSeconds = 60;
 
     private boolean isPhoneLogin = false;
 
@@ -106,7 +106,7 @@ public class BindPhoneActivity extends BaseAct implements View.OnClickListener {
                 if (mSeconds <= 0) {
                     tvVerCode.setText("重新获取验证码");
                     mRunnable = null;
-                    mSeconds = 30;
+                    mSeconds = 60;
                 } else {
                     tvVerCode.setText(mSeconds + "s后重新获取");
 
@@ -146,7 +146,7 @@ public class BindPhoneActivity extends BaseAct implements View.OnClickListener {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View view) {
-                AgreementActivity.start(BindPhoneActivity.this);
+                AgreementActivity.start(BindPhoneActivity.this,"1");
             }
 
             @Override

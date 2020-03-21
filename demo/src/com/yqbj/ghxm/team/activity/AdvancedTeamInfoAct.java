@@ -151,6 +151,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
     private View layoutManager;
     private View layoutMyTeamMiBi;
     private View layoutSetMiBi;
+    private View layoutSettlementFailed;
     private View layoutChatHistory;
     private View layoutClearHistory;
     private View layoutNoReceivedRPRecord;
@@ -388,10 +389,8 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             if (creator.equals(NimUIKit.getAccount())) {
                 isSelfAdmin = true;
                 layoutNoReceivedRPRecord.setVisibility(View.VISIBLE);
-                layoutSetMiBi.setVisibility(View.VISIBLE);
             }else {
                 layoutNoReceivedRPRecord.setVisibility(View.GONE);
-                layoutSetMiBi.setVisibility(View.GONE);
             }
 
             setTitle(team.getName());
@@ -753,6 +752,16 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             }
         });
 
+        layoutSettlementFailed = findViewById(R.id.settlementFailed_layout);
+        ((TextView) layoutSettlementFailed.findViewById(R.id.item_title)).setText("战绩未结算记录");
+        ((TextView) layoutSettlementFailed.findViewById(R.id.item_detail)).setHint("");
+        layoutSettlementFailed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DelayedCollectionRPAct.start(AdvancedTeamInfoAct.this,teamId,"2");
+            }
+        });
+
         /**
          *  查看历史内容 改为 搜索历史内容
          */
@@ -792,7 +801,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         });
 
         layoutNoReceivedRPRecord = findViewById(R.id.team_NoReceivedRPRecord_layout);
-        ((TextView) layoutNoReceivedRPRecord.findViewById(R.id.item_title)).setText("未领取零钱红包记录");
+        ((TextView) layoutNoReceivedRPRecord.findViewById(R.id.item_title)).setText("未领取红包记录");
         ((TextView) layoutNoReceivedRPRecord.findViewById(R.id.item_detail)).setHint("");
         layoutNoReceivedRPRecord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -894,7 +903,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
 
         if (!(isSelfAdmin || isSelfManager)) {
             layoutManager.setVisibility(View.GONE);
-
+            layoutSetMiBi.setVisibility(View.GONE);
         }
         if (members.size() > 0) {
             gridView.setVisibility(View.VISIBLE);
