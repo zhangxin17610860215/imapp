@@ -404,8 +404,12 @@ public class RedPackDetailsActivity extends BaseAct implements View.OnClickListe
                 UserInfo userInfo = NimUIKit.getUserInfoProvider().getUserInfo(recordsBean.getPayeeId());
                 if (!StringUtil.isEmpty(teamId) && !StringUtil.isEmpty(recordsBean.getPayeeId())){
                     TeamMember teamMember = TeamDataCache.getInstance().getTeamMember(teamId,recordsBean.getPayeeId());
-                    if (StringUtil.isNotEmpty(teamId) && StringUtil.isNotEmpty(teamMember.getTeamNick())){
-                        tvName.setText(teamMember.getTeamNick());
+                    if (null != teamMember){
+                        if (StringUtil.isNotEmpty(teamId) && StringUtil.isNotEmpty(teamMember.getTeamNick())){
+                            tvName.setText(teamMember.getTeamNick());
+                        }else {
+                            tvName.setText(userInfo.getName());
+                        }
                     }else {
                         tvName.setText(userInfo.getName());
                     }

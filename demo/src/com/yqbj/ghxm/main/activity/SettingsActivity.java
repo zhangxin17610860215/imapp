@@ -169,8 +169,10 @@ public class SettingsActivity extends UI implements SettingsAdapter.SwitchChange
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SettingTemplate item = items.get(position);
-                onListItemClick(item);
+                if (items.size() > position){
+                    SettingTemplate item = items.get(position);
+                    onListItemClick(item);
+                }
             }
         });
 

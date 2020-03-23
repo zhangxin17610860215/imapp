@@ -638,10 +638,11 @@ public class SplashActivity extends BaseAct implements ViewPager.OnPageChangeLis
 
     private void createTeam(ArrayList<String> selected) {
         showProgress(SplashActivity.this,false);
-        String teamName = "";
+        UserInfo userInfo = NimUIKit.getUserInfoProvider().getUserInfo(NimUIKit.getAccount());
+        String teamName = userInfo.getName() + ",";
         for (int i = 0; i < selected.size(); i++){
             if (i <= 4){
-                UserInfo userInfo = NimUIKit.getUserInfoProvider().getUserInfo(selected.get(i));
+                userInfo = NimUIKit.getUserInfoProvider().getUserInfo(selected.get(i));
                 teamName = teamName + userInfo.getName() + ",";
             }
         }
