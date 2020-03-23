@@ -41,6 +41,7 @@ import com.netease.yqbj.uikit.business.session.constant.Extras;
 import com.netease.yqbj.uikit.common.media.picker.PickImageHelper;
 import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
 import com.netease.yqbj.uikit.common.util.log.LogUtil;
+import com.yqbj.ghxm.DemoCache;
 import com.yqbj.ghxm.R;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.api.StatisticsConstants;
@@ -71,6 +72,7 @@ import com.netease.yqbj.uikit.common.ui.widget.SwitchButton;
 import com.netease.yqbj.uikit.utils.SPUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.yqbj.ghxm.bean.BaseBean;
+import com.yqbj.ghxm.bean.MyTeamWalletBean;
 import com.yqbj.ghxm.busevent.TeamMemberEvent;
 import com.yqbj.ghxm.common.ui.BaseAct;
 import com.yqbj.ghxm.config.Constants;
@@ -90,7 +92,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.netease.yqbj.uikit.api.StatisticsConstants.DURATION;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.ISREGULARCLEANMODE;
@@ -150,6 +154,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
     private View layoutBanner;
     private View layoutManager;
     private View layoutMyTeamMiBi;
+    private TextView tvMiBiNum;
     private View layoutSetMiBi;
     private View layoutSettlementFailed;
     private View layoutChatHistory;
@@ -316,6 +321,32 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             }
             getExtension();
         }
+        getTeamWalletInfo();
+    }
+
+    /**
+     * 获取我的群蜜币
+     * */
+    private void getTeamWalletInfo() {
+        showProgress(mActivity,false);
+        UserApi.getTeamWalletInfo(teamId, NimUIKit.getAccount(), AdvancedTeamInfoAct.this, new requestCallback() {
+            @Override
+            public void onSuccess(int code, Object object) {
+                dismissProgress();
+                if (code == Constants.SUCCESS_CODE){
+                    MyTeamWalletBean walletBean = (MyTeamWalletBean) object;
+                    tvMiBiNum.setHint(walletBean.getScore()+"");
+                }else {
+                    toast((String) object);
+                }
+            }
+
+            @Override
+            public void onFailed(String errMessage) {
+                dismissProgress();
+                toast(errMessage);
+            }
+        });
     }
 
     /**
@@ -734,7 +765,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
 
         layoutMyTeamMiBi = findViewById(R.id.team_myTeamMiBi_layout);
         ((TextView) layoutMyTeamMiBi.findViewById(R.id.item_title)).setText("我的群蜜币");
-        ((TextView) layoutMyTeamMiBi.findViewById(R.id.item_detail)).setHint("");
+        tvMiBiNum = layoutMyTeamMiBi.findViewById(R.id.item_detail);
         layoutMyTeamMiBi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1195,6 +1226,16 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             public void onSuccess(int code, Object object) {
                 dismissProgress();
                 if (code == Constants.SUCCESS_CODE){
+//                    for (String account : accounts){
+//                        //将被邀请人与邀请人进行绑定
+//                        TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(teamId, account);
+//                        Map<String, Object> extension = teamMember.getExtension();
+//                        if (null == extension){
+//                            extension = new HashMap<>();
+//                        }
+//                        extension.put(StatisticsConstants.INVITER,NimUIKit.getAccount());
+//                        NIMClient.getService(TeamService.class).updateMyMemberExtension(teamId, extension);
+//                    }
                     toast("邀请成员成功");
                 }else {
                     toast((String) object);

@@ -102,6 +102,7 @@ public class TeamManagerActivity extends BaseAct {
     private View team_copy_layout;
     private View team_transfer_layout;
     private View team_safe_mode_layout;
+    private TextView tv_team_safe_mode;
     private SwitchButton swiBtn_safeMode;
     private View team_credit_layout;
     private View viewLayout;
@@ -337,6 +338,7 @@ public class TeamManagerActivity extends BaseAct {
         swiBtn_safeMode = team_safe_mode_layout.findViewById(R.id.setting_item_toggle);
         swiBtn_safeMode.setTag(SW_KEY_SAFE_MODE);
         swiBtn_safeMode.setOnChangedListener(onChangedListener);
+        tv_team_safe_mode = (TextView) findViewById(R.id.tv_team_safe_mode);
 
         team_credit_layout = findViewById(R.id.team_credit_layout);
         ((TextView) team_credit_layout.findViewById(R.id.item_title)).setText("是否开启群认证");
@@ -646,6 +648,8 @@ public class TeamManagerActivity extends BaseAct {
         if(!isSelfAdmin){
             team_transfer_layout.setVisibility(View.GONE);
             team_manager_layout.setVisibility(View.GONE);
+            team_safe_mode_layout.setVisibility(View.GONE);
+            tv_team_safe_mode.setVisibility(View.GONE);
             team_copy_layout.setVisibility(View.GONE);
             team_teamRobot_layout.setVisibility(View.GONE);
             viewLayout.setVisibility(View.GONE);

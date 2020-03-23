@@ -19,6 +19,7 @@ public class StatisticsConstants {
     public static final String ISHAVEROBOT = "teamRobotUrl";                                    //是否有机器人（群助手）
     public static final String UPDATETEAMCONFIG = "updateTeamConfig";                           //固定修改群配置字符串
     public static final String RPRECEIVEDELAYTIME = "RPReceiveDelaytime";                       //红包延时设置
+    public static final String INVITER = "Inviter";                                             //邀请者
     public static final ArrayList<String> ROBOT_IDS = new ArrayList<>();                        //所有的机器人ID
 
     public static TeamConfigBean TEAMCONFIGBEAN;                                                //群配置内存中的数据
