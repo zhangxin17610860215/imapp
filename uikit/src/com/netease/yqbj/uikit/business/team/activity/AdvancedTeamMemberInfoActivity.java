@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.netease.nimlib.sdk.Observer;
@@ -18,6 +19,7 @@ import com.netease.nimlib.sdk.friend.model.AddFriendData;
 import com.netease.nimlib.sdk.team.TeamServiceObserver;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
+import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.netease.yqbj.uikit.api.model.contact.ContactChangedObserver;
 import com.netease.yqbj.uikit.api.model.team.TeamDataChangedObserver;
 import com.netease.yqbj.uikit.business.team.helper.IAdvancedTeamMember;
@@ -90,6 +92,8 @@ public abstract class AdvancedTeamMemberInfoActivity extends UI implements View.
     private MenuDialog cancelAdminDialog;
     private ViewGroup toggleLayout;
     private SwitchButton muteSwitch;
+    private RelativeLayout Inviter_container;
+    private TextView Inviter_name;
 
     // state
     private boolean isSelfCreator = false;
@@ -186,13 +190,28 @@ public abstract class AdvancedTeamMemberInfoActivity extends UI implements View.
 
 
     private void updateUserOperatorView() {
+        Team team = NimUIKit.getTeamProvider().getTeamById(teamId);
+//        TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(teamId, account);
+//        Map<String, Object> extension = teamMember.getExtension();
+//        if (null == extension){
+//            extension = new HashMap<>();
+//        }
+//        String inviter = (String) extension.get(StatisticsConstants.INVITER);
+//        String inviterName = "";
+//        if (TextUtils.isEmpty(inviter)){
+//            inviterName = UserInfoHelper.getUserDisplayName(team.getCreator());
+//        }else {
+//            inviterName = UserInfoHelper.getUserDisplayName(inviter);
+//        }
+//
+//        Inviter_name.setHint(inviterName);
+
 
         if (NIMClient.getService(FriendService.class).isMyFriend(account)) {
-
             relationBtn.setVisibility(View.VISIBLE);
             relationBtn.setText("去聊天");
         } else {
-            Team team = NimUIKit.getTeamProvider().getTeamById(teamId);
+
             String extensionJsonStr = team.getExtension();
             boolean isSafeMode = false;
             if(!TextUtils.isEmpty(extensionJsonStr)){
@@ -271,6 +290,8 @@ public abstract class AdvancedTeamMemberInfoActivity extends UI implements View.
         removeBtn = (Button) findViewById(R.id.team_remove_member);
         relationBtn = findView(R.id.btn_relation);
         toggleLayout = findView(R.id.toggle_layout);
+        Inviter_container = findView(R.id.Inviter_container);
+        Inviter_name = findView(R.id.Inviter_name);
         setClickListener();
     }
 

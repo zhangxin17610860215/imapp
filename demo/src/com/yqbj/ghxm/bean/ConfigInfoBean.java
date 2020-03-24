@@ -8,31 +8,31 @@ public class ConfigInfoBean {
      * wxUpperLimit : 300
      */
 
-    private String aliUpperLimit;
+    private String downloadUrl;
+    private String openPlatformUrl;
     private boolean userWalletExist;
-    private String wxUpperLimit;
 
-    public String getAliUpperLimit() {
-        return aliUpperLimit;
-    }
-
-    public void setAliUpperLimit(String aliUpperLimit) {
-        this.aliUpperLimit = aliUpperLimit;
+    public void setUserWalletExist(boolean userWalletExist) {
+        this.userWalletExist = userWalletExist;
     }
 
     public boolean isUserWalletExist() {
         return userWalletExist;
     }
 
-    public void setUserWalletExist(boolean userWalletExist) {
-        this.userWalletExist = userWalletExist;
+    public String getDownloadUrl() {
+        return downloadUrl;
     }
 
-    public String getWxUpperLimit() {
-        return wxUpperLimit;
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
     }
 
-    public void setWxUpperLimit(String wxUpperLimit) {
-        this.wxUpperLimit = wxUpperLimit;
+    public String getOpenPlatformUrl() {
+        return openPlatformUrl;
+    }
+
+    public void setOpenPlatformUrl(String openPlatformUrl) {
+        this.openPlatformUrl = openPlatformUrl;
     }
 }

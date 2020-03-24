@@ -11,6 +11,7 @@ import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+import com.yqbj.ghxm.R;
 
 import java.io.File;
 
@@ -119,6 +120,9 @@ public class WxUtils {
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = url;
         WXMediaMessage msg = new WXMediaMessage(webpage);
+        Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_logo);
+        msg.thumbData = AppUtils.bmpToByteArray(bmp, true);
+        bmp.recycle();
         msg.title = title;
         msg.description = desc;
 

@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.common.ui.BaseAct;
+import com.yqbj.ghxm.config.Constants;
+import com.yqbj.ghxm.utils.SPUtils;
 
 public class AgreementActivity extends BaseAct {
 
@@ -64,7 +66,8 @@ public class AgreementActivity extends BaseAct {
         if (type.equals("1")){
             webView.loadUrl("file:////android_asset/agreement.html");//65753843
         }else {
-            webView.loadUrl("http://www.hr879.cn/xm/index");
+            SPUtils instance = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME);
+            webView.loadUrl(instance.getString(Constants.CONFIG_INFO.OPENPLATFORMURL));
         }
     }
 

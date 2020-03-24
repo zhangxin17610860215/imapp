@@ -18,7 +18,9 @@ import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.common.ui.BaseAct;
+import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.utils.AppUtils;
+import com.yqbj.ghxm.utils.SPUtils;
 import com.yqbj.ghxm.utils.WxUtils;
 import com.yqbj.ghxm.zxing.QrCodeActivity;
 import com.yqbj.ghxm.zxing.ZXingUtils;
@@ -38,8 +40,6 @@ import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.yqbj.ghxm.session.search.SearchMessageActivity;
 
 import java.util.ArrayList;
-
-import static com.netease.yqbj.uikit.api.StatisticsConstants.DOWNLOADADDRESS;
 
 /**
  * 添加好友页面
@@ -174,7 +174,8 @@ public class AddFriendActivity extends BaseAct {
                 NimUIKit.startContactSelector(this, advancedOption, REQUEST_CODE_MOBILE);
                 break;
             case 4:
-                WxUtils.shareWeb(this, DOWNLOADADDRESS, SendMessageToWX.Req.WXSceneSession, "邀请您使用公会小蜜", "我正在使用公会小蜜，一款为有共同兴趣爱好用户打造的聊天交友工具");
+                SPUtils instance = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME);
+                WxUtils.shareWeb(this, instance.getString(Constants.CONFIG_INFO.DOWNLOADURL), SendMessageToWX.Req.WXSceneSession, "邀请您使用公会小蜜", "我正在使用公会小蜜，一款为有共同兴趣爱好用户打造的聊天交友工具");
                 break;
             case 5:
                 //我的二维码
@@ -209,7 +210,8 @@ public class AddFriendActivity extends BaseAct {
                 case REQUEST_CODE_MOBILE:
                     final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
                     if (selected != null && selected.size() > 0) {
-                        AppUtils.sendSMS(this, selected, "我正在使用公会小蜜，一款为有共同兴趣爱好用户打造的聊天交友工具  " + DOWNLOADADDRESS);
+                        SPUtils instance = SPUtils.getInstance(Constants.ALIPAY_USERINFO.FILENAME);
+                        AppUtils.sendSMS(this, selected, "我正在使用公会小蜜，一款为有共同兴趣爱好用户打造的聊天交友工具  " + instance.getString(Constants.CONFIG_INFO.DOWNLOADURL));
                     }
                     break;
             }

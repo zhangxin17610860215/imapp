@@ -68,13 +68,9 @@ public class Constants {
      * 全局配置
      * */
     public class CONFIG_INFO{
-        public static final String ALIPAY_ISSHOW = "AliPay_isShow";                     // 是否显示支付宝支付按钮
-        public static final String WCHATPAY_ISSHOW = "WChatPay_isShow";                 // 是否显示微信支付按钮
         public static final String WALLET_EXIST = "WalletExist";                        // 用户是否开通了钱包
-        public static final String ALICARRY_ISSHOW = "AliCarry_isShow";                 // 支付宝提现按钮是否显示
-        public static final String WCHATCARRY_ISSHOW = "WChatCarry_isShow";             // 微信提现按钮是否显示
-        public static final String WX_UPPERLIMIT = "wxUpperLimit";                      // 微信提现按钮是否显示
-        public static final String ALI_UPPERLIMIT = "aliUpperLimit";                    // 微信提现按钮是否显示
+        public static final String DOWNLOADURL = "downloadUrl";                         // 下载网址
+        public static final String OPENPLATFORMURL = "openPlatformUrl";                 // 官网
     }
 
     /**

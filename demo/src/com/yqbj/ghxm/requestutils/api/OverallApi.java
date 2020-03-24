@@ -18,9 +18,9 @@ import com.yqbj.ghxm.utils.StringUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.ALI_UPPERLIMIT;
+import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.DOWNLOADURL;
+import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.OPENPLATFORMURL;
 import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.WALLET_EXIST;
-import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.WX_UPPERLIMIT;
 import static com.yqbj.ghxm.config.Constants.ERROR_REQUEST_EXCEPTION_MESSAGE;
 import static com.yqbj.ghxm.config.Constants.ERROR_REQUEST_FAILED_MESSAGE;
 
@@ -109,6 +109,8 @@ public class OverallApi {
                     if (Constants.SUCCESS_CODE == bean.getStatusCode()) {
                         ConfigInfoBean configInfoBean = GsonHelper.getSingleton().fromJson(bean.getData(), ConfigInfoBean.class);
                         instance.put(WALLET_EXIST,configInfoBean.isUserWalletExist());
+                        instance.put(DOWNLOADURL,configInfoBean.getDownloadUrl());
+                        instance.put(OPENPLATFORMURL,configInfoBean.getOpenPlatformUrl());
                         callback.onSuccess(bean.getStatusCode(),configInfoBean);
                     }else {
                         instance.put(WALLET_EXIST,false);

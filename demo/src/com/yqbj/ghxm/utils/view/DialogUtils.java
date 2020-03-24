@@ -3,6 +3,7 @@ package com.yqbj.ghxm.utils.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,21 +20,19 @@ public class DialogUtils {
         dialog.setCancelable(false);
         TextView tvTitle = dialog.findViewById(R.id.title);
         TextView tvMessage = dialog.findViewById(R.id.message);
-        TextView tvNo = dialog.findViewById(R.id.no);
+        ImageView imgClose = dialog.findViewById(R.id.img_close);
         TextView tvYes = dialog.findViewById(R.id.yes);
-        final LinearLayout layout = dialog.findViewById(R.id.ll);
         final ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
-        tvTitle.setText("发现新版本 " + bean.getVersionno());
-        tvMessage.setText(bean.getDescription());
-        layout.setVisibility(View.VISIBLE);
+        tvTitle.setText("最新版本：V" + bean.getVersionno());
+        tvMessage.setText(bean.getDescription()+"\n\n");
         progressBar.setVisibility(View.GONE);
         if (bean.getCompel() == 1){
             //强制升级
-            tvNo.setVisibility(View.GONE);
+            imgClose.setVisibility(View.GONE);
         }else {
-            tvNo.setVisibility(View.VISIBLE);
+            imgClose.setVisibility(View.VISIBLE);
         }
-        tvNo.setOnClickListener(new View.OnClickListener() {
+        imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
