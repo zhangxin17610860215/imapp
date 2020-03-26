@@ -1698,10 +1698,11 @@ public class UserApi {
     /**
      * 拉人进群
      * */
-    public static void addMember(String tid, String owner, String members, Object object, final requestCallback callback){
+    public static void addMember(String tid, String owner, String inviter, String members, Object object, final requestCallback callback){
         Map<String,String> map = new HashMap<>();
         map.put("tid",tid);
         map.put("owner",owner);
+        map.put("inviter",inviter);
         map.put("members",members);
         RequestHelp.postRequest(StringUtil.stringformat(ApiUrl.ADDMEMBER), object, map, new StringCallback() {
             @Override

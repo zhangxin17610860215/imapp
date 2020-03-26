@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Constants {
     // DEBUG模式。影响log级别输出
-    public static boolean DEBUG = false;//BuildConfig.DEBUG;
+    public static boolean DEBUG = true;//BuildConfig.DEBUG;
 
     public static final String WX_LOGIN_API = "https://api.weixin.qq.com/sns/oauth2/access_token";//微信登录接口
     public static final String ERROR_REQUEST_FAILED_MESSAGE = "网络请求失败";//REQUEST_FAILED"; // 网络请求失败，出现onerror

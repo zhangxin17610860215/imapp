@@ -46,6 +46,7 @@ import com.netease.nimlib.sdk.team.TeamService;
 import com.netease.nimlib.sdk.team.constant.TeamMemberType;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -196,16 +197,23 @@ public abstract class AdvancedTeamMemberInfoActivity extends UI implements View.
 //        if (null == extension){
 //            extension = new HashMap<>();
 //        }
-//        String inviter = (String) extension.get(StatisticsConstants.INVITER);
-//        String inviterName = "";
-//        if (TextUtils.isEmpty(inviter)){
-//            inviterName = UserInfoHelper.getUserDisplayName(team.getCreator());
-//        }else {
-//            inviterName = UserInfoHelper.getUserDisplayName(inviter);
-//        }
+//        String teamMemberEx = (String) extension.get("ext");
+//        if (!StringUtil.isEmpty(teamMemberEx) && !teamMemberEx.equals("null")){
+//            try {
+//                JSONObject jsonObject = new JSONObject(teamMemberEx);
+//                String inviter = (String) jsonObject.get(StatisticsConstants.INVITER);
+//                String inviterName;
+//                if (TextUtils.isEmpty(inviter)){
+//                    inviterName = UserInfoHelper.getUserDisplayName(team.getCreator());
+//                }else {
+//                    inviterName = UserInfoHelper.getUserDisplayName(inviter);
+//                }
 //
-//        Inviter_name.setHint(inviterName);
-
+//                Inviter_name.setText(inviterName);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         if (NIMClient.getService(FriendService.class).isMyFriend(account)) {
             relationBtn.setVisibility(View.VISIBLE);

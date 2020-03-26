@@ -87,6 +87,7 @@ import com.yqbj.ghxm.zxing.ZXingUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -222,9 +223,11 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         boolean isScreenshot = false;
         try {
             String extensionJsonStr = team.getExtension();
-            JSONObject jsonObject = new JSONObject(extensionJsonStr);
-            if (jsonObject.has(ISSCREENSHOT)){
-                isScreenshot =  jsonObject.getBoolean(ISSCREENSHOT);
+            if (StringUtil.isNotEmpty(extensionJsonStr)){
+                JSONObject jsonObject = new JSONObject(extensionJsonStr);
+                if (jsonObject.has(ISSCREENSHOT)){
+                    isScreenshot =  jsonObject.getBoolean(ISSCREENSHOT);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,9 +237,11 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         boolean isRegularCleanMode = false;
         try {
             String extensionJsonStr = team.getExtension();
-            JSONObject jsonObject = new JSONObject(extensionJsonStr);
-            if (jsonObject.has(ISREGULARCLEANMODE)){
-                isRegularCleanMode =  jsonObject.getBoolean(ISREGULARCLEANMODE);
+            if (StringUtil.isNotEmpty(extensionJsonStr)){
+                JSONObject jsonObject = new JSONObject(extensionJsonStr);
+                if (jsonObject.has(ISREGULARCLEANMODE)){
+                    isRegularCleanMode =  jsonObject.getBoolean(ISREGULARCLEANMODE);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1200,7 +1205,14 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
      * @param accounts 邀请帐号
      */
     private void inviteMembers(final ArrayList<String> accounts) {
-//        NIMClient.getService(TeamService.class).addMembersEx(teamId, accounts, "邀请附言", "邀请扩展字段").setCallback(new RequestCallback<List<String>>() {
+//        JSONObject inviterEx = new JSONObject();
+//        try {
+//            inviterEx.put(StatisticsConstants.INVITER,NimUIKit.getAccount());
+//            inviterEx.put(StatisticsConstants.TEAMID,teamId);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        NIMClient.getService(TeamService.class).addMembersEx(teamId, accounts, "邀请附言", inviterEx.toString()).setCallback(new RequestCallback<List<String>>() {
 //            @Override
 //            public void onSuccess(List<String> failedAccounts) {
 //                CommonUtil.uploadTeamIcon(teamId,AdvancedTeamInfoAct.this);
@@ -1211,7 +1223,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
 //                if (code == ResponseCode.RES_TEAM_INVITE_SUCCESS) {
 //                    ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.team_invite_members_success);
 //                } else {
-//                    ToastHelper.showToast(AdvancedTeamInfoAct.this, "invite members failed, code=" + code);
+//                    ToastHelper.showToast(AdvancedTeamInfoAct.this, "邀请失败");
 //                }
 //            }
 //
@@ -1221,21 +1233,11 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
 //            }
 //        });
         showProgress(this,false);
-        UserApi.addMember(teamId, creator, JSON.toJSONString(accounts), this, new requestCallback() {
+        UserApi.addMember(teamId, creator, NimUIKit.getAccount(), JSON.toJSONString(accounts), this, new requestCallback() {
             @Override
             public void onSuccess(int code, Object object) {
                 dismissProgress();
                 if (code == Constants.SUCCESS_CODE){
-//                    for (String account : accounts){
-//                        //将被邀请人与邀请人进行绑定
-//                        TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(teamId, account);
-//                        Map<String, Object> extension = teamMember.getExtension();
-//                        if (null == extension){
-//                            extension = new HashMap<>();
-//                        }
-//                        extension.put(StatisticsConstants.INVITER,NimUIKit.getAccount());
-//                        NIMClient.getService(TeamService.class).updateMyMemberExtension(teamId, extension);
-//                    }
                     toast("邀请成员成功");
                 }else {
                     toast((String) object);

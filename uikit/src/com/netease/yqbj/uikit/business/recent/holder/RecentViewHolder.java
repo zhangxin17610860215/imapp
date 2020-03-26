@@ -183,12 +183,15 @@ public abstract class RecentViewHolder extends RecyclerViewHolder<BaseQuickAdapt
             NIMClient.getService(TeamService.class).queryTeam(recent.getContactId()).setCallback(new RequestCallback<Team>() {
                 @Override
                 public void onSuccess(Team team) {
-                    if (team.getMessageNotifyType() == TeamMessageNotifyTypeEnum.Mute){
-                        //当前用户设置该群为免打扰模式
-                        imgDisturb.setVisibility(View.VISIBLE);
-                    }else {
-                        imgDisturb.setVisibility(View.GONE);
+                    if (null != team){
+                        if (team.getMessageNotifyType() == TeamMessageNotifyTypeEnum.Mute){
+                            //当前用户设置该群为免打扰模式
+                            imgDisturb.setVisibility(View.VISIBLE);
+                        }else {
+                            imgDisturb.setVisibility(View.GONE);
+                        }
                     }
+
                     tvUnread.setText(unreadCountShowRule(unreadNum));
                     tvUnread.setVisibility(unreadNum > 0 ? View.VISIBLE : View.GONE);
                 }

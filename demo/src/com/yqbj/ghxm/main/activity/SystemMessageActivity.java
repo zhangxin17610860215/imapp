@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,8 +24,11 @@ import com.netease.nimlib.sdk.msg.constant.SystemMessageStatus;
 import com.netease.nimlib.sdk.msg.constant.SystemMessageType;
 import com.netease.nimlib.sdk.msg.model.SystemMessage;
 import com.netease.nimlib.sdk.team.TeamService;
+import com.netease.nimlib.sdk.team.model.Team;
+import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 import com.netease.yqbj.uikit.api.NimUIKit;
+import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.netease.yqbj.uikit.api.model.SimpleCallback;
 import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.activity.UI;
@@ -38,10 +41,15 @@ import com.netease.yqbj.uikit.common.ui.listview.MessageListView;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.main.adapter.SystemMessageAdapter;
 import com.yqbj.ghxm.main.viewholder.SystemMessageViewHolder;
+import com.yqbj.ghxm.utils.StringUtil;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -69,6 +77,50 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
     private boolean firstLoad = true;
 
     private LinearLayout llNodata;
+    private TeamMember teamMember;
+    private String teamId;
+    private SystemMessageStatus teamMemberStatus;
+    private SystemMessage teamMemberSystemMessage;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.system_notification_message_activity);
+
+        onInitSetBack(SystemMessageActivity.this);
+        onInitSetTitle(SystemMessageActivity.this, getString(R.string.verify_reminder));
+        onInitRightSure(SystemMessageActivity.this, 0, "清空", 16);
+
+        initView();
+
+        initAdapter();
+        initListView();
+
+        loadMessages(); // load old data
+        registerSystemObserver(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        NIMClient.getService(SystemMessageService.class).resetSystemMessageUnreadCount();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        NIMClient.getService(SystemMessageService.class).resetSystemMessageUnreadCount();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        registerSystemObserver(false);
+    }
 
     public static void start(Context context) {
         start(context, null, true);
@@ -113,25 +165,6 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.system_notification_message_activity);
-
-        onInitSetBack(SystemMessageActivity.this);
-        onInitSetTitle(SystemMessageActivity.this, getString(R.string.verify_reminder));
-        onInitRightSure(SystemMessageActivity.this, 0, "清空", 16);
-
-        initView();
-
-        initAdapter();
-        initListView();
-
-        loadMessages(); // load old data
-        registerSystemObserver(true);
-    }
-
-    @Override
     public void setRightSureClick() {
         comRightSure.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,27 +172,6 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
                 deleteAllMessages();
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        NIMClient.getService(SystemMessageService.class).resetSystemMessageUnreadCount();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        NIMClient.getService(SystemMessageService.class).resetSystemMessageUnreadCount();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        registerSystemObserver(false);
     }
 
     @Override
@@ -466,12 +478,88 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
         }
     }
 
-    private void onProcessSuccess(final boolean pass, SystemMessage message) {
-        SystemMessageStatus status = pass ? SystemMessageStatus.passed : SystemMessageStatus.declined;
+    private void onProcessSuccess(final boolean pass, final SystemMessage message) {
+        final SystemMessageStatus status = pass ? SystemMessageStatus.passed : SystemMessageStatus.declined;
+//        if (message.getType() == SystemMessageType.TeamInvite && pass){
+//            teamMemberStatus = status;
+//            teamMemberSystemMessage = message;
+//            bindInvite();
+//        }else {
+//            NIMClient.getService(SystemMessageService.class).setSystemMessageStatus(message.getMessageId(),
+//                    status);
+//            message.setStatus(status);
+//            refreshViewHolder(message);
+//        }
         NIMClient.getService(SystemMessageService.class).setSystemMessageStatus(message.getMessageId(),
                 status);
         message.setStatus(status);
         refreshViewHolder(message);
+    }
+
+    /**
+     * 将被邀请人与邀请人进行绑定
+     * TODO：此函数被递归调用为了防止获取到的群成员对象为null
+     * */
+    private void bindInvite() {
+        // 获取系统通知的内容。例如：申请附言，拒绝理由
+        String inviter = "";        //邀请人Id
+        Team team = null;
+        try {
+            JSONObject attach = new JSONObject(teamMemberSystemMessage.getAttach());
+            String tinfo = attach.get("tinfo").toString();
+            JSONObject tinfoJson = new JSONObject(tinfo);
+            inviter = new JSONObject(tinfoJson.getString("19")).getString(StatisticsConstants.INVITER);
+            teamId = tinfoJson.getString("1");
+            team = NimUIKit.getTeamProvider().getTeamById(teamId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (null == team){
+            return;
+        }
+
+        inviter = StringUtil.isEmpty(inviter) ? team.getCreator() : inviter;
+//        teamMember = NIMClient.getService(TeamService.class).queryTeamMemberBlock(teamId, NimUIKit.getAccount());
+        if (null == teamMember){
+            new Handler().post(queryTeamMember);
+            return;
+        }
+
+        Map<String, Object> extension = teamMember.getExtension();
+        if (null == extension){
+            extension = new HashMap<>();
+        }
+        String teamMemberEx = (String) extension.get("ext");
+        JSONObject extJsonObject;
+        try {
+            if (StringUtil.isNotEmpty(teamMemberEx) && !teamMemberEx.equals("null")){
+                extJsonObject = new JSONObject(teamMemberEx);
+            }else {
+                extJsonObject = new JSONObject();
+            }
+            extJsonObject.put(StatisticsConstants.INVITER,inviter);
+            extension.put("ext",extJsonObject.toString());
+            NIMClient.getService(TeamService.class).updateMyMemberExtension(teamMemberSystemMessage.getTargetId(), extension).setCallback(new RequestCallback<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    NIMClient.getService(SystemMessageService.class).setSystemMessageStatus(teamMemberSystemMessage.getMessageId(),
+                            teamMemberStatus);
+                    teamMemberSystemMessage.setStatus(teamMemberStatus);
+                    refreshViewHolder(teamMemberSystemMessage);
+                }
+                @Override
+                public void onFailed(int i) {
+
+                }
+                @Override
+                public void onException(Throwable throwable) {
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void onProcessFailed(final int code, SystemMessage message) {
@@ -587,4 +675,12 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
         refresh();
         ToastHelper.showToast(SystemMessageActivity.this, R.string.delete_success);
     }
+
+    private Runnable queryTeamMember = new Runnable(){
+        @Override
+        public void run() {
+            teamMember = NIMClient.getService(TeamService.class).queryTeamMemberBlock(teamId, NimUIKit.getAccount());
+            bindInvite();
+        }
+    };
 }
