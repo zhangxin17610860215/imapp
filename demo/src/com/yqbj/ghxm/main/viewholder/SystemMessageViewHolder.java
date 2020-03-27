@@ -5,8 +5,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.netease.nimlib.sdk.msg.constant.SystemMessageStatus;
+import com.netease.nimlib.sdk.msg.constant.SystemMessageType;
 import com.netease.nimlib.sdk.msg.model.SystemMessage;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
+import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.main.helper.MessageHelper;
 import com.netease.yqbj.uikit.business.uinfo.UserInfoHelper;
@@ -14,6 +16,9 @@ import com.netease.yqbj.uikit.common.adapter.TViewHolder;
 import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
 import com.netease.yqbj.uikit.common.util.sys.TimeUtil;
 import com.netease.yqbj.uikit.impl.NimUIKitImpl;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by huangjun on 2015/3/18.
@@ -70,9 +75,27 @@ public class SystemMessageViewHolder extends TViewHolder {
                 return true;
             }
         });
-        UserInfo userInfo = NimUIKitImpl.getUserInfoProvider().getUserInfo(message.getFromAccount());
+        UserInfo userInfo;
+        if (message.getType() == SystemMessageType.TeamInvite){
+            try {
+                JSONObject attach = new JSONObject(message.getAttach());
+                if (attach.has("attach")){
+                    String attachStr = attach.get("attach").toString();
+                    JSONObject attachJson = new JSONObject(attachStr);
+                    String inviter = attachJson.getString(StatisticsConstants.INVITER);
+                    userInfo = NimUIKitImpl.getUserInfoProvider().getUserInfo(inviter);
+                }else {
+                    userInfo = NimUIKitImpl.getUserInfoProvider().getUserInfo(message.getFromAccount());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                userInfo = NimUIKitImpl.getUserInfoProvider().getUserInfo(message.getFromAccount());
+            }
+        }else {
+            userInfo = NimUIKitImpl.getUserInfoProvider().getUserInfo(message.getFromAccount());
+        }
         headImageView.loadAvatar(userInfo.getAvatar());
-        fromAccountText.setText(UserInfoHelper.getUserDisplayNameEx(message.getFromAccount(), "我"));
+        fromAccountText.setText(UserInfoHelper.getUserDisplayNameEx(userInfo.getAccount(), "我"));
         contentText.setText(MessageHelper.getVerifyNotificationText(message));
         timeText.setText(TimeUtil.getTimeShowString(message.getTime(), false));
         if (!MessageHelper.isVerifyMessageNeedDeal(message)) {

@@ -138,9 +138,13 @@ public abstract class RecentViewHolder extends RecyclerViewHolder<BaseQuickAdapt
                     new Handler().post(new Runnable() {
                         @Override
                         public void run() {
-                            ((AnimationDrawable) imgUnreadExplosion.getDrawable()).start();
-                            // 解决部分手机动画无法播放的问题（例如华为荣耀）
-                            getAdapter().notifyItemChanged(getAdapter().getViewHolderPosition(position));
+
+                            if (null != ((AnimationDrawable) imgUnreadExplosion.getDrawable())){
+                                ((AnimationDrawable) imgUnreadExplosion.getDrawable()).start();
+                                // 解决部分手机动画无法播放的问题（例如华为荣耀）
+                                getAdapter().notifyItemChanged(getAdapter().getViewHolderPosition(position));
+                            }
+
                         }
                     });
                 }catch (Exception e){

@@ -480,20 +480,16 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
 
     private void onProcessSuccess(final boolean pass, final SystemMessage message) {
         final SystemMessageStatus status = pass ? SystemMessageStatus.passed : SystemMessageStatus.declined;
-//        if (message.getType() == SystemMessageType.TeamInvite && pass){
-//            teamMemberStatus = status;
-//            teamMemberSystemMessage = message;
-//            bindInvite();
-//        }else {
-//            NIMClient.getService(SystemMessageService.class).setSystemMessageStatus(message.getMessageId(),
-//                    status);
-//            message.setStatus(status);
-//            refreshViewHolder(message);
-//        }
-        NIMClient.getService(SystemMessageService.class).setSystemMessageStatus(message.getMessageId(),
-                status);
-        message.setStatus(status);
-        refreshViewHolder(message);
+        if (message.getType() == SystemMessageType.TeamInvite && pass){
+            teamMemberStatus = status;
+            teamMemberSystemMessage = message;
+            bindInvite();
+        }else {
+            NIMClient.getService(SystemMessageService.class).setSystemMessageStatus(message.getMessageId(),
+                    status);
+            message.setStatus(status);
+            refreshViewHolder(message);
+        }
     }
 
     /**
@@ -507,9 +503,17 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
         try {
             JSONObject attach = new JSONObject(teamMemberSystemMessage.getAttach());
             String tinfo = attach.get("tinfo").toString();
-            JSONObject tinfoJson = new JSONObject(tinfo);
-            inviter = new JSONObject(tinfoJson.getString("19")).getString(StatisticsConstants.INVITER);
-            teamId = tinfoJson.getString("1");
+
+            if (attach.has("attach")){
+                String attachStr = attach.get("attach").toString();
+                JSONObject attachJson = new JSONObject(attachStr);
+                inviter = attachJson.getString(StatisticsConstants.INVITER);
+                teamId = attachJson.getString(StatisticsConstants.TEAMID);
+            }else {
+                JSONObject tinfoJson = new JSONObject(tinfo);
+                inviter = new JSONObject(tinfoJson.getString("19")).getString(StatisticsConstants.INVITER);
+                teamId = tinfoJson.getString("1");
+            }
             team = NimUIKit.getTeamProvider().getTeamById(teamId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -520,7 +524,6 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
         }
 
         inviter = StringUtil.isEmpty(inviter) ? team.getCreator() : inviter;
-//        teamMember = NIMClient.getService(TeamService.class).queryTeamMemberBlock(teamId, NimUIKit.getAccount());
         if (null == teamMember){
             new Handler().post(queryTeamMember);
             return;

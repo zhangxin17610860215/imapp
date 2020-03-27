@@ -115,10 +115,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
             android:layout_toRightOf="@id/team_member_identity"
-            android:drawablePadding="5dp"
-            android:drawableRight="@drawable/nim_arrow_right"
             android:gravity="right|center_vertical"
-            android:hint="@string/team_nickname_none"
+            android:hint="群成员"
             android:textColor="@color/grey"
             android:textSize="@dimen/text_size_17" />
     </RelativeLayout>
@@ -133,8 +131,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="15dp"
-        android:paddingTop="15dp"
-        android:visibility="gone">
+        android:paddingTop="15dp">
 
         <TextView
             android:id="@+id/Inviter"
@@ -159,7 +156,6 @@
     </RelativeLayout>
 
     <View
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/color_split_line_d9d9d9" />
@@ -213,7 +209,7 @@
         android:background="@drawable/round_theme"
         android:textColor="@color/white"
         android:id="@+id/btn_relation"
-        />
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/team_remove_member"
@@ -228,5 +224,6 @@
         android:background="@drawable/nim_red_round_button_selector"
         android:text="@string/remove_member"
         android:textSize="17sp"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 </LinearLayout>

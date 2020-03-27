@@ -192,63 +192,41 @@ public abstract class AdvancedTeamMemberInfoActivity extends UI implements View.
 
     private void updateUserOperatorView() {
         Team team = NimUIKit.getTeamProvider().getTeamById(teamId);
-//        TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(teamId, account);
-//        Map<String, Object> extension = teamMember.getExtension();
-//        if (null == extension){
-//            extension = new HashMap<>();
-//        }
-//        String teamMemberEx = (String) extension.get("ext");
-//        if (!StringUtil.isEmpty(teamMemberEx) && !teamMemberEx.equals("null")){
-//            try {
-//                JSONObject jsonObject = new JSONObject(teamMemberEx);
-//                String inviter = (String) jsonObject.get(StatisticsConstants.INVITER);
-//                String inviterName;
-//                if (TextUtils.isEmpty(inviter)){
-//                    inviterName = UserInfoHelper.getUserDisplayName(team.getCreator());
-//                }else {
-//                    inviterName = UserInfoHelper.getUserDisplayName(inviter);
-//                }
-//
-//                Inviter_name.setText(inviterName);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(teamId, account);
+        Map<String, Object> extension = teamMember.getExtension();
+        if (null == extension){
+            extension = new HashMap<>();
+        }
+        String inviter = team.getCreator();
+        String teamMemberEx = (String) extension.get("ext");
+        if (!StringUtil.isEmpty(teamMemberEx) && !teamMemberEx.equals("null")){
+            try {
+                JSONObject jsonObject = new JSONObject(teamMemberEx);
+                inviter = (String) jsonObject.get(StatisticsConstants.INVITER);
+                inviter = TextUtils.isEmpty(inviter) ? team.getCreator() : inviter;
+                String inviterName = UserInfoHelper.getUserDisplayName(inviter);
+                Inviter_name.setText(inviterName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         if (NIMClient.getService(FriendService.class).isMyFriend(account)) {
             relationBtn.setVisibility(View.VISIBLE);
             relationBtn.setText("去聊天");
         } else {
-
-            String extensionJsonStr = team.getExtension();
-            boolean isSafeMode = false;
-            if(!TextUtils.isEmpty(extensionJsonStr)){
-
-                try {
-                    JSONObject jsonObject = new JSONObject(extensionJsonStr);
-                    if (jsonObject.has(ISSAFEMODE)){
-                        isSafeMode =  jsonObject.getBoolean(ISSAFEMODE);
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (isSafeMode){
-                if (team.getCreator().equals(NimUIKit.getAccount())){
-                    relationBtn.setText("加好友");
-                    relationBtn.setVisibility(View.VISIBLE);
-                }else {
-                    relationBtn.setVisibility(View.GONE);
-                }
-            }else{
+            if (inviter.equals(NimUIKit.getAccount())){
                 relationBtn.setText("加好友");
                 relationBtn.setVisibility(View.VISIBLE);
+            }else{
+                relationBtn.setVisibility(View.GONE);
             }
         }
-
-
+        if (inviter.equals(NimUIKit.getAccount())){
+            removeBtn.setVisibility(View.VISIBLE);
+        }else{
+            removeBtn.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -553,7 +531,7 @@ public abstract class AdvancedTeamMemberInfoActivity extends UI implements View.
             editNickname();
 
         } else if (i == R.id.identity_container) {
-            showManagerButton();
+//            showManagerButton();
 
         } else if (i == R.id.team_remove_member) {
             showConfirmButton();

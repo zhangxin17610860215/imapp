@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -38,6 +39,7 @@ import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.yqbj.uikit.business.session.actions.PickImageAction;
 import com.netease.yqbj.uikit.business.session.constant.Extras;
+import com.netease.yqbj.uikit.business.uinfo.UserInfoHelper;
 import com.netease.yqbj.uikit.common.media.picker.PickImageHelper;
 import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
 import com.netease.yqbj.uikit.common.util.log.LogUtil;
@@ -977,12 +979,14 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         // add item
         if (isSelfAdmin || isSelfManager){
             dataSource.add(new TeamMemberAdapter.TeamMemberItem(TeamMemberAdapter.TeamMemberItemTag.ADD, null, null, null));
-        }else {
-            Team team = NimUIKit.getTeamProvider().getTeamById(teamId);
-            if (team.getVerifyType() != VerifyTypeEnum.Apply){
-                dataSource.add(new TeamMemberAdapter.TeamMemberItem(TeamMemberAdapter.TeamMemberItemTag.ADD, null, null, null));
-            }
         }
+//        普通成员不可以拉人
+//        else {
+//            Team team = NimUIKit.getTeamProvider().getTeamById(teamId);
+//            if (team.getVerifyType() != VerifyTypeEnum.Apply){
+//                dataSource.add(new TeamMemberAdapter.TeamMemberItem(TeamMemberAdapter.TeamMemberItemTag.ADD, null, null, null));
+//            }
+//        }
 
         // remove item
         if (isSelfManager||isSelfAdmin) {
@@ -1443,12 +1447,33 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         option.allowSelectEmpty = true;
         option.teamId = teamId;
         ArrayList<String> disableAccounts = new ArrayList<>();
-        if(isSelfAdmin){
-
-            disableAccounts.add(NimUIKit.getAccount());
-        }else if(isSelfManager){
-            disableAccounts.add(creator);
-            disableAccounts.addAll(managerList);
+//        if(isSelfAdmin){
+//
+//            disableAccounts.add(NimUIKit.getAccount());
+//        }else if(isSelfManager){
+//            disableAccounts.add(creator);
+//            disableAccounts.addAll(managerList);
+//        }
+        for (TeamMember teamMember : members){
+            Map<String, Object> extension = teamMember.getExtension();
+            if (null == extension){
+                extension = new HashMap<>();
+            }
+            String inviter;
+            String teamMemberEx = (String) extension.get("ext");
+            if (StringUtil.isEmpty(teamMemberEx) || teamMemberEx.equals("null")){
+                disableAccounts.add(teamMember.getAccount());
+            }else {
+                try {
+                    JSONObject jsonObject = new JSONObject(teamMemberEx);
+                    inviter = (String) jsonObject.get(StatisticsConstants.INVITER);
+                    if (StringUtil.isNotEmpty(inviter) && !inviter.equals(NimUIKit.getAccount())){
+                        disableAccounts.add(teamMember.getAccount());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         option.itemDisableFilter = new ContactIdFilter(disableAccounts);
@@ -1502,7 +1527,47 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
                 final ArrayList<String> selectedRemove = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
                 if (selectedRemove != null && !selectedRemove.isEmpty()) {
                     // teamId表示群ID，account表示被踢出的成员帐号
-                   kickTeamOnce(selectedRemove);
+                    ArrayList<String> removeList = new ArrayList<>();
+                    removeList.addAll(selectedRemove);
+                    for (String invitersStr : selectedRemove){
+                        for (TeamMember teamMember : members){
+                            Map<String, Object> extension = teamMember.getExtension();
+                            if (null == extension){
+                                extension = new HashMap<>();
+                            }
+                            String teamMemberEx = (String) extension.get("ext");
+                            if (!StringUtil.isEmpty(teamMemberEx) && !teamMemberEx.equals("null")){
+                                try {
+                                    JSONObject jsonObject = new JSONObject(teamMemberEx);
+                                    String teamMemberInviter = (String) jsonObject.get(StatisticsConstants.INVITER);
+                                    if (StringUtil.isNotEmpty(teamMemberInviter) && teamMemberInviter.equals(invitersStr)){
+                                        removeList.add(teamMember.getAccount());
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+
+//                    NIMClient.getService(TeamService.class).removeMember(teamId, JSON.toJSONString(removeList)).setCallback(new RequestCallback<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Log.e("removeMember","成功");
+//                        }
+//
+//                        @Override
+//                        public void onFailed(int i) {
+//                            Log.e("removeMember","失败>>>>>code:" + i);
+//                        }
+//
+//                        @Override
+//                        public void onException(Throwable throwable) {
+//                            Log.e("removeMember","异常");
+//                        }
+//                    });
+
+                    kickTeamOnce(removeList);
                 }
                 break;
 
