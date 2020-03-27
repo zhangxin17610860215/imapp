@@ -123,7 +123,7 @@
                 android:textSize="12sp"
                 android:textColor="@color/input_panel_text_color_757572"
                 android:text="开启后，群成员无法通过该群添加好友"
-                />
+                android:visibility="gone"/>
 
             <include
                 android:id="@+id/team_credit_layout"
@@ -136,7 +136,7 @@
                 android:textSize="12sp"
                 android:textColor="@color/input_panel_text_color_757572"
                 android:text="开启后，需要管理员同意才能加入群聊"
-                />
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -41,6 +41,7 @@ import com.netease.yqbj.uikit.common.ui.listview.MessageListView;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.main.adapter.SystemMessageAdapter;
 import com.yqbj.ghxm.main.viewholder.SystemMessageViewHolder;
+import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.utils.StringUtil;
 
 import org.json.JSONObject;
@@ -81,6 +82,7 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
     private String teamId;
     private SystemMessageStatus teamMemberStatus;
     private SystemMessage teamMemberSystemMessage;
+    private int recursionNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -483,6 +485,7 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
         if (message.getType() == SystemMessageType.TeamInvite && pass){
             teamMemberStatus = status;
             teamMemberSystemMessage = message;
+            recursionNum = 0;
             bindInvite();
         }else {
             NIMClient.getService(SystemMessageService.class).setSystemMessageStatus(message.getMessageId(),
@@ -515,6 +518,9 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
                 teamId = tinfoJson.getString("1");
             }
             team = NimUIKit.getTeamProvider().getTeamById(teamId);
+            if (recursionNum == 0){
+                UserApi.createMemberWallet(teamId,NimUIKit.getAccount(),this);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -682,6 +688,7 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
     private Runnable queryTeamMember = new Runnable(){
         @Override
         public void run() {
+            recursionNum ++;
             teamMember = NIMClient.getService(TeamService.class).queryTeamMemberBlock(teamId, NimUIKit.getAccount());
             bindInvite();
         }

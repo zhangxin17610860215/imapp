@@ -204,9 +204,12 @@ public class TeamManagerActivity extends BaseAct {
         team_manager_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_SETTEAMMANAGER);
                 ContactSelectActivity.Option option = TeamHelper.getContactTeamManagerSelectOption(creator,(ArrayList<String>) managerList);
                 option.teamId = teamId;
+                ArrayList<String> disableAccounts = new ArrayList<>();
+                disableAccounts.addAll(managerList);
+                disableAccounts.add(creator);
+                option.itemDisableFilter = new ContactIdFilter(disableAccounts);
                 NimUIKit.startContactSelector(TeamManagerActivity.this, option, REQUEST_CODE_CONTACT_MANAGER_SELECT);
             }
         });
@@ -312,6 +315,7 @@ public class TeamManagerActivity extends BaseAct {
         });
 
         team_transfer_layout = findViewById(R.id.team_transfer_layout);
+        team_transfer_layout.setVisibility(View.GONE);
         ((TextView) team_transfer_layout.findViewById(R.id.item_title)).setText("群主管理权转让");
         ((TextView) team_transfer_layout.findViewById(R.id.item_detail)).setHint("");
         team_transfer_layout.setOnClickListener(new View.OnClickListener() {
@@ -334,6 +338,7 @@ public class TeamManagerActivity extends BaseAct {
         });
 
         team_safe_mode_layout = findViewById(R.id.team_safe_mode_layout);
+        team_safe_mode_layout.setVisibility(View.GONE);
         ((TextView) team_safe_mode_layout.findViewById(R.id.item_title)).setText("群成员保护模式");
         swiBtn_safeMode = team_safe_mode_layout.findViewById(R.id.setting_item_toggle);
         swiBtn_safeMode.setTag(SW_KEY_SAFE_MODE);
@@ -341,6 +346,7 @@ public class TeamManagerActivity extends BaseAct {
         tv_team_safe_mode = (TextView) findViewById(R.id.tv_team_safe_mode);
 
         team_credit_layout = findViewById(R.id.team_credit_layout);
+        team_credit_layout.setVisibility(View.GONE);
         ((TextView) team_credit_layout.findViewById(R.id.item_title)).setText("是否开启群认证");
         swiBtn_credit = team_credit_layout.findViewById(R.id.setting_item_toggle);
         swiBtn_credit.setTag(SW_KEY_CREDIT);

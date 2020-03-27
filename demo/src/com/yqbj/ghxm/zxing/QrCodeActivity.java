@@ -70,6 +70,9 @@ public class QrCodeActivity extends UI implements View.OnClickListener {
             TurnQrCodeBean turnQrCodeBean = new TurnQrCodeBean();
             turnQrCodeBean.type = type;
             turnQrCodeBean.id = id;
+            if (type.equals(ZXingUtils.TYPE_GROUP)){
+                turnQrCodeBean.inviter = NimUIKit.getAccount();
+            }
 
             width = ScreenUtil.dip2px(250);
             height = ScreenUtil.dip2px(250);

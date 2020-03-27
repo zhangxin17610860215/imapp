@@ -82,12 +82,11 @@ public class CaptureActivity extends BaseAct implements QRCodeReaderView.OnQRCod
                     UserProfileActivity.start(CaptureActivity.this, turnQrCodeBean.id);
                     break;
                 case ZXingUtils.TYPE_GROUP:
-                    MobclickAgent.onEvent(this,TEAM_MANAGER_SCANNINGTEAMQRCODE);
                     TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(turnQrCodeBean.id, NimUIKit.getAccount());
                     if (null != teamMember && teamMember.isInTeam()) {
                         SessionHelper.startTeamSession(this, turnQrCodeBean.id); // 进入群
                     } else {
-                        AdvancedTeamJoinActivity.start(this, turnQrCodeBean.id);
+                        AdvancedTeamJoinActivity.start(this, turnQrCodeBean.id, turnQrCodeBean.inviter);
                     }
                     break;
                 default:

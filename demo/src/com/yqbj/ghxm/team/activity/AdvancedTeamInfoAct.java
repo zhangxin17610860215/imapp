@@ -741,10 +741,10 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         layoutQrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(AdvancedTeamInfoAct.this,TEAM_MANAGER_TEAMQRCODE);
-                ZXingUtils.showTeamCode(AdvancedTeamInfoAct.this, teamId);
-
-
+                if (isSelfAdmin || isSelfManager){
+                    MobclickAgent.onEvent(AdvancedTeamInfoAct.this,TEAM_MANAGER_TEAMQRCODE);
+                    ZXingUtils.showTeamCode(AdvancedTeamInfoAct.this, teamId);
+                }
             }
         });
 
@@ -942,6 +942,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         if (!(isSelfAdmin || isSelfManager)) {
             layoutManager.setVisibility(View.GONE);
             layoutSetMiBi.setVisibility(View.GONE);
+            layoutQrCode.setVisibility(View.GONE);
         }
         if (members.size() > 0) {
             gridView.setVisibility(View.VISIBLE);
@@ -1441,6 +1442,10 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
     @Override
     public void onRemoveMember() {
 
+        if (!isSelfAdmin && !isSelfManager){
+            toast("普通群员没有踢人权限");
+            return;
+        }
         ContactSelectActivity.Option option = new ContactSelectActivity.Option();
         option.title = "选择你要移除的成员";
         option.type = ContactSelectActivity.ContactSelectType.TEAM_MEMBER;

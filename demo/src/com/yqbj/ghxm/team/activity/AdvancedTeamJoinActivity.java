@@ -10,15 +10,25 @@ import android.widget.TextView;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.ResponseCode;
+import com.netease.nimlib.sdk.msg.SystemMessageService;
 import com.netease.nimlib.sdk.team.TeamService;
 import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
+import com.netease.nimlib.sdk.team.model.TeamMember;
+import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.yqbj.ghxm.R;
+import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.session.SessionHelper;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.api.model.SimpleCallback;
 import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.activity.UI;
+import com.yqbj.ghxm.utils.StringUtil;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 申请加入群组界面
@@ -27,10 +37,12 @@ import com.netease.yqbj.uikit.common.activity.UI;
 public class AdvancedTeamJoinActivity extends UI implements View.OnClickListener {
 
     private static final String EXTRA_ID = "EXTRA_ID";
+    private static final String INVITER_ID = "inviter";
 
     private final Context teamContext = AdvancedTeamJoinActivity.this;
 
     private String teamId;
+    private String inviter;
     private Team team;
 
     private TextView teamNameText;
@@ -41,6 +53,14 @@ public class AdvancedTeamJoinActivity extends UI implements View.OnClickListener
     public static void start(Context context, String teamId) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_ID, teamId);
+        intent.setClass(context, AdvancedTeamJoinActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, String teamId, String inviter) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_ID, teamId);
+        intent.putExtra(INVITER_ID, inviter);
         intent.setClass(context, AdvancedTeamJoinActivity.class);
         context.startActivity(intent);
     }
@@ -69,6 +89,7 @@ public class AdvancedTeamJoinActivity extends UI implements View.OnClickListener
 
     private void parseIntentData() {
         teamId = getIntent().getStringExtra(EXTRA_ID);
+        inviter = getIntent().getStringExtra(INVITER_ID);
     }
 
     private void requestTeamInfo() {
@@ -118,8 +139,29 @@ public class AdvancedTeamJoinActivity extends UI implements View.OnClickListener
                     applyJoinButton.setEnabled(false);
                     String toast = getString(R.string.team_join_success, team.getName());
                     ToastHelper.showToast(AdvancedTeamJoinActivity.this, toast);
-                    SessionHelper.startTeamSession(AdvancedTeamJoinActivity.this, team.getId()); // 进入群
-                    finish();
+                    UserApi.createMemberWallet(teamId,NimUIKit.getAccount(),AdvancedTeamJoinActivity.this);
+                    TeamMember teamMember = NIMClient.getService(TeamService.class).queryTeamMemberBlock(teamId, NimUIKit.getAccount());
+
+                    Map<String, Object> extension = teamMember.getExtension();
+                    if (null == extension){
+                        extension = new HashMap<>();
+                    }
+                    String teamMemberEx = (String) extension.get("ext");
+                    JSONObject extJsonObject;
+                    try {
+                        if (StringUtil.isNotEmpty(teamMemberEx) && !teamMemberEx.equals("null")){
+                            extJsonObject = new JSONObject(teamMemberEx);
+                        }else {
+                            extJsonObject = new JSONObject();
+                        }
+                        extJsonObject.put(StatisticsConstants.INVITER,inviter);
+                        extension.put("ext",extJsonObject.toString());
+                        NIMClient.getService(TeamService.class).updateMyMemberExtension(teamId, extension);
+                        SessionHelper.startTeamSession(AdvancedTeamJoinActivity.this, team.getId()); // 进入群
+                        finish();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override

@@ -1919,4 +1919,26 @@ public class UserApi {
         });
     }
 
+    /**
+     * 通知服务端创建群成员钱包
+     * */
+    public static void createMemberWallet(String tid, String memberId, Object object){
+        Map<String,String> map = new HashMap<>();
+        map.put("tid",tid);
+        map.put("memberId",memberId);
+        RequestHelp.postRequest(StringUtil.stringformat(ApiUrl.CREATEMEMBERWALLET), object, map, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "createMemberWallet--------->onSuccess" + response.body());
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.e(TAG, "createMemberWallet--------->onError" + response.body());
+            }
+
+        });
+    }
+
 }
