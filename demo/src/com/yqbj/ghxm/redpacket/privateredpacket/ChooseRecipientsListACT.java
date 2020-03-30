@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.gjiazhe.wavesidebar.WaveSideBar;
 import com.netease.nimlib.sdk.team.model.Team;
+import com.netease.nimlib.sdk.team.model.TeamMember;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.yqbj.uikit.api.NimUIKit;
+import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.netease.yqbj.uikit.common.activity.UI;
 import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
 import com.yqbj.ghxm.R;
@@ -27,9 +30,13 @@ import com.yqbj.ghxm.utils.StringUtil;
 import com.yuyh.easyadapter.recyclerview.EasyRVAdapter;
 import com.yuyh.easyadapter.recyclerview.EasyRVHolder;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 玩家蜜币设置页面
@@ -73,8 +80,37 @@ public class ChooseRecipientsListACT extends UI implements View.OnClickListener 
                 if (code == Constants.SUCCESS_CODE){
                     GetAllMemberWalletBean walletBean = (GetAllMemberWalletBean) object;
                     List<GetAllMemberWalletBean.ResultsBean> results = walletBean.getResults();
+                    Team team = NimUIKit.getTeamProvider().getTeamById(mTeamId);
                     list.clear();
-                    list.addAll(results);
+                    if (team.getCreator().equals(NimUIKit.getAccount())){
+                        list.addAll(results);
+                    }else {
+                        List<TeamMember> teamMemberList = NimUIKit.getTeamProvider().getTeamMemberList(mTeamId);
+                        for (TeamMember teamMember : teamMemberList){
+                            Map<String, Object> extension = teamMember.getExtension();
+                            if (null == extension){
+                                extension = new HashMap<>();
+                            }
+                            String inviter = team.getCreator();
+                            String teamMemberEx = (String) extension.get("ext");
+                            if (!StringUtil.isEmpty(teamMemberEx) && !teamMemberEx.equals("null")){
+                                try {
+                                    JSONObject jsonObject = new JSONObject(teamMemberEx);
+                                    inviter = (String) jsonObject.get(StatisticsConstants.INVITER);
+                                    inviter = TextUtils.isEmpty(inviter) ? team.getCreator() : inviter;
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            if (inviter.equals(NimUIKit.getAccount())){
+                                for (GetAllMemberWalletBean.ResultsBean resultsBean : results){
+                                    if (resultsBean.getUid().equals(teamMember.getAccount())){
+                                        list.add(resultsBean);
+                                    }
+                                }
+                            }
+                        }
+                    }
                     loadData();
                 }
             }

@@ -209,6 +209,9 @@ public abstract class AdvancedTeamMemberInfoActivity extends UI implements View.
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }else {
+            String inviterName = UserInfoHelper.getUserDisplayName(inviter);
+            Inviter_name.setText(inviterName);
         }
 
         if (NIMClient.getService(FriendService.class).isMyFriend(account)) {

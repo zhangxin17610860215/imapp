@@ -13,6 +13,7 @@ import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.bean.TeamConfigBean;
 import com.yqbj.ghxm.bean.AutomaticGetRedPackBean;
 import com.yqbj.ghxm.bean.BaseBean;
+import com.yqbj.ghxm.bean.CreateTeamBean;
 import com.yqbj.ghxm.bean.DetailsChangeQueryBean;
 import com.yqbj.ghxm.bean.GetAllMemberWalletBean;
 import com.yqbj.ghxm.bean.LoginBean;
@@ -1662,7 +1663,7 @@ public class UserApi {
     /**
      * 建群
      * */
-    public static void createTeam(String tname, String members, Object object, final requestCallback callback){
+    public static void createTeam(String tname, String members, final Object object, final requestCallback callback){
         Map<String,String> map = new HashMap<>();
         map.put("tname",tname);
         map.put("members",members);
@@ -1673,7 +1674,9 @@ public class UserApi {
                 try {
                     BaseBean bean = GsonHelper.getSingleton().fromJson(response.body(), BaseBean.class);
                     if (bean.getStatusCode() == Constants.SUCCESS_CODE){
-                        callback.onSuccess(bean.getStatusCode(),bean.getData());
+                        CreateTeamBean teamBean = GsonHelper.getSingleton().fromJson(bean.getData(), CreateTeamBean.class);
+                        createMemberWallet(teamBean.getTid(),NimUIKit.getAccount(),object);
+                        callback.onSuccess(bean.getStatusCode(),teamBean);
                     } else {
                         callback.onFailed(bean.getMessage());
                     }
