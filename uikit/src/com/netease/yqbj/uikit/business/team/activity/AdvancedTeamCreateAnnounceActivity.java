@@ -23,9 +23,6 @@ import com.netease.yqbj.uikit.common.activity.UI;
 import com.netease.yqbj.uikit.common.ui.dialog.DialogMaker;
 import com.netease.yqbj.uikit.common.ui.widget.ClearableEditTextWithIcon;
 import com.netease.yqbj.uikit.common.util.sys.NetworkUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_TEAMANNOUNCEMENTSUCCESS;
 
 /**
  * 创建群公告界面
@@ -163,7 +160,6 @@ public class AdvancedTeamCreateAnnounceActivity extends UI {
             @Override
             public void onSuccess(Void param) {
                 DialogMaker.dismissProgressDialog();
-                MobclickAgent.onEvent(AdvancedTeamCreateAnnounceActivity.this,TEAM_MANAGER_TEAMANNOUNCEMENTSUCCESS);
                 setResult(Activity.RESULT_OK);
                 showKeyboard(false);
                 finish();

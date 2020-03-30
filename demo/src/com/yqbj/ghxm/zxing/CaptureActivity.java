@@ -10,18 +10,15 @@ import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.google.gson.Gson;
 import com.king.zxing.util.CodeUtils;
 import com.netease.nimlib.sdk.team.model.TeamMember;
-import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.bean.TurnQrCodeBean;
-import com.yqbj.ghxm.team.activity.AdvancedTeamJoinActivity;
-import com.yqbj.ghxm.utils.StringUtil;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.common.ToastHelper;
-import com.umeng.analytics.MobclickAgent;
+import com.yqbj.ghxm.R;
+import com.yqbj.ghxm.bean.TurnQrCodeBean;
 import com.yqbj.ghxm.common.ui.BaseAct;
 import com.yqbj.ghxm.contact.activity.UserProfileActivity;
 import com.yqbj.ghxm.session.SessionHelper;
-
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_SCANNINGTEAMQRCODE;
+import com.yqbj.ghxm.team.activity.AdvancedTeamJoinActivity;
+import com.yqbj.ghxm.utils.StringUtil;
 
 
 public class CaptureActivity extends BaseAct implements QRCodeReaderView.OnQRCodeReadListener {

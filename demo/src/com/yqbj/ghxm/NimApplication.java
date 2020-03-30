@@ -35,7 +35,6 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tinker.entry.ApplicationLike;
 import com.tinkerpatch.sdk.TinkerPatch;
 import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.yqbj.ghxm.common.util.LogHelper;
 import com.yqbj.ghxm.common.util.crash.AppCrashHandler;
@@ -211,7 +210,6 @@ public class NimApplication extends Application {
 
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
 
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         /**
          * 设置组件化的Log开关
          * 参数: boolean 默认为false，如需查看LOG设置为true

@@ -19,7 +19,6 @@ import com.netease.yqbj.uikit.business.contact.core.item.ContactIdFilter;
 import com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity;
 import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.utils.NoDoubleClickUtils;
-import com.umeng.analytics.MobclickAgent;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.MyTeamWalletBean;
 import com.yqbj.ghxm.bean.OrderNumberBean;
@@ -36,18 +35,7 @@ import com.yqbj.ghxm.utils.view.PayDialogView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_ERROR_CODEERRORNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_ERROR_PASSWORDERRORNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_TOTALNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_ERROR_CODEERRORNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_ERROR_PASSWORDERRORNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_TOTALNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_ERROR_CODEERRORNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_ERROR_PASSWORDERRORNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_TOTALNUM;
 import static com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity.RESULT_DATA;
 import static com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity.RESULT_NAME;
 
@@ -367,8 +355,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                    MobclickAgent.onEvent(context,TEAM_EXCLUSIVE_RP_SEND_TOTALNUM);
                 } else {
                     //普通红包校验
                     if (isGroupOwner){
@@ -407,7 +393,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    MobclickAgent.onEvent(context,TEAM_AVERAGE_RP_SEND_TOTALNUM);
                 }
                 break;
             case Constants.REDPACK_TYPE.TEAM_RANDOM:
@@ -448,35 +433,10 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                MobclickAgent.onEvent(context,TEAM_RANDOM_RP_SEND_TOTALNUM);
                 break;
         }
         //检验用户是否创建了钱包&&零钱包余额是否足够红包总金额
         checkUserBalance();
-    }
-
-    /**
-     * 统计各个红包由于服务器状态码出现错误的次数
-     * */
-
-    private void statisticsSendRPError(String key, int code){
-        Map<String,String> map = new HashMap<>();
-        map.put(key,code + "");
-        switch (REDPACKET_TYPE) {
-            case Constants.REDPACK_TYPE.TEAM_ORDINARY:
-                if (ISEXCLUSIVE) {
-                    //专属红包
-                    MobclickAgent.onEvent(context,TEAM_EXCLUSIVE_RP_SEND_ERROR_CODEERRORNUM,map);
-                } else {
-                    //普通红包
-                    MobclickAgent.onEvent(context,TEAM_AVERAGE_RP_SEND_ERROR_CODEERRORNUM,map);
-                }
-                break;
-            case Constants.REDPACK_TYPE.TEAM_RANDOM:
-                //随机红包
-                MobclickAgent.onEvent(context,TEAM_RANDOM_RP_SEND_ERROR_CODEERRORNUM,map);
-                break;
-        }
     }
 
     private void checkUserBalance() {
@@ -494,7 +454,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                     showPayPsdDialog();
                 }else {
                     toast((String) object);
-                    statisticsSendRPError("getBalance",code);
                 }
             }
 
@@ -518,21 +477,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
         payDialogView.setOnClickListenerOnBack(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (REDPACKET_TYPE) {
-                    case Constants.REDPACK_TYPE.TEAM_ORDINARY:
-                        if (ISEXCLUSIVE) {
-                            //专属红包
-                            MobclickAgent.onEvent(context,TEAM_EXCLUSIVE_RP_SEND_ERROR_PASSWORDERRORNUM);
-                        } else {
-                            //普通红包
-                            MobclickAgent.onEvent(context,TEAM_AVERAGE_RP_SEND_ERROR_PASSWORDERRORNUM);
-                        }
-                        break;
-                    case Constants.REDPACK_TYPE.TEAM_RANDOM:
-                        //随机红包
-                        MobclickAgent.onEvent(context,TEAM_RANDOM_RP_SEND_ERROR_PASSWORDERRORNUM);
-                        break;
-                }
                 payDialogView.dismiss();
             }
         });
@@ -541,21 +485,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
             public void onClick(View v) {
                 //忘记密码
                 payDialogView.dismiss();
-                switch (REDPACKET_TYPE) {
-                    case Constants.REDPACK_TYPE.TEAM_ORDINARY:
-                        if (ISEXCLUSIVE) {
-                            //专属红包
-                            MobclickAgent.onEvent(context,TEAM_EXCLUSIVE_RP_SEND_ERROR_PASSWORDERRORNUM);
-                        } else {
-                            //普通红包
-                            MobclickAgent.onEvent(context,TEAM_AVERAGE_RP_SEND_ERROR_PASSWORDERRORNUM);
-                        }
-                        break;
-                    case Constants.REDPACK_TYPE.TEAM_RANDOM:
-                        //随机红包
-                        MobclickAgent.onEvent(context,TEAM_RANDOM_RP_SEND_ERROR_PASSWORDERRORNUM);
-                        break;
-                }
                 RetrievePayPwdActivity.start(context,"1");
             }
         });
@@ -641,7 +570,6 @@ public class GroupRedPacketActivity extends BaseAct implements View.OnClickListe
                     finish();
                 } else {
                     toast((String) object);
-                    statisticsSendRPError("sendRedPacket",code);
                 }
             }
 

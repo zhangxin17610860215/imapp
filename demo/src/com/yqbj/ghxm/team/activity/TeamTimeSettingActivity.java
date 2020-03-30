@@ -60,11 +60,10 @@ public class TeamTimeSettingActivity extends BaseAct {
         time_pv = (PickerView) findViewById(R.id.time_pv);
         List<String> times = new ArrayList<>();
         times.add("关闭");
+        times.add("10分钟");
         times.add("20分钟");
         times.add("30分钟");
         times.add("40分钟");
-        times.add("50分钟");
-        times.add("60分钟");
 
         time_pv.setData(times);
         time_pv.setSelected(0);

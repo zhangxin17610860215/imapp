@@ -29,7 +29,6 @@ import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.activity.ToolBarOptions;
 import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.yqbj.uikit.common.ui.widget.SwitchButton;
-import com.umeng.analytics.MobclickAgent;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.TeamAllocationPriceBean;
 import com.yqbj.ghxm.bean.TeamRobotDetatlsBean;
@@ -52,12 +51,6 @@ import java.util.List;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSAFEMODE;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSETTLEMENT;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.RPRECEIVEDELAYTIME;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_COPYNEWTEAM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_PROTECTMEMBER;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_SETTEAMMANAGER;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_TEAMAUTH;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_TEAMBANNED;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_TRANSFERTEAM;
 
 public class TeamManagerActivity extends BaseAct {
 
@@ -309,7 +302,6 @@ public class TeamManagerActivity extends BaseAct {
         team_copy_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_COPYNEWTEAM);
                 OneKeyCopyTeamAct.start(TeamManagerActivity.this,teamId);
             }
         });
@@ -359,7 +351,6 @@ public class TeamManagerActivity extends BaseAct {
         public void OnChanged(View v, final boolean checkState) {
             final String key = (String) v.getTag();
             if(key.equals(SW_KEY_FORBIT_SPEAK)){
-                MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_TEAMBANNED);
                 NIMClient.getService(TeamService.class).muteAllTeamMember(teamId, checkState).setCallback(new RequestCallback<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -384,7 +375,6 @@ public class TeamManagerActivity extends BaseAct {
 
             }else if (key.equals(SW_KEY_SAFE_MODE)){
                 boolean isSafeMode;
-                MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_PROTECTMEMBER);
                 try {
                     isSafeMode = checkState;
 //                    设置群远程字段
@@ -403,7 +393,6 @@ public class TeamManagerActivity extends BaseAct {
 
 
             }else if(key.equals(SW_KEY_CREDIT)){
-                MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_TEAMAUTH);
                 NIMClient.getService(TeamService.class).updateTeam(teamId,TeamFieldEnum.VerifyType,checkState?VerifyTypeEnum.Apply:VerifyTypeEnum.Free);
 
             }else if (key.equals(SW_KEY_SETTLEMENT)){
@@ -801,7 +790,6 @@ public class TeamManagerActivity extends BaseAct {
                                         @Override
                                         public void onSuccess(List<TeamMember> members) {
                                             // 群转移成功
-                                            MobclickAgent.onEvent(TeamManagerActivity.this,TEAM_MANAGER_TRANSFERTEAM);
                                             ToastHelper.showToast(TeamManagerActivity.this,"群主转让成功");
                                             EventBus.getDefault().post(new TeamMemberEvent());
                                             finish();

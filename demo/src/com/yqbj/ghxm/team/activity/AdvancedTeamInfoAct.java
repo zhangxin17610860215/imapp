@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -34,17 +33,8 @@ import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.netease.nimlib.sdk.team.constant.TeamInviteModeEnum;
 import com.netease.nimlib.sdk.team.constant.TeamMemberType;
 import com.netease.nimlib.sdk.team.constant.TeamMessageNotifyTypeEnum;
-import com.netease.nimlib.sdk.team.constant.VerifyTypeEnum;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
-import com.netease.yqbj.uikit.business.session.actions.PickImageAction;
-import com.netease.yqbj.uikit.business.session.constant.Extras;
-import com.netease.yqbj.uikit.business.uinfo.UserInfoHelper;
-import com.netease.yqbj.uikit.common.media.picker.PickImageHelper;
-import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
-import com.netease.yqbj.uikit.common.util.log.LogUtil;
-import com.yqbj.ghxm.DemoCache;
-import com.yqbj.ghxm.R;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.netease.yqbj.uikit.api.model.SimpleCallback;
@@ -54,6 +44,8 @@ import com.netease.yqbj.uikit.bean.TeamConfigBean;
 import com.netease.yqbj.uikit.business.contact.core.item.ContactIdFilter;
 import com.netease.yqbj.uikit.business.contact.selector.activity.ContactSelectActivity;
 import com.netease.yqbj.uikit.business.recent.RecentContactsFragment;
+import com.netease.yqbj.uikit.business.session.actions.PickImageAction;
+import com.netease.yqbj.uikit.business.session.constant.Extras;
 import com.netease.yqbj.uikit.business.session.helper.MessageListPanelHelper;
 import com.netease.yqbj.uikit.business.team.activity.AdvancedTeamAnnounceActivity;
 import com.netease.yqbj.uikit.business.team.activity.AdvancedTeamNicknameActivity;
@@ -68,11 +60,14 @@ import com.netease.yqbj.uikit.common.CommonUtil;
 import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.adapter.TAdapterDelegate;
 import com.netease.yqbj.uikit.common.adapter.TViewHolder;
+import com.netease.yqbj.uikit.common.media.picker.PickImageHelper;
 import com.netease.yqbj.uikit.common.ui.dialog.DialogMaker;
 import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
+import com.netease.yqbj.uikit.common.ui.imageview.HeadImageView;
 import com.netease.yqbj.uikit.common.ui.widget.SwitchButton;
+import com.netease.yqbj.uikit.common.util.log.LogUtil;
 import com.netease.yqbj.uikit.utils.SPUtils;
-import com.umeng.analytics.MobclickAgent;
+import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.bean.BaseBean;
 import com.yqbj.ghxm.bean.MyTeamWalletBean;
 import com.yqbj.ghxm.busevent.TeamMemberEvent;
@@ -89,7 +84,6 @@ import com.yqbj.ghxm.zxing.ZXingUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -103,13 +97,6 @@ import static com.netease.yqbj.uikit.api.StatisticsConstants.DURATION;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.ISREGULARCLEANMODE;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.ISSCREENSHOT;
 import static com.netease.yqbj.uikit.api.StatisticsConstants.REGULARCLEARTIME;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_DATA;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_DISBANDANSUCCESS;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_MSGTOPPING;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_NODISTURB;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_REGULARCLEANING;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_SCREENCASTNOTIFI;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_TEAMQRCODE;
 
 /**
  * 群信息
@@ -197,7 +184,6 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MobclickAgent.onEvent(this,TEAM_MANAGER_DATA);
         setContentView(R.layout.advance_team_info_act);
 
         setToolbar(R.drawable.jrmf_b_top_back, "群组信息");
@@ -458,7 +444,6 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             if (key.equals(SW_KEY_LEAD_TOP)) {
                 //消息置顶
                 //查询之前是不是存在会话记录
-                MobclickAgent.onEvent(AdvancedTeamInfoAct.this,TEAM_MANAGER_MSGTOPPING);
                 RecentContact recentContact = NIMClient.getService(MsgService.class).queryRecentContact(teamId, SessionTypeEnum.Team);
                 //置顶
                 if (checkState) {
@@ -487,7 +472,6 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
 
             } else if (key.equals(SW_KEY_NEEDDISTURB)){
                 //消息免打扰
-                MobclickAgent.onEvent(AdvancedTeamInfoAct.this,TEAM_MANAGER_NODISTURB);
                 RecentContact recentContact = NIMClient.getService(MsgService.class).queryRecentContact(teamId, SessionTypeEnum.Team);
                 TeamMessageNotifyTypeEnum type = null;
                 if (checkState) {
@@ -530,7 +514,6 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
 
             }else if (key.equals(SW_KEY_SCREENSHOT)){
                 //截屏通知
-                MobclickAgent.onEvent(AdvancedTeamInfoAct.this,TEAM_MANAGER_SCREENCASTNOTIFI);
                 if (isSelfAdmin) {
                     boolean isScreenshot;
                     try {
@@ -562,9 +545,8 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
                     toast("只有群主可以切换群消息定时清理开关");
                     return;
                 }
-                MobclickAgent.onEvent(AdvancedTeamInfoAct.this,TEAM_MANAGER_REGULARCLEANING);
                 boolean isRegularCleanMode;
-                JSONObject jsonObject = null;
+                JSONObject jsonObject;
                 try {
                     isRegularCleanMode = checkState;
                     String extensionJsonStr = team.getExtension();
@@ -576,7 +558,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
                     }
                     jsonObject.put(ISREGULARCLEANMODE,isRegularCleanMode);
                     if (checkState){
-                        //清除该群聊中超过了36小时的消息
+                        //清除该群聊中超过了24小时的消息
                         long currentTime = Long.parseLong(TimeUtils.getCurrentTime());
                         jsonObject.put(REGULARCLEARTIME,currentTime);
 //                    long startTime = System.currentTimeMillis() - 10000;
@@ -684,7 +666,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
 
         layoutMsgClear = findView(R.id.team_msg_clear);
         ((TextView) layoutMsgClear.findViewById(R.id.item_title)).setText("群消息定时清理");
-        ((TextView) layoutMsgClear.findViewById(R.id.item_content)).setText("开启后，本群超过36小时的历史消息会自动清理，无法恢复。");
+        ((TextView) layoutMsgClear.findViewById(R.id.item_content)).setText("开启后，本群超过24小时的历史消息会自动清理，无法恢复。");
         swiBtn_MsgClear = (SwitchButton) layoutMsgClear.findViewById(R.id.setting_item_toggle);
         swiBtn_MsgClear.setTag(SW_KEY_MSGCLEAR);
 //        swiBtn_MsgClear.setInterceptState(true);
@@ -742,7 +724,6 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             @Override
             public void onClick(View v) {
                 if (isSelfAdmin || isSelfManager){
-                    MobclickAgent.onEvent(AdvancedTeamInfoAct.this,TEAM_MANAGER_TEAMQRCODE);
                     ZXingUtils.showTeamCode(AdvancedTeamInfoAct.this, teamId);
                 }
             }
@@ -815,6 +796,7 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
         });
 
         layoutClearHistory = findViewById(R.id.team_cleanHistory_layout);
+        layoutClearHistory.setVisibility(View.GONE);
         ((TextView) layoutClearHistory.findViewById(R.id.item_title)).setText(R.string.team_clear_history);
         ((TextView) layoutClearHistory.findViewById(R.id.item_detail)).setHint("");
         layoutClearHistory.setOnClickListener(new View.OnClickListener() {
@@ -1379,7 +1361,6 @@ public class AdvancedTeamInfoAct extends BaseAct implements TAdapterDelegate, Te
             public void onSuccess(int code, Object object) {
                 DialogMaker.dismissProgressDialog();
                 if (code == Constants.SUCCESS_CODE){
-                    MobclickAgent.onEvent(AdvancedTeamInfoAct.this,TEAM_MANAGER_DISBANDANSUCCESS);
                     setResult(Activity.RESULT_OK, new Intent().putExtra(RESULT_EXTRA_REASON, RESULT_EXTRA_REASON_DISMISS));
                     ToastHelper.showToast(AdvancedTeamInfoAct.this, R.string.dismiss_team_success);
                     finish();

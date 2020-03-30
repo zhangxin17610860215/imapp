@@ -34,7 +34,6 @@ import com.netease.yqbj.uikit.common.ui.dialog.DialogMaker;
 import com.netease.yqbj.uikit.common.util.AppManager;
 import com.netease.yqbj.uikit.common.util.log.LogUtil;
 import com.netease.yqbj.uikit.common.util.sys.ReflectionUtil;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -195,13 +194,11 @@ public abstract class UI extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     @Override

@@ -49,7 +49,7 @@ public class TeamCleanHelper {
     }
 
     private static void deleteChattingHistory(Team team, boolean isRegularCleanMode, final long carryTime) {
-        //清除该群聊中超过了36小时的消息
+        //清除该群聊中超过了24小时的消息
 //        long startTime = System.currentTimeMillis() - 10000;
         long startTime = -1;
         if (isRegularCleanMode){

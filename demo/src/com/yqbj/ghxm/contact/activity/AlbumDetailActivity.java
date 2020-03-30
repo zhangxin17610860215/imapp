@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,16 +26,6 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.nos.NosService;
 import com.netease.nimlib.sdk.team.model.TeamMember;
-import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.bean.TurnQrCodeBean;
-import com.yqbj.ghxm.common.ui.BaseAct;
-import com.yqbj.ghxm.config.Constants;
-import com.yqbj.ghxm.team.activity.AdvancedTeamJoinActivity;
-import com.yqbj.ghxm.utils.DownLoadImageService;
-import com.yqbj.ghxm.utils.ImageDownLoadCallBack;
-import com.yqbj.ghxm.utils.StringUtil;
-import com.yqbj.ghxm.zxing.RealPathFromUriUtils;
-import com.yqbj.ghxm.zxing.ZXingUtils;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.business.session.actions.PickImageAction;
 import com.netease.yqbj.uikit.common.ToastHelper;
@@ -45,10 +34,19 @@ import com.netease.yqbj.uikit.common.ui.dialog.CustomAlertDialog;
 import com.netease.yqbj.uikit.common.util.C;
 import com.netease.yqbj.uikit.common.util.file.AttachmentStore;
 import com.netease.yqbj.uikit.common.util.storage.StorageUtil;
-import com.umeng.analytics.MobclickAgent;
+import com.yqbj.ghxm.R;
+import com.yqbj.ghxm.bean.TurnQrCodeBean;
+import com.yqbj.ghxm.common.ui.BaseAct;
+import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.session.SessionHelper;
+import com.yqbj.ghxm.team.activity.AdvancedTeamJoinActivity;
+import com.yqbj.ghxm.utils.DownLoadImageService;
+import com.yqbj.ghxm.utils.ImageDownLoadCallBack;
+import com.yqbj.ghxm.utils.StringUtil;
+import com.yqbj.ghxm.zxing.RealPathFromUriUtils;
+import com.yqbj.ghxm.zxing.ZXingUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,7 +55,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_SCANNINGTEAMQRCODE;
 import static com.netease.yqbj.uikit.business.session.constant.Extras.EXTRA_FILE_PATH;
 
 public class AlbumDetailActivity extends BaseAct {
@@ -370,7 +367,6 @@ public class AlbumDetailActivity extends BaseAct {
                     UserProfileActivity.start(context, turnQrCodeBean.id);
                     break;
                 case ZXingUtils.TYPE_GROUP:
-                    MobclickAgent.onEvent(context,TEAM_MANAGER_SCANNINGTEAMQRCODE);
                     TeamMember teamMember = NimUIKit.getTeamProvider().getTeamMember(turnQrCodeBean.id, NimUIKit.getAccount());
                     if (null != teamMember && teamMember.isInTeam()) {
                         SessionHelper.startTeamSession(context, turnQrCodeBean.id); // 进入群

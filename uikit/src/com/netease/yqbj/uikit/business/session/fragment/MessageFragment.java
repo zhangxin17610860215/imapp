@@ -6,13 +6,29 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.friend.FriendService;
+import com.netease.nimlib.sdk.msg.MessageBuilder;
+import com.netease.nimlib.sdk.msg.MsgService;
+import com.netease.nimlib.sdk.msg.MsgServiceObserve;
+import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum;
+import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
+import com.netease.nimlib.sdk.msg.model.CustomMessageConfig;
+import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.netease.nimlib.sdk.msg.model.MemberPushOption;
+import com.netease.nimlib.sdk.msg.model.MessageReceipt;
+import com.netease.nimlib.sdk.robot.model.NimRobotInfo;
+import com.netease.nimlib.sdk.robot.model.RobotAttachment;
+import com.netease.nimlib.sdk.robot.model.RobotMsgType;
 import com.netease.yqbj.uikit.R;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.api.UIKitOptions;
@@ -32,31 +48,10 @@ import com.netease.yqbj.uikit.common.CommonUtil;
 import com.netease.yqbj.uikit.common.ModuleUIComFn;
 import com.netease.yqbj.uikit.common.fragment.TFragment;
 import com.netease.yqbj.uikit.impl.NimUIKitImpl;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.ResponseCode;
-import com.netease.nimlib.sdk.msg.MessageBuilder;
-import com.netease.nimlib.sdk.msg.MsgService;
-import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum;
-import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
-import com.netease.nimlib.sdk.msg.model.CustomMessageConfig;
-import com.netease.nimlib.sdk.msg.model.IMMessage;
-import com.netease.nimlib.sdk.msg.model.MemberPushOption;
-import com.netease.nimlib.sdk.msg.model.MessageReceipt;
-import com.netease.nimlib.sdk.robot.model.NimRobotInfo;
-import com.netease.nimlib.sdk.robot.model.RobotAttachment;
-import com.netease.nimlib.sdk.robot.model.RobotMsgType;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.netease.yqbj.uikit.api.StatisticsConstants.NIMSENDRPMESSAGEERROR;
 
 /**
  * 聊天界面基类
@@ -271,16 +266,6 @@ public class MessageFragment extends TFragment implements ModuleProxy {
 
                 @Override
                 public void onFailed(int code) {
-
-                    try {
-                        Class aClass = Class.forName("com.yqbj.ghxm.session.extension.RedPacketAttachment");
-                        if (null != msg.getAttachment().getClass().getName() || msg.getAttachment().getClass().getName().equals(aClass.getName())){
-                            sendRpError(code);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
                     sendFailWithBlackList(code, msg);
                 }
 
@@ -307,12 +292,6 @@ public class MessageFragment extends TFragment implements ModuleProxy {
             aitManager.reset();
         }
         return true;
-    }
-
-    private void sendRpError(int code) {
-        Map<String,String> map = new HashMap<>();
-        map.put("NimSendRpError",code + "");
-        MobclickAgent.onEvent(getActivity(),NIMSENDRPMESSAGEERROR,map);
     }
 
     // 被对方拉入黑名单后，发消息失败的交互处理

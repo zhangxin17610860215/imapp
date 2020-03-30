@@ -21,7 +21,6 @@ import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
 import com.netease.nimlib.sdk.team.constant.VerifyTypeEnum;
 import com.netease.nimlib.sdk.team.model.CreateTeamResult;
 import com.netease.nimlib.sdk.team.model.Team;
-import com.yqbj.ghxm.main.SplashActivity;
 import com.netease.yqbj.uikit.api.StatisticsConstants;
 import com.netease.yqbj.uikit.bean.TeamConfigBean;
 import com.netease.yqbj.uikit.business.team.helper.TeamHelper;
@@ -29,9 +28,9 @@ import com.netease.yqbj.uikit.business.uinfo.UserInfoHelper;
 import com.netease.yqbj.uikit.common.CommonUtil;
 import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.ui.dialog.DialogMaker;
-import com.umeng.analytics.MobclickAgent;
 import com.yqbj.ghxm.DemoCache;
 import com.yqbj.ghxm.config.Constants;
+import com.yqbj.ghxm.main.SplashActivity;
 import com.yqbj.ghxm.requestutils.api.UserApi;
 import com.yqbj.ghxm.requestutils.requestCallback;
 import com.yqbj.ghxm.session.SessionHelper;
@@ -41,8 +40,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_MANAGER_CREATETEANSUCCESS;
 
 /**
  * Created by hzxuwen on 2015/9/25.
@@ -207,7 +204,6 @@ public class TeamCreateHelper {
             TeamHelper.onMemberTeamNumOverrun(failedAccounts, context);
         } else {
             ToastHelper.showToast(DemoCache.getContext(), com.netease.yqbj.uikit.R.string.create_team_success);
-            MobclickAgent.onEvent(context,TEAM_MANAGER_CREATETEANSUCCESS);
         }
 
 

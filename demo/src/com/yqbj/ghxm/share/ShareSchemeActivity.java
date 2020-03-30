@@ -30,8 +30,6 @@ import com.netease.nimlib.sdk.team.model.CreateTeamResult;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.uinfo.UserService;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
-import com.yqbj.ghxm.R;
-import com.yqbj.ghxm.team.TeamCreateHelper;
 import com.netease.yqbj.uikit.api.CustomEventManager;
 import com.netease.yqbj.uikit.api.NimUIKit;
 import com.netease.yqbj.uikit.business.contact.core.item.ItemTypes;
@@ -42,10 +40,11 @@ import com.netease.yqbj.uikit.common.activity.UI;
 import com.netease.yqbj.uikit.common.ui.dialog.DialogMaker;
 import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.yqbj.uikit.common.util.AppManager;
-import com.umeng.analytics.MobclickAgent;
+import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.session.extension.ShareCardAttachment;
 import com.yqbj.ghxm.session.extension.ShareImageAttachment;
+import com.yqbj.ghxm.team.TeamCreateHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -54,8 +53,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Decoder.BASE64Decoder;
-
-import static com.netease.yqbj.uikit.api.StatisticsConstants.SHAERGAMERECORD;
 
 
 /**
@@ -313,7 +310,6 @@ public class ShareSchemeActivity extends UI {
         returnAppTypeEnum = type;
         if (!TextUtils.isEmpty(scheme)) {
             if (type == ReturnAppTypeEnum.SUCCESSFUL) {
-                MobclickAgent.onEvent(ShareSchemeActivity.this,SHAERGAMERECORD);
                 String stayin = getString(R.string.share_stayin);
                 String back = getString(R.string.qr_back) + appName;
                 Activity currentActivity = AppManager.getAppManager().currentActivity();

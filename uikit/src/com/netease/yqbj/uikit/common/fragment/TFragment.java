@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.netease.yqbj.uikit.common.activity.UI;
 import com.netease.yqbj.uikit.common.util.log.LogUtil;
-import com.umeng.analytics.MobclickAgent;
 
 public abstract class TFragment extends Fragment {
     private static final Handler handler = new Handler();
@@ -199,11 +198,9 @@ public abstract class TFragment extends Fragment {
     // Fragment页面onResume函数重载
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(getClass().getSimpleName()); //统计页面(getClass().getSimpleName()为页面名称，可自定义)
     }
     // Fragment页面onResume函数重载
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(getClass().getSimpleName());
     }
 }

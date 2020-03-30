@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
@@ -25,7 +26,6 @@ import com.netease.yqbj.uikit.support.permission.annotation.OnMPermissionGranted
 import com.netease.yqbj.uikit.support.permission.annotation.OnMPermissionNeverAskAgain;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.umeng.analytics.MobclickAgent;
 import com.yqbj.ghxm.DemoCache;
 import com.yqbj.ghxm.NimApplication;
 import com.yqbj.ghxm.R;
@@ -49,9 +49,6 @@ import com.yqbj.ghxm.utils.StringUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import static com.netease.yqbj.uikit.api.StatisticsConstants.LOGIN_PHONELOGIN;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.LOGIN_WCHATLOGIN;
 
 public class NewLoginActivity extends UI implements View.OnKeyListener {
 
@@ -95,7 +92,6 @@ public class NewLoginActivity extends UI implements View.OnKeyListener {
         llLoginPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(NewLoginActivity.this,LOGIN_PHONELOGIN);
                 getKey();
             }
         });
@@ -103,7 +99,6 @@ public class NewLoginActivity extends UI implements View.OnKeyListener {
         llGoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MobclickAgent.onEvent(NewLoginActivity.this,LOGIN_WCHATLOGIN);
                 showProgress(NewLoginActivity.this,true);
                 goWeiXinLogin();
 //                yunXinLogin();

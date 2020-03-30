@@ -16,7 +16,6 @@ import com.netease.yqbj.uikit.business.session.actions.BaseAction;
 import com.netease.yqbj.uikit.common.ToastHelper;
 import com.netease.yqbj.uikit.common.ui.dialog.EasyAlertDialogHelper;
 import com.netease.yqbj.uikit.impl.cache.TeamDataCache;
-import com.umeng.analytics.MobclickAgent;
 import com.yqbj.ghxm.R;
 import com.yqbj.ghxm.config.Constants;
 import com.yqbj.ghxm.redpacket.NIMRedPacketClient;
@@ -28,10 +27,6 @@ import com.yqbj.ghxm.utils.StringUtil;
 import java.util.List;
 import java.util.Map;
 
-import static com.netease.yqbj.uikit.api.StatisticsConstants.PERSONAL_RP_SEND_SUCCESSNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_AVERAGE_RP_SEND_SUCCESSNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_EXCLUSIVE_RP_SEND_SUCCESSNUM;
-import static com.netease.yqbj.uikit.api.StatisticsConstants.TEAM_RANDOM_RP_SEND_SUCCESSNUM;
 import static com.yqbj.ghxm.config.Constants.BUILDREDSTRUCTURE.REDPACKET_TYPE;
 import static com.yqbj.ghxm.config.Constants.CONFIG_INFO.WALLET_EXIST;
 
@@ -152,29 +147,5 @@ public class RedPacketAction extends BaseAction {
         config.enableHistory = true;
         map.get(REDPACKET_TYPE);
 
-        //统计各个类型红包发送成功次数
-        switch ((Integer) map.get(REDPACKET_TYPE)){
-            case 2001:
-            case 2002:
-                //单人红包
-                MobclickAgent.onEvent(getActivity(),PERSONAL_RP_SEND_SUCCESSNUM);
-                break;
-            case 2003:
-                //随机红包
-                MobclickAgent.onEvent(getActivity(),TEAM_RANDOM_RP_SEND_SUCCESSNUM);
-                break;
-            case 2004:
-                //普通红包
-                MobclickAgent.onEvent(getActivity(),TEAM_AVERAGE_RP_SEND_SUCCESSNUM);
-                break;
-            case 2005:
-                //专属红包
-                MobclickAgent.onEvent(getActivity(),TEAM_EXCLUSIVE_RP_SEND_SUCCESSNUM);
-                break;
-        }
-
-//        IMMessage message = MessageBuilder.createCustomMessage(getAccount(), getSessionType(), content, attachment, config);
-//        message.setRemoteExtension(map);
-//        sendMessage(message);
     }
 }
